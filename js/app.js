@@ -128,7 +128,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 21;
+const APP_VERSION_CODE = 22;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -159,7 +159,7 @@ function initUpdate() {
       if (v.versionCode > APP_VERSION_CODE) {
         let apk = v.apkUrl || 'masdar.apk';
         if (!/^https?:/.test(apk)) apk = base + '/' + apk.replace(/^\//, '');
-        msgs.push(`<p class="good">🎉 نیا ورژن دستیاب ہے: ${esc(v.versionName)}</p><p>${esc(v.notes || '')}</p><a href="${esc(apk)}" class="btn-primary" style="display:block;text-align:center;text-decoration:none">⬇️ نئی ایپ ڈاؤن لوڈ کریں</a>`);
+        msgs.push(`<p class="good">🎉 نیا ورژن دستیاب ہے: ${esc(v.versionName)}</p><p>${esc(v.notes || '')}</p><a href="${esc(apk)}" data-updlink class="btn-primary" style="display:block;text-align:center;text-decoration:none">⬇️ نئی ایپ ڈاؤن لوڈ کریں</a>`);
       } else {
         msgs.push('<p class="good">✅ آپ کے پاس تازہ ترین ورژن ہے</p>');
       }
@@ -181,6 +181,14 @@ function initUpdate() {
       }
     } catch (e) { /* a missing gardanan.json on the server is not an error */ }
     res.innerHTML = msgs.join('') || '<p class="bad">سرور سے رابطہ نہیں ہو سکا۔ پتہ درست لکھیں (مثلاً https://example.com)</p>';
+    /* in the app, the download link goes through the one-tap installer */
+    const dl = res.querySelector('[data-updlink]');
+    if (dl) dl.addEventListener('click', e => {
+      if (window.MasdarBridge && MasdarBridge.updateApp) {
+        e.preventDefault();
+        MasdarBridge.updateApp(dl.href);
+      }
+    });
   };
   /* (c) update from a file — native picker in the app, hidden input on the web */
   const fbtn = $('updFileBtn'), fb = $('updFile');
@@ -226,6 +234,55 @@ function initUpdate() {
       try { pbox.focus(); } catch (e2) {}
     }
   };
+  /* quiet automatic check shortly after start (banner only if newer) */
+  setTimeout(autoCheckUpdate, 1500);
+}
+
+/* ---------- automatic update notice (home-page banner) ---------- */
+const UPD_DISMISS_KEY = 'masdar_upd_dismissed';
+/* Base for the automatic check: the user's saved manual address wins,
+   otherwise the built-in site address. */
+function autoUpdateBase() {
+  const manual = (localStorage.getItem('masdar_upd_server') || '').trim();
+  if (manual) return manual.replace(/\/$/, '');
+  return SITE_URL ? SITE_URL.replace(/\/$/, '') : '';
+}
+/* One-tap update: native download+install in the app; a plain open of the
+   APK address everywhere else (browser tab / shell hand-off). */
+function startAppUpdate(apkUrl) {
+  if (window.MasdarBridge && MasdarBridge.updateApp) { MasdarBridge.updateApp(apkUrl); return; }
+  window.open(apkUrl, '_blank');
+}
+function showUpdBanner(v, apk) {
+  const b = $('updBanner');
+  if (!b) return;
+  b.innerHTML = `<div class="ub-txt"><div class="ub-title">🎉 نیا ورژن ${esc(v.versionName || '')} دستیاب ہے</div>`
+    + (v.notes ? `<div class="ub-notes">${esc(v.notes)}</div>` : '')
+    + `</div><button type="button" class="ub-go" id="updBannerGo">⬇️ ابھی اپڈیٹ کریں</button>`
+    + `<button type="button" class="ub-x" id="updBannerX" aria-label="بعد میں">✕</button>`;
+  $('updBannerGo').onclick = () => startAppUpdate(apk);
+  $('updBannerX').onclick = () => {
+    try { localStorage.setItem(UPD_DISMISS_KEY, String(v.versionCode)); } catch (e) {}
+    b.hidden = true;
+  };
+  b.hidden = false;
+}
+async function autoCheckUpdate() {
+  try {
+    if (!navigator.onLine) return;
+    const base = autoUpdateBase();
+    if (!base) return;
+    const r = await fetch(base + '/version.json?_=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) return;
+    const v = await r.json();
+    if (!v || !(v.versionCode > APP_VERSION_CODE)) return;
+    let dismissed = 0;
+    try { dismissed = Number(localStorage.getItem(UPD_DISMISS_KEY) || 0); } catch (e) {}
+    if (dismissed === Number(v.versionCode)) return;
+    let apk = v.apkUrl || 'masdar.apk';
+    if (!/^https?:/.test(apk)) apk = base + '/' + apk.replace(/^\//, '');
+    showUpdBanner(v, apk);
+  } catch (e) { /* offline / server error: stay silent, manual card remains */ }
 }
 /* Called by the Android bridge (and the web file fallback) with the text of a
    chosen update file: a gardanan pack ({rev, verbs} or {gardanan:{...}}) or a
