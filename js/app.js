@@ -128,7 +128,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 20;
+const APP_VERSION_CODE = 21;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -521,26 +521,26 @@ function ldMeanHtml(e) {
 }
 function dictDetailCard(e) {
   const iid = e[2];
+  const inf = iid ? PS.find(x => x[0] === iid) : null;
   let detail = '';
-  if (iid) {
-    const inf = PS.find(x => x[0] === iid);
-    if (inf) detail = `<div class="sheet-sec"><h4>📚 ترجمہ (مصدر)</h4>
+  if (inf) {
+    detail = `<div class="sheet-sec"><h4>📚 ترجمہ (مصدر)</h4>
       <div class="kv"><b>مصدر</b><span><strong>${esc(inf[2])}</strong> <span class="suggest">${esc(inf[3])}</span></span></div>
       <div class="kv"><b>🇬🇧 English</b><span>${esc(inf[4])}</span></div>
       <div class="kv"><b>🇵🇰 اردو</b><span>${esc(inf[5])}</span></div>
       <div class="kv"><b>🇮🇷 فارسی</b><span>${esc(inf[6])}</span></div>
       <div class="kv"><b></b><span><button class="btn-ghost" onclick="showDetail('ps',${inf[0]})">مکمل تفصیل دیکھیں ⏎</button></span></div></div>`;
-  } else if (e[3] || (dictEdits[e[0]] && (dictEdits[e[0]].urdu || dictEdits[e[0]].farsi || dictEdits[e[0]].english))) {
+  } else {
+    /* Not (resolvably) a masdar: never hide glosses the entry actually has —
+       render ldMeanHtml whenever any of ur/en/fa is non-empty (the entry's
+       own English gloss or the user's written meanings). Only a word with
+       genuinely no meanings gets the friendly note. Related masdars and the
+       ✏️ تصحیح button below always stay. */
     detail = ldMeanHtml(e);
+    if (!detail) detail = `<div class="sheet-sec"><h4>📚 ترجمہ</h4><p class="hint">اس لفظ کا ترجمہ فی الحال دستیاب نہیں — نیچے ✏️ بٹن سے خود لکھ دیں ✍️</p></div>`;
     const rel = relatedInf(e[0]);
     if (rel.length) detail += `<div class="sheet-sec"><h4>متعلقہ مصادر</h4>` + rel.map(r =>
       `<div class="result-card" data-type="ps" data-id="${r[0]}"><div class="w">${esc(r[2])}</div><div class="m">🇵🇰 ${esc(r[5])}</div></div>`).join('') + `</div>`;
-  } else {
-    const rel = relatedInf(e[0]);
-    detail = `<div class="sheet-sec"><h4>📚 ترجمہ</h4><p class="hint">یہ لفظ مصدر نہیں ہے، اس لیے براہِ راست ترجمہ موجود نہیں۔</p>`
-      + (rel.length ? `<h4>متعلقہ مصادر</h4>` + rel.map(r =>
-        `<div class="result-card" data-type="ps" data-id="${r[0]}"><div class="w">${esc(r[2])}</div><div class="m">🇵🇰 ${esc(r[5])}</div></div>`).join('') : '')
-      + `</div>`;
   }
   const v = ldView(e);
   return `<div class="sheet-word">${esc(v.w)}</div><div class="sheet-roman">${esc(v.r)}</div>
@@ -775,7 +775,12 @@ function myCard(w) {
     <div class="w">${esc(w.word)}</div><div class="m">🇵🇰 ${esc(w.urdu || '')}<br>🇬🇧 ${esc(w.english || '')}</div></div>`;
 }
 function bindCards(box) {
-  box.querySelectorAll('.result-card').forEach(c => c.onclick = () => showDetail(c.dataset.type, c.dataset.id));
+  box.querySelectorAll('.result-card').forEach(c => {
+    /* لغت cards carry data-dictword and open via openDictWord — never
+       overwrite their handler with showDetail(undefined, undefined). */
+    if (c.hasAttribute('data-dictword') || !c.dataset.type) return;
+    c.onclick = () => showDetail(c.dataset.type, c.dataset.id);
+  });
 }
 function showRandom() {
   const e = PS[Math.floor(Math.random() * PS.length)];
@@ -1055,8 +1060,10 @@ function showDetail(type, id) {
         <div class="kv"><b>بن مضارع</b><span>${esc(bz)}</span></div></div>`;
     if (exFa) h += `<div class="sheet-sec"><h4>مثال</h4><p class="hint">👆 کسی بھی لفظ کو چھو کر معنی دیکھیں</p><div class="verse">${tapWords(exFa)}<br><span class="poet">🇵🇰</span> ${esc(exUr)}<br><span class="poet">🇬🇧</span> ${esc(exEn)}</div></div>`;
     if (fields && fields.length) {
-      h += `<div class="sheet-sec"><h4>مشتقات</h4>` + fields.map(f =>
-        `<div class="kv"><b>${esc(f[0])}</b><span>${esc(f[1])}${f[3] ? ' — ' + esc(f[3]) : ''}${f[2] ? ' <span class="suggest">(' + esc(f[2]) + ')</span>' : ''}</span></div>`).join('') + `</div>`;
+      h += `<div class="sheet-sec"><h4>مشتقات</h4>` + fields.map(f => {
+        const fw = String(f[1] || '').replace(/[.,!?؟،؛:"«»()\[\]/\-]/g, '').trim();
+        return `<div class="kv"><b>${esc(f[0])}</b><span>${fw ? `<span class="tapw" data-w="${esc(fw)}">${esc(f[1])}</span>` : esc(f[1])}${f[3] ? ' — ' + esc(f[3]) : ''}${f[2] ? ' <span class="suggest">(' + esc(f[2]) + ')</span>' : ''}</span></div>`;
+      }).join('') + `</div>`;
     }
     const mc = getMergedConj('fa', e);
     if (mc && mc.length) {
@@ -1205,10 +1212,10 @@ function doCorrect() {
     if (!t.trim()) return esc(t);
     const clean = t.replace(/[.,!?؟،؛:"«»()]/g, '');
     if (!clean) return esc(t);
-    if (dict.has(norm(clean))) return `<span class="tok ok" title="صحیح ✓">${esc(t)}</span>`;
+    if (dict.has(norm(clean))) return `<span class="tok ok tapw" data-w="${esc(clean)}" title="صحیح ✓">${esc(t)}</span>`;
     let best = null, bd = 3;
     dict.forEach(v => { const d = lev(clean, v.w); if (d < bd) { bd = d; best = v; } });
-    return `<span class="tok no" title="${best ? 'شاید: ' + best.w + ' (' + best.m + ')' : 'ڈکشنری میں نہیں'}">${esc(t)}</span>` +
+    return `<span class="tok no tapw" data-w="${esc(best ? best.w : clean)}" title="${best ? 'شاید: ' + best.w + ' (' + best.m + ')' : 'ڈکشنری میں نہیں'}">${esc(t)}</span>` +
       (best ? `<div class="suggest">💡 «${esc(t)}» کی جگہ شاید «${esc(best.w)}» — ${esc(best.m)}</div>` : '');
   }).join('');
   const wrong = (html.match(/tok no/g) || []).length;
