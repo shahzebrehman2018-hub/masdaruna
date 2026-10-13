@@ -105,6 +105,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   safeInit('dict', initDict); safeInit('letters', initLetters); safeInit('update', initUpdate);
   safeInit('mywords', initMyWords); safeInit('practice', initPractice); safeInit('grammar', initGrammar);
   safeInit('share', initShare); safeInit('intro', initIntro); safeInit('gardanan', initGardanan);
+  safeInit('qamosona', initQamosonaHome);
   try {
     if (typeof PS_DATA !== 'undefined' && typeof FA_DATA !== 'undefined') {
       PS = PS_DATA; FA = FA_DATA;
@@ -134,7 +135,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 22;
+const APP_VERSION_CODE = 23;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -503,12 +504,19 @@ function initTheme() {
 /* ---------- navigation ---------- */
 function initNav() {
   const go = name => {
+    /* Qamosona online search lives on the home page now («ابتدائی صفحہ»):
+       «آنلائن تلاش» navigation lands on home and scrolls to its section. */
+    const target = name === 'online' ? 'search' : name;
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    $('page-' + name).classList.add('active');
-    document.querySelectorAll('#bottomNav button').forEach(b => b.classList.toggle('active', b.dataset.nav === name));
+    $('page-' + target).classList.add('active');
+    document.querySelectorAll('#bottomNav button').forEach(b => b.classList.toggle('active', b.dataset.nav === target));
     $('drawer').classList.remove('open'); $('scrim').classList.remove('show');
-    window.scrollTo(0, 0);
-    if (name === 'online') initOnline();
+    if (name === 'online') {
+      initOnline();
+      setTimeout(() => { const q = $('qamosonaHome'); if (q) q.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 80);
+    } else {
+      window.scrollTo(0, 0);
+    }
   };
   window._goNav = go;
   document.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => go(b.dataset.nav));
@@ -522,7 +530,9 @@ function closeSheet() { $('sheet').classList.remove('open'); $('sheetScrim').cla
 
 /* ---------- online search (Qamosona) ----------
    Pure live view: the iframe shows qamosona.com directly. Per the site's
-   own policy nothing from it is saved, cached or copied into app data. */
+   own policy nothing from it is saved, cached or copied into app data.
+   The section sits on the home page (#qamosonaHome); the frame's src is
+   set lazily — only when the section is first shown or navigated to. */
 const QAMOSONA_URL = 'https://www.qamosona.com/ndic3/';
 let _onlineLoaded = false;
 function initOnline() {
@@ -537,9 +547,17 @@ function initOnline() {
   fr.hidden = false;
   if (!_onlineLoaded) { fr.src = QAMOSONA_URL; _onlineLoaded = true; }
 }
+function initQamosonaHome() {
+  const sec = $('qamosonaHome');
+  if (!sec) return;
+  if (!('IntersectionObserver' in window)) return; /* nav still triggers the load */
+  const io = new IntersectionObserver(es => {
+    if (es.some(e => e.isIntersecting)) { initOnline(); io.disconnect(); }
+  }, { threshold: 0.1 });
+  io.observe(sec);
+}
 window.addEventListener('online', () => {
-  const p = $('page-online');
-  if (p && p.classList.contains('active')) initOnline();
+  if ($('qamosonaHome')) initOnline();
 });
 
 /* ---------- search ---------- */
