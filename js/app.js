@@ -29,40 +29,45 @@ function exportMyData() {
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 5000);
 }
+/* Merge one masdar-my-data object (export format) into local storage. Returns count of merged items. */
+function mergeMyDataObject(d) {
+  let n = 0;
+  if (Array.isArray(d.words)) {
+    const have = new Set(myWords.map(w => w.id));
+    d.words.forEach(w => { if (w && w.word && !have.has(w.id)) { myWords.push(w); have.add(w.id); n++; } });
+  }
+  if (d.conj && typeof d.conj === 'object') {
+    const cur = getCustomConj();
+    Object.keys(d.conj).forEach(k => { cur[k] = d.conj[k]; n++; });
+    saveCustomConj(cur);
+  }
+  if (Array.isArray(d.notes)) {
+    const have = new Set(grammarNotes.map(g => g.t + '|' + g.b));
+    d.notes.forEach(g => { if (g && g.t && !have.has(g.t + '|' + g.b)) { grammarNotes.push(g); n++; } });
+  }
+  if (d.entryfix && typeof d.entryfix === 'object') {
+    const cur = getEntryFix();
+    Object.keys(d.entryfix).forEach(k => { cur[k] = d.entryfix[k]; n++; });
+    saveEntryFix(cur); applyAllEntryFixes();
+  }
+  if (d.grammarfix && typeof d.grammarfix === 'object') {
+    const cur = getGrammarFix();
+    Object.keys(d.grammarfix).forEach(k => { cur[k] = d.grammarfix[k]; n++; });
+    saveGrammarFix(cur);
+  }
+  if (d.dictedits && typeof d.dictedits === 'object') { dictEdits = d.dictedits; saveDictEdits(); n++; }
+  if (d.dicttexts && typeof d.dicttexts === 'object') { dictTexts = d.dicttexts; localStorage.setItem('masdar_dict_texts', JSON.stringify(dictTexts)); applyDictTexts(); n++; }
+  if (typeof d.dictalpha === 'string' && d.dictalpha) { localStorage.setItem('masdar_dict_alpha', d.dictalpha); buildDictLetters(); }
+  saveStore(); renderMyWords(); renderGrammar();
+  return n;
+}
 function importMyData(file) {
   const r = new FileReader();
   r.onload = () => {
     try {
       const d = JSON.parse(r.result);
       if (!d || typeof d !== 'object') throw 0;
-      let n = 0;
-      if (Array.isArray(d.words)) {
-        const have = new Set(myWords.map(w => w.id));
-        d.words.forEach(w => { if (w && w.word && !have.has(w.id)) { myWords.push(w); have.add(w.id); n++; } });
-      }
-      if (d.conj && typeof d.conj === 'object') {
-        const cur = getCustomConj();
-        Object.keys(d.conj).forEach(k => { cur[k] = d.conj[k]; n++; });
-        saveCustomConj(cur);
-      }
-      if (Array.isArray(d.notes)) {
-        const have = new Set(grammarNotes.map(g => g.t + '|' + g.b));
-        d.notes.forEach(g => { if (g && g.t && !have.has(g.t + '|' + g.b)) { grammarNotes.push(g); n++; } });
-      }
-      if (d.entryfix && typeof d.entryfix === 'object') {
-        const cur = getEntryFix();
-        Object.keys(d.entryfix).forEach(k => { cur[k] = d.entryfix[k]; n++; });
-        saveEntryFix(cur); applyAllEntryFixes();
-      }
-      if (d.grammarfix && typeof d.grammarfix === 'object') {
-        const cur = getGrammarFix();
-        Object.keys(d.grammarfix).forEach(k => { cur[k] = d.grammarfix[k]; n++; });
-        saveGrammarFix(cur);
-      }
-      if (d.dictedits && typeof d.dictedits === 'object') { dictEdits = d.dictedits; saveDictEdits(); n++; }
-      if (d.dicttexts && typeof d.dicttexts === 'object') { dictTexts = d.dicttexts; localStorage.setItem('masdar_dict_texts', JSON.stringify(dictTexts)); applyDictTexts(); n++; }
-      if (typeof d.dictalpha === 'string' && d.dictalpha) { localStorage.setItem('masdar_dict_alpha', d.dictalpha); buildDictLetters(); }
-      saveStore(); renderMyWords(); renderGrammar();
+      const n = mergeMyDataObject(d);
       alert(n ? n + ' چیزیں شامل ہو گئیں! ✅' : 'نئی کوئی چیز نہیں ملی');
     } catch (e) { alert('فائل درست نہیں ہے ❌'); }
   };
@@ -92,7 +97,7 @@ function lev(a, b) {
 function hideSplash(){ try { $('splash').classList.add('hide'); } catch(e){} }
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    initTheme(); initNav(); initSearch(); initDict(); initLetters(); initUpdate(); initMyWords(); initPractice(); initGrammar(); initShare(); initIntro();
+    initTheme(); initNav(); initSearch(); initDict(); initLetters(); initUpdate(); initMyWords(); initPractice(); initGrammar(); initShare(); initIntro(); initGardanan();
   } catch (e) { /* ui init must never block */ }
   try {
     if (typeof PS_DATA !== 'undefined' && typeof FA_DATA !== 'undefined') {
@@ -123,34 +128,182 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 12;
-const APP_LINK = '';
+const APP_VERSION_CODE = 16;
+const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
+/* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
+   place to patch when the public site address exists: set SITE_URL (and
+   APP_LINK for the share sheet) and the online-update button uses it
+   automatically instead of the manually typed server address. */
+const SITE_URL = 'https://shahzebrehman2018-hub.github.io/masdaruna';
+function updBase(inp) {
+  if (SITE_URL) return SITE_URL.replace(/\/$/, '');
+  const manual = ((inp && inp.value) || '').trim() || localStorage.getItem('masdar_upd_server') || '';
+  return manual.trim().replace(/\/$/, '');
+}
 function initUpdate() {
   const btn = $('updCheck'), inp = $('updServer'), res = $('updResult');
   if (!btn) return;
   inp.value = localStorage.getItem('masdar_upd_server') || '';
   if (APP_LINK) { const sl = $('siteLine'), sa = $('siteLink'); if (sl && sa) { sl.style.display = ''; sa.href = APP_LINK; sa.textContent = APP_LINK; } }
   btn.onclick = async () => {
-    const server = inp.value.trim().replace(/\/$/, '');
-    if (!server) { res.innerHTML = '<p class="bad">پہلے اپنی ویب سائٹ کا پتہ لکھیں۔</p>'; return; }
-    localStorage.setItem('masdar_upd_server', server);
+    if (inp.value.trim()) localStorage.setItem('masdar_upd_server', inp.value.trim());
+    const base = updBase(inp);
+    if (!base) { res.innerHTML = '<p class="bad">پہلے اپنی ویب سائٹ کا پتہ لکھیں۔</p>'; return; }
     res.innerHTML = '<p class="hint">چیک ہو رہا ہے…</p>';
+    const msgs = [];
+    /* (a) app version check */
     try {
-      const r = await fetch(server + '/version.json', {cache: 'no-store'});
+      const r = await fetch(base + '/version.json', {cache: 'no-store'});
       if (!r.ok) throw 0;
       const v = await r.json();
       if (v.versionCode > APP_VERSION_CODE) {
         let apk = v.apkUrl || 'masdar.apk';
-        if (!/^https?:/.test(apk)) apk = server + '/' + apk.replace(/^\//, '');
-        res.innerHTML = `<p class="good">🎉 نیا ورژن دستیاب ہے: ${esc(v.versionName)}</p><p>${esc(v.notes || '')}</p><a href="${esc(apk)}" class="btn-primary" style="display:block;text-align:center;text-decoration:none">⬇ ڈاؤن لوڈ کریں</a>`;
+        if (!/^https?:/.test(apk)) apk = base + '/' + apk.replace(/^\//, '');
+        msgs.push(`<p class="good">🎉 نیا ورژن دستیاب ہے: ${esc(v.versionName)}</p><p>${esc(v.notes || '')}</p><a href="${esc(apk)}" class="btn-primary" style="display:block;text-align:center;text-decoration:none">⬇️ نئی ایپ ڈاؤن لوڈ کریں</a>`);
       } else {
-        res.innerHTML = '<p class="good">✅ آپ کے پاس تازہ ترین ورژن ہے!</p>';
+        msgs.push('<p class="good">✅ آپ کے پاس تازہ ترین ورژن ہے</p>');
       }
     } catch (e) {
-      res.innerHTML = '<p class="bad">سرور سے رابطہ نہیں ہو سکا۔ پتہ درست لکھیں (مثلاً https://example.com)</p>';
+      msgs.push('<p class="bad">ورژن چیک نہیں ہو سکا — سرور سے رابطہ نہیں ہوا۔ پتہ درست لکھیں (مثلاً https://example.com)</p>');
+    }
+    /* (b) gardanan (conjugation) content check */
+    try {
+      const r2 = await fetch(base + '/gardanan.json', {cache: 'no-store'});
+      if (r2.ok) {
+        const g = await r2.json();
+        const cur = Number(localStorage.getItem('masdar_gardanan_rev') || 0);
+        if (g && typeof g.rev === 'number' && g.rev > cur && Array.isArray(g.verbs)) {
+          localStorage.setItem('masdar_gardanan_data', JSON.stringify(g));
+          localStorage.setItem('masdar_gardanan_rev', String(g.rev));
+          if (typeof renderGardanan === 'function') renderGardanan();
+          msgs.push('<p class="good">✅ نئی گردانیں شامل ہو گئیں</p>');
+        }
+      }
+    } catch (e) { /* a missing gardanan.json on the server is not an error */ }
+    res.innerHTML = msgs.join('') || '<p class="bad">سرور سے رابطہ نہیں ہو سکا۔ پتہ درست لکھیں (مثلاً https://example.com)</p>';
+  };
+  /* (c) update from a file — native picker in the app, hidden input on the web */
+  const fbtn = $('updFileBtn'), fb = $('updFile');
+  if (fbtn) fbtn.onclick = () => {
+    if (window.MasdarBridge && MasdarBridge.openUpdateFile) { MasdarBridge.openUpdateFile(); return; }
+    if (fb) fb.click();
+    else toast('فائل منتخب نہیں ہو سکی ❌');
+  };
+  if (fb) fb.onchange = e => {
+    const f = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if (!f) return;
+    if (/\.apk$/i.test(f.name)) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(f); a.download = f.name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+      toast('ایپ فائل ڈاؤن لوڈ ہو گئی — اسے کھول کر انسٹال کریں');
+      return;
+    }
+    const r = new FileReader();
+    r.onload = () => window.MasdarUpdateFile(String(r.result || ''));
+    r.onerror = () => toast('فائل پڑھی نہیں جا سکی ❌');
+    r.readAsText(f);
+  };
+  /* (d) update by pasting the file contents (e.g. copied from a message) */
+  const pbtn = $('updPasteBtn'), pbox = $('updPaste'), cbtn = $('updClipBtn');
+  if (pbtn && pbox) pbtn.onclick = () => {
+    const t = pbox.value.trim();
+    if (!t) { toast('پہلے مواد پیسٹ کریں'); return; }
+    let ok = false;
+    try { const d = JSON.parse(t); ok = !!(d && typeof d === 'object' && ((d.gardanan && typeof d.gardanan === 'object') || Array.isArray(d.verbs) || Array.isArray(d.words))); } catch (e) {}
+    window.MasdarUpdateFile(t);
+    if (ok) pbox.value = '';
+  };
+  if (cbtn && pbox) cbtn.onclick = async () => {
+    try {
+      const t = await navigator.clipboard.readText();
+      if (t) { pbox.value = t; toast('مواد آ گیا ✅ — اب «پیسٹ سے اپڈیٹ کریں» دبائیں'); }
+      else toast('کلپ بورڈ خالی ہے');
+    } catch (e) {
+      toast('کلپ بورڈ سے نہیں آ سکا — خانے کو دبا کر رکھیں اور Paste منتخب کریں');
+      try { pbox.focus(); } catch (e2) {}
     }
   };
 }
+/* Called by the Android bridge (and the web file fallback) with the text of a
+   chosen update file: a gardanan pack ({rev, verbs} or {gardanan:{...}}) or a
+   میرے الفاظ export file ({words:[...]}). */
+window.MasdarUpdateFile = function (text) {
+  let d;
+  try { d = JSON.parse(text); } catch (e) { toast('فائل سمجھ نہیں آئی ❌'); return; }
+  if (!d || typeof d !== 'object') { toast('فائل سمجھ نہیں آئی ❌'); return; }
+  const g = (d.gardanan && typeof d.gardanan === 'object') ? d.gardanan : (Array.isArray(d.verbs) ? d : null);
+  if (g) {
+    const rev = (typeof g.rev === 'number' && g.rev) ? g.rev : Date.now();
+    localStorage.setItem('masdar_gardanan_data', JSON.stringify({ rev, verbs: g.verbs }));
+    localStorage.setItem('masdar_gardanan_rev', String(rev));
+    if (typeof renderGardanan === 'function') renderGardanan();
+    toast('✅ گردانیں شامل ہو گئیں');
+    return;
+  }
+  if (Array.isArray(d.words)) {
+    const before = new Set(myWords.map(w => w.id));
+    let n = 0;
+    try { n = mergeMyDataObject(d); } catch (e) { toast('فائل سمجھ نہیں آئی ❌'); return; }
+    const wordsAdded = myWords.filter(w => !before.has(w.id)).length;
+    if (wordsAdded) toast(wordsAdded + ' الفاظ شامل ہو گئے ✅');
+    else toast(n ? n + ' چیزیں شامل ہو گئیں ✅' : 'نئی کوئی چیز نہیں ملی');
+    return;
+  }
+  toast('فائل سمجھ نہیں آئی ❌');
+};
+
+/* ---------- گردانیں page ---------- */
+function getGardananVerbs() {
+  const map = new Map();
+  const add = v => { if (v && v.ps) map.set(String(v.ps), v); };
+  (window.GARDANAN_SEED || []).forEach(add);
+  try {
+    const stored = JSON.parse(localStorage.getItem('masdar_gardanan_data') || 'null');
+    const list = stored && Array.isArray(stored.verbs) ? stored.verbs : (Array.isArray(stored) ? stored : []);
+    list.forEach(add);
+  } catch (e) {}
+  return Array.from(map.values());
+}
+function renderGardanan() {
+  const box = $('gardananList'), detail = $('gardananDetail');
+  if (!box) return;
+  if (detail) detail.hidden = true;
+  box.hidden = false;
+  const verbs = getGardananVerbs();
+  if (!verbs.length) { box.innerHTML = '<div class="empty">ابھی کوئی گردان موجود نہیں۔</div>'; return; }
+  box.innerHTML = verbs.map((v, i) => `<div class="result-card" data-gard="${i}"><div class="w">${esc(v.ps)}</div><div class="m">🇵🇰 ${esc(v.ur || '')}${v.en ? ' · <span dir="ltr">' + esc(v.en) + '</span>' : ''}</div></div>`).join('');
+  box.querySelectorAll('[data-gard]').forEach(c => c.onclick = () => openGardananVerb(verbs[Number(c.dataset.gard)]));
+}
+window.renderGardanan = renderGardanan;
+function openGardananVerb(v) {
+  const box = $('gardananList'), detail = $('gardananDetail');
+  if (!detail || !v) return;
+  if (box) box.hidden = true;
+  detail.hidden = false;
+  detail.innerHTML = `<button class="btn-ghost" id="gardBack" style="margin:0 0 10px">⬅ واپس</button>
+    <div class="card" style="margin:0 0 12px"><div class="sheet-word">${esc(v.ps)}</div>
+    <div class="sheet-roman">🇵🇰 ${esc(v.ur || '')}${v.en ? ' · <span dir="ltr">' + esc(v.en) + '</span>' : ''}</div></div>`
+    + (v.sections || []).map(s => `<div class="card" style="margin:0 0 12px"><h4 style="margin:0 0 8px">${esc(s.title || '')}${s.ur_title ? ' — ' + esc(s.ur_title) : ''}${s.en_title ? ' · <span dir="ltr">' + esc(s.en_title) + '</span>' : ''}</h4>${(s.lines || []).map(l => `<p dir="rtl" style="margin:0;padding:7px 0;border-bottom:1px dashed rgba(127,127,127,.35);font-size:17px;line-height:1.9">${esc(l)}</p>`).join('')}</div>`).join('');
+  const back = $('gardBack');
+  if (back) back.onclick = () => renderGardanan();
+  window.scrollTo(0, 0);
+}
+/* Full collected paradigm («📖 مکمل گردان») for a masdar detail sheet:
+   looks the headword up in the گردانیں data (seed + update packs). Returns ''
+   when no gardanan entry exists for the word, so sheets stay clean. */
+function renderGardananBlock(word) {
+  if (!word) return '';
+  const v = getGardananVerbs().find(x => String(x.ps) === String(word));
+  if (!v || !Array.isArray(v.sections) || !v.sections.length) return '';
+  return `<div class="sheet-sec"><h4>📖 مکمل گردان</h4>` + v.sections.map(s =>
+    `<h4 style="margin-top:10px">${esc(s.title || '')}${s.ur_title ? ' — ' + esc(s.ur_title) : ''}${s.en_title ? ' · <span dir="ltr">' + esc(s.en_title) + '</span>' : ''}</h4>` +
+    (s.lines || []).map(l => `<p dir="rtl" style="margin:0;padding:7px 0;border-bottom:1px dashed rgba(127,127,127,.35);font-size:17px;line-height:1.9">${esc(l)}</p>`).join('')
+  ).join('') + `</div>`;
+}
+function initGardanan() { renderGardanan(); }
 
 /* ---------- share the app ---------- */
 const INVITE_TEXT = 'د پښتو مصدرونه — پشتو و فارسی مصادر کی آف لائن ڈکشنری (تیار کردہ: کلثوم درانی)';
@@ -708,10 +861,15 @@ function getMergedConj(type, e) {
 }
 function renderConjTables(tenses) {
   return tenses.map(t =>
-    `<h4 style="margin-top:10px">${esc(t.name)}${t.ur && t.ur !== t.name ? ' — ' + esc(t.ur) : ''}${t.en ? ' — ' + esc(t.en) : ''}${t.custom ? ' <span class="tag">میرا</span>' : ''}</h4>
-    <table class="conj"><tr><th>ضمیر</th><th>لفظ</th><th>اردو</th><th>English</th></tr>` +
-    t.rows.map(r => `<tr><td>${esc(r[0])}</td><td><strong>${esc(r[1])}</strong></td><td>${esc(r[3])}</td><td dir="ltr">${esc(r[2])}</td></tr>`).join('') +
-    `</table>`).join('');
+    `<h4 style="margin-top:10px">${esc(t.name)}${t.ur && t.ur !== t.name ? ' — ' + esc(t.ur) : ''}${t.en ? ' — ' + esc(t.en) : ''}${t.custom ? ' <span class="tag">میرا</span>' : ''}</h4>` +
+    t.rows.map(r => {
+      const parts = [];
+      if (r[0]) parts.push(esc(r[0]));
+      if (r[3]) parts.push(esc(r[3]));
+      if (r[2]) parts.push(`<span dir="ltr">${esc(r[2])}</span>`);
+      const tail = parts.length ? ' — ' + parts.join(' · ') : '';
+      return `<p dir="rtl" style="margin:0;padding:7px 0;border-bottom:1px dashed rgba(127,127,127,.35);font-size:16px;line-height:1.9"><strong>${esc(r[1] || '')}</strong>${tail}</p>`;
+    }).join('')).join('');
 }
 let _ceType = null, _ceId = null;
 function openConjEditor(type, id) {
@@ -812,6 +970,7 @@ function showDetail(type, id) {
     if (pc && pc.length) {
       h += `<div class="sheet-sec"><h4>گردانیں</h4>` + renderConjTables(pc) + `</div>`;
     }
+    h += renderGardananBlock(e[2]);
     h += `<div style="display:flex;gap:8px"><button class="btn-ghost" style="flex:1;margin:0" onclick="openEntryEditor('ps', '${e[0]}')">✏️ مصدر درست کریں</button><button class="btn-ghost" style="flex:1;margin:0" onclick="openConjEditor('ps', '${e[0]}')">✏️ گردانیں لکھیں / درست کریں</button></div>`;
     openSheet(h);
   } else if (type === 'fa') {
@@ -833,6 +992,7 @@ function showDetail(type, id) {
     if (mc && mc.length) {
       h += `<div class="sheet-sec"><h4>گردانیں</h4>` + renderConjTables(mc) + `</div>`;
     }
+    h += renderGardananBlock(inf);
     h += `<div style="display:flex;gap:8px"><button class="btn-ghost" style="flex:1;margin:0" onclick="openEntryEditor('fa', '${e[0]}')">✏️ مصدر درست کریں</button><button class="btn-ghost" style="flex:1;margin:0" onclick="openConjEditor('fa', '${e[0]}')">✏️ گردانیں لکھیں / درست کریں</button></div>`;
     if (shahed && shahed.length) {
       h += `<div class="sheet-sec"><h4>اشعار (شاہد)</h4>` + shahed.map(s =>
