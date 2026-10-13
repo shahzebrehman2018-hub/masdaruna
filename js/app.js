@@ -96,9 +96,15 @@ function lev(a, b) {
 /* ---------- init ---------- */
 function hideSplash(){ try { $('splash').classList.add('hide'); } catch(e){} }
 document.addEventListener('DOMContentLoaded', async () => {
-  try {
-    initTheme(); initNav(); initSearch(); initDict(); initLetters(); initUpdate(); initMyWords(); initPractice(); initGrammar(); initShare(); initIntro(); initGardanan();
-  } catch (e) { /* ui init must never block */ }
+  /* each init runs behind its own guard: a throw in one must not stop the
+     later ones (e.g. initUpdate) from binding their handlers */
+  const safeInit = (name, fn) => {
+    try { fn(); } catch (e) { try { console.warn('init failed:', name, e); } catch (e2) {} }
+  };
+  safeInit('theme', initTheme); safeInit('nav', initNav); safeInit('search', initSearch);
+  safeInit('dict', initDict); safeInit('letters', initLetters); safeInit('update', initUpdate);
+  safeInit('mywords', initMyWords); safeInit('practice', initPractice); safeInit('grammar', initGrammar);
+  safeInit('share', initShare); safeInit('intro', initIntro); safeInit('gardanan', initGardanan);
   try {
     if (typeof PS_DATA !== 'undefined' && typeof FA_DATA !== 'undefined') {
       PS = PS_DATA; FA = FA_DATA;
@@ -140,6 +146,14 @@ function updBase(inp) {
   const manual = ((inp && inp.value) || '').trim() || localStorage.getItem('masdar_upd_server') || '';
   return manual.trim().replace(/\/$/, '');
 }
+/* fetch with a hard timeout (~12s): a hung network must never leave the
+   update UI stuck on «چیک ہو رہا ہے…» forever. */
+async function fetchTimeout(url, ms) {
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), ms || 12000);
+  try { return await fetch(url, { cache: 'no-store', signal: ctl.signal }); }
+  finally { clearTimeout(t); }
+}
 function initUpdate() {
   const btn = $('updCheck'), inp = $('updServer'), res = $('updResult');
   if (!btn) return;
@@ -149,46 +163,61 @@ function initUpdate() {
     if (inp.value.trim()) localStorage.setItem('masdar_upd_server', inp.value.trim());
     const base = updBase(inp);
     if (!base) { res.innerHTML = '<p class="bad">پہلے اپنی ویب سائٹ کا پتہ لکھیں۔</p>'; return; }
+    /* unmissable feedback: the button itself shows progress and locks */
+    const btnLabel = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'چیک ہو رہا ہے…';
     res.innerHTML = '<p class="hint">چیک ہو رہا ہے…</p>';
     const msgs = [];
-    /* (a) app version check */
+    let outcome = 'سرور سے رابطہ نہیں ہوا';
     try {
-      const r = await fetch(base + '/version.json', {cache: 'no-store'});
-      if (!r.ok) throw 0;
-      const v = await r.json();
-      if (v.versionCode > APP_VERSION_CODE) {
-        let apk = v.apkUrl || 'masdar.apk';
-        if (!/^https?:/.test(apk)) apk = base + '/' + apk.replace(/^\//, '');
-        msgs.push(`<p class="good">🎉 نیا ورژن دستیاب ہے: ${esc(v.versionName)}</p><p>${esc(v.notes || '')}</p><a href="${esc(apk)}" data-updlink class="btn-primary" style="display:block;text-align:center;text-decoration:none">⬇️ نئی ایپ ڈاؤن لوڈ کریں</a>`);
-      } else {
-        msgs.push('<p class="good">✅ آپ کے پاس تازہ ترین ورژن ہے</p>');
-      }
-    } catch (e) {
-      msgs.push('<p class="bad">ورژن چیک نہیں ہو سکا — سرور سے رابطہ نہیں ہوا۔ پتہ درست لکھیں (مثلاً https://example.com)</p>');
-    }
-    /* (b) gardanan (conjugation) content check */
-    try {
-      const r2 = await fetch(base + '/gardanan.json', {cache: 'no-store'});
-      if (r2.ok) {
-        const g = await r2.json();
-        const cur = Number(localStorage.getItem('masdar_gardanan_rev') || 0);
-        if (g && typeof g.rev === 'number' && g.rev > cur && Array.isArray(g.verbs)) {
-          localStorage.setItem('masdar_gardanan_data', JSON.stringify(g));
-          localStorage.setItem('masdar_gardanan_rev', String(g.rev));
-          if (typeof renderGardanan === 'function') renderGardanan();
-          msgs.push('<p class="good">✅ نئی گردانیں شامل ہو گئیں</p>');
+      /* (a) app version check */
+      try {
+        const r = await fetchTimeout(base + '/version.json');
+        if (!r.ok) throw 0;
+        const v = await r.json();
+        if (v.versionCode > APP_VERSION_CODE) {
+          let apk = v.apkUrl || 'masdar.apk';
+          if (!/^https?:/.test(apk)) apk = base + '/' + apk.replace(/^\//, '');
+          msgs.push(`<p class="good">🎉 نیا ورژن دستیاب ہے: ${esc(v.versionName)}</p><p>${esc(v.notes || '')}</p><a href="${esc(apk)}" data-updlink class="btn-primary" style="display:block;text-align:center;text-decoration:none">⬇️ نئی ایپ ڈاؤن لوڈ کریں</a>`);
+          outcome = '🎉 نیا ورژن دستیاب ہے: ' + (v.versionName || '');
+        } else {
+          msgs.push('<p class="good">✅ آپ کے پاس تازہ ترین ورژن ہے</p>');
+          outcome = '✅ آپ کے پاس تازہ ترین ورژن ہے';
         }
+      } catch (e) {
+        msgs.push('<p class="bad">ورژن چیک نہیں ہو سکا — سرور سے رابطہ نہیں ہوا۔ پتہ درست لکھیں (مثلاً https://example.com)</p>');
       }
-    } catch (e) { /* a missing gardanan.json on the server is not an error */ }
-    res.innerHTML = msgs.join('') || '<p class="bad">سرور سے رابطہ نہیں ہو سکا۔ پتہ درست لکھیں (مثلاً https://example.com)</p>';
-    /* in the app, the download link goes through the one-tap installer */
-    const dl = res.querySelector('[data-updlink]');
-    if (dl) dl.addEventListener('click', e => {
-      if (window.MasdarBridge && MasdarBridge.updateApp) {
-        e.preventDefault();
-        MasdarBridge.updateApp(dl.href);
-      }
-    });
+      /* (b) gardanan (conjugation) content check */
+      try {
+        const r2 = await fetchTimeout(base + '/gardanan.json');
+        if (r2.ok) {
+          const g = await r2.json();
+          const cur = Number(localStorage.getItem('masdar_gardanan_rev') || 0);
+          if (g && typeof g.rev === 'number' && g.rev > cur && Array.isArray(g.verbs)) {
+            localStorage.setItem('masdar_gardanan_data', JSON.stringify(g));
+            localStorage.setItem('masdar_gardanan_rev', String(g.rev));
+            if (typeof renderGardanan === 'function') renderGardanan();
+            msgs.push('<p class="good">✅ نئی گردانیں شامل ہو گئیں</p>');
+          }
+        }
+      } catch (e) { /* a missing gardanan.json on the server is not an error */ }
+    } finally {
+      res.innerHTML = msgs.join('') || '<p class="bad">سرور سے رابطہ نہیں ہو سکا۔ پتہ درست لکھیں (مثلاً https://example.com)</p>';
+      /* in the app, the download link goes through the one-tap installer */
+      const dl = res.querySelector('[data-updlink]');
+      if (dl) dl.addEventListener('click', e => {
+        if (window.MasdarBridge && MasdarBridge.updateApp) {
+          e.preventDefault();
+          MasdarBridge.updateApp(dl.href);
+        }
+      });
+      btn.disabled = false;
+      btn.textContent = btnLabel;
+    }
+    /* the result sits low in a long card — bring it into view + announce it */
+    try { res.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+    toast(outcome);
   };
   /* (c) update from a file — native picker in the app, hidden input on the web */
   const fbtn = $('updFileBtn'), fb = $('updFile');
@@ -272,7 +301,7 @@ async function autoCheckUpdate() {
     if (!navigator.onLine) return;
     const base = autoUpdateBase();
     if (!base) return;
-    const r = await fetch(base + '/version.json?_=' + Date.now(), { cache: 'no-store' });
+    const r = await fetchTimeout(base + '/version.json?_=' + Date.now());
     if (!r.ok) return;
     const v = await r.json();
     if (!v || !(v.versionCode > APP_VERSION_CODE)) return;
