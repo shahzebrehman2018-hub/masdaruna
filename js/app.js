@@ -128,7 +128,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 16;
+const APP_VERSION_CODE = 17;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -278,6 +278,52 @@ function renderGardanan() {
   box.querySelectorAll('[data-gard]').forEach(c => c.onclick = () => openGardananVerb(verbs[Number(c.dataset.gard)]));
 }
 window.renderGardanan = renderGardanan;
+/* Expand one stored گردان line into one line per person-form: stored lines
+   pack several forms, each with its gloss in (…), separated by ") /" or
+   ")،". A segment may join two forms sharing one gloss
+   ("هغوی …، دوی … (gloss)") — split it so each form gets its own line
+   carrying the shared gloss. Single-form lines pass through unchanged. */
+function splitGardananLine(line) {
+  const s = String(line == null ? '' : line).trim();
+  if (!s) return [];
+  const segs = [];
+  let depth = 0, start = 0;
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (c === '(') depth++;
+    else if (c === ')') {
+      depth--;
+      if (depth === 0) {
+        let j = i + 1;
+        while (j < s.length && s[j] === ' ') j++;
+        if (j < s.length && (s[j] === '/' || s[j] === '،')) {
+          segs.push(s.slice(start, i + 1).trim());
+          start = j + 1;
+          i = j;
+        }
+      }
+    }
+  }
+  segs.push(s.slice(start).trim());
+  const out = [];
+  segs.forEach(seg => {
+    const p = seg.indexOf('(');
+    if (p > 0) {
+      const head = seg.slice(0, p).trim(), tail = seg.slice(p).trim();
+      if (head.indexOf('،') >= 0) {
+        const parts = head.split('،').map(x => x.trim()).filter(Boolean);
+        if (parts.length > 1) { parts.forEach(x => out.push(x + ' ' + tail)); return; }
+      }
+    }
+    if (seg) out.push(seg);
+  });
+  return out;
+}
+function expandGardananLines(lines) {
+  const out = [];
+  (lines || []).forEach(l => { splitGardananLine(l).forEach(x => out.push(x)); });
+  return out;
+}
 function openGardananVerb(v) {
   const box = $('gardananList'), detail = $('gardananDetail');
   if (!detail || !v) return;
@@ -286,7 +332,7 @@ function openGardananVerb(v) {
   detail.innerHTML = `<button class="btn-ghost" id="gardBack" style="margin:0 0 10px">⬅ واپس</button>
     <div class="card" style="margin:0 0 12px"><div class="sheet-word">${esc(v.ps)}</div>
     <div class="sheet-roman">🇵🇰 ${esc(v.ur || '')}${v.en ? ' · <span dir="ltr">' + esc(v.en) + '</span>' : ''}</div></div>`
-    + (v.sections || []).map(s => `<div class="card" style="margin:0 0 12px"><h4 style="margin:0 0 8px">${esc(s.title || '')}${s.ur_title ? ' — ' + esc(s.ur_title) : ''}${s.en_title ? ' · <span dir="ltr">' + esc(s.en_title) + '</span>' : ''}</h4>${(s.lines || []).map(l => `<p dir="rtl" style="margin:0;padding:7px 0;border-bottom:1px dashed rgba(127,127,127,.35);font-size:17px;line-height:1.9">${esc(l)}</p>`).join('')}</div>`).join('');
+    + (v.sections || []).map(s => `<div class="card" style="margin:0 0 12px"><h4 style="margin:0 0 8px">${esc(s.title || '')}${s.ur_title ? ' — ' + esc(s.ur_title) : ''}${s.en_title ? ' · <span dir="ltr">' + esc(s.en_title) + '</span>' : ''}</h4>${expandGardananLines(s.lines).map(l => `<p dir="rtl" style="margin:0;padding:7px 0;border-bottom:1px dashed rgba(127,127,127,.35);font-size:17px;line-height:1.9">${esc(l)}</p>`).join('')}</div>`).join('');
   const back = $('gardBack');
   if (back) back.onclick = () => renderGardanan();
   window.scrollTo(0, 0);
@@ -300,7 +346,7 @@ function renderGardananBlock(word) {
   if (!v || !Array.isArray(v.sections) || !v.sections.length) return '';
   return `<div class="sheet-sec"><h4>📖 مکمل گردان</h4>` + v.sections.map(s =>
     `<h4 style="margin-top:10px">${esc(s.title || '')}${s.ur_title ? ' — ' + esc(s.ur_title) : ''}${s.en_title ? ' · <span dir="ltr">' + esc(s.en_title) + '</span>' : ''}</h4>` +
-    (s.lines || []).map(l => `<p dir="rtl" style="margin:0;padding:7px 0;border-bottom:1px dashed rgba(127,127,127,.35);font-size:17px;line-height:1.9">${esc(l)}</p>`).join('')
+    expandGardananLines(s.lines).map(l => `<p dir="rtl" style="margin:0;padding:7px 0;border-bottom:1px dashed rgba(127,127,127,.35);font-size:17px;line-height:1.9">${esc(l)}</p>`).join('')
   ).join('') + `</div>`;
 }
 function initGardanan() { renderGardanan(); }
