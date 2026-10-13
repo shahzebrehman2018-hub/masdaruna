@@ -128,7 +128,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 17;
+const APP_VERSION_CODE = 19;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
