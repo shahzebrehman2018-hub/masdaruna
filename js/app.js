@@ -128,7 +128,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 19;
+const APP_VERSION_CODE = 20;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -422,6 +422,7 @@ function initNav() {
     document.querySelectorAll('#bottomNav button').forEach(b => b.classList.toggle('active', b.dataset.nav === name));
     $('drawer').classList.remove('open'); $('scrim').classList.remove('show');
     window.scrollTo(0, 0);
+    if (name === 'online') initOnline();
   };
   window._goNav = go;
   document.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => go(b.dataset.nav));
@@ -432,6 +433,28 @@ function initNav() {
 }
 function openSheet(html) { $('sheetBody').innerHTML = html; $('sheet').classList.add('open'); $('sheetScrim').classList.add('show'); }
 function closeSheet() { $('sheet').classList.remove('open'); $('sheetScrim').classList.remove('show'); }
+
+/* ---------- online search (Qamosona) ----------
+   Pure live view: the iframe shows qamosona.com directly. Per the site's
+   own policy nothing from it is saved, cached or copied into app data. */
+const QAMOSONA_URL = 'https://www.qamosona.com/ndic3/';
+let _onlineLoaded = false;
+function initOnline() {
+  const fr = $('onlineFrame'), off = $('onlineOff');
+  if (!fr) return;
+  if (navigator.onLine === false) {
+    fr.hidden = true;
+    if (off) off.hidden = false;
+    return;
+  }
+  if (off) off.hidden = true;
+  fr.hidden = false;
+  if (!_onlineLoaded) { fr.src = QAMOSONA_URL; _onlineLoaded = true; }
+}
+window.addEventListener('online', () => {
+  const p = $('page-online');
+  if (p && p.classList.contains('active')) initOnline();
+});
 
 /* ---------- search ---------- */
 function initDict() {
@@ -698,7 +721,8 @@ function doDictSearch() {
       `<div class="result-card" data-dictword="${esc(w.word)}"><div class="w">${esc(w.word)}</div><div class="r">${esc(w.urdu || '')}</div></div>`).join('') : '') +
     (sug.length ? `<p class="hint">شاید آپ کا مطلب:</p>` + sug.map(e =>
       `<div class="result-card" data-dictword="${esc(e[0])}"><div class="w">${esc(e[0])}</div><div class="r">${esc(e[1])}</div></div>`).join('') : '') +
-    `<button class="btn-ghost" onclick="document.getElementById('dictAddBtn').click()">＋ «${esc(raw)}» کو لغت میں شامل کریں</button>`;
+    `<button class="btn-ghost" onclick="document.getElementById('dictAddBtn').click()">＋ «${esc(raw)}» کو لغت میں شامل کریں</button>` +
+    `<button class="btn-primary" style="margin-top:8px" onclick="window._goNav && window._goNav('online')">🌐 Qamosona پر آنلائن تلاش کریں</button>`;
   box.querySelectorAll('[data-dictword]').forEach(c => c.onclick = () => openDictWord(c.dataset.dictword));
   bindCards(box);
 }

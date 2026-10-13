@@ -186,3 +186,8 @@ table.conj tr:nth-child(even) td{background:var(--bg)}
 .random-card .w{font-size:22px; font-weight:bold}
 .empty{text-align:center; color:var(--ink2); padding:30px 10px}
 @media (min-width:700px){ .kv b{min-width:150px} }
+
+/* Online search (Qamosona live embed) */
+.online-open{display:block; text-align:center; text-decoration:none}
+.online-frame{display:block; width:100%; height:calc(100vh - 340px); min-height:420px; border:1.5px solid var(--line); border-radius:12px; background:#fff; margin-top:10px}
+.online-frame[hidden]{display:none}
