@@ -138,7 +138,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 24;
+const APP_VERSION_CODE = 25;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -235,6 +235,19 @@ function initUpdate() {
           }
         }
       } catch (e) { /* a missing masdars.json on the server is not an error */ }
+      /* (e) word-forms content check */
+      try {
+        const r5 = await fetchTimeout(base + '/forms.json');
+        if (r5.ok) {
+          const fj = await r5.json();
+          const curF = Number(localStorage.getItem('masdar_forms_rev') || 0);
+          if (fj && typeof fj.rev === 'number' && fj.rev > curF && fj.words && typeof fj.words === 'object') {
+            localStorage.setItem('masdar_forms_data', JSON.stringify(fj));
+            localStorage.setItem('masdar_forms_rev', String(fj.rev));
+            msgs.push('<p class="good">✅ الفاظ کی نئی صورتیں شامل ہو گئیں</p>');
+          }
+        }
+      } catch (e) { /* a missing forms.json on the server is not an error */ }
     } finally {
       res.innerHTML = msgs.join('') || '<p class="bad">سرور سے رابطہ نہیں ہو سکا۔ پتہ درست لکھیں (مثلاً https://example.com)</p>';
       /* in the app, the download link goes through the one-tap installer */
@@ -282,7 +295,7 @@ function initUpdate() {
     const t = pbox.value.trim();
     if (!t) { toast('پہلے مواد پیسٹ کریں'); return; }
     let ok = false;
-    try { const d = JSON.parse(t); ok = !!(d && typeof d === 'object' && ((d.gardanan && typeof d.gardanan === 'object') || Array.isArray(d.verbs) || Array.isArray(d.words) || Array.isArray(d.sentences) || Array.isArray(d.masdars) || Array.isArray(d.entries))); } catch (e) {}
+    try { const d = JSON.parse(t); ok = !!(d && typeof d === 'object' && ((d.gardanan && typeof d.gardanan === 'object') || Array.isArray(d.verbs) || Array.isArray(d.words) || Array.isArray(d.sentences) || Array.isArray(d.masdars) || Array.isArray(d.entries) || (d.forms && typeof d.forms === 'object'))); } catch (e) {}
     window.MasdarUpdateFile(t);
     if (ok) pbox.value = '';
   };
@@ -380,6 +393,17 @@ async function autoFetchPacks() {
         }
       }
     } catch (e) {}
+    try {
+      const r = await fetchTimeout(base + '/forms.json?_=' + Date.now(), 8000);
+      if (r.ok) {
+        const fj = await r.json();
+        const cur = Number(localStorage.getItem('masdar_forms_rev') || 0);
+        if (fj && typeof fj.rev === 'number' && fj.rev > cur && fj.words && typeof fj.words === 'object') {
+          localStorage.setItem('masdar_forms_data', JSON.stringify(fj));
+          localStorage.setItem('masdar_forms_rev', String(fj.rev));
+        }
+      }
+    } catch (e) {}
   } catch (e) {}
 }
 /* Called by the Android bridge (and the web file fallback) with the text of a
@@ -413,6 +437,13 @@ window.MasdarUpdateFile = function (text) {
     localStorage.setItem('masdar_sentences_rev', String(rev));
     if (typeof renderSentences === 'function') renderSentences('');
     toast('✅ جملے شامل ہو گئے');
+    return;
+  }
+  if (d.forms && typeof d.forms === 'object') {
+    const rev = (typeof d.rev === 'number' && d.rev) ? d.rev : Date.now();
+    localStorage.setItem('masdar_forms_data', JSON.stringify({ rev, words: d.forms }));
+    localStorage.setItem('masdar_forms_rev', String(rev));
+    toast('✅ الفاظ کی صورتیں شامل ہو گئیں');
     return;
   }
   if (Array.isArray(d.masdars) || Array.isArray(d.entries)) {
@@ -587,6 +618,33 @@ function renderGardananBlock(word) {
   ).join('') + `</div>`;
 }
 function initGardanan() { renderGardanan(); }
+
+/* ---------- لفظ کی صورتیں و گرامر ----------
+   Per-word forms: gender/number/case variants, derived adjectives
+   (فاعلی/مفعولی/لیاقت/شغلی), compounds, verb class (متعدی/لازم), masdar
+   state, prefix/suffix derivatives — each form may carry an example
+   sentence. Built-in seed (js/forms-data.js) + online pack (forms.json,
+   localStorage masdar_forms_data) merged per word. */
+function getFormsMap() {
+  const map = {};
+  const addAll = src => { if (src && typeof src === 'object') for (const k in src) map[norm(k)] = src[k]; };
+  addAll(window.FORMS_SEED);
+  try {
+    const stored = JSON.parse(localStorage.getItem('masdar_forms_data') || 'null');
+    addAll(stored && stored.words ? stored.words : stored);
+  } catch (e) {}
+  return map;
+}
+function formsBlockHTML(word) {
+  if (!word) return '';
+  const f = getFormsMap()[norm(word)];
+  if (!f || (!Array.isArray(f.forms) && !Array.isArray(f.meta))) return '';
+  const meta = (f.meta || []).map(m => `<div class="kv"><b>${esc(m[0])}</b><span>${esc(m[1])}</span></div>`).join('');
+  const rows = (f.forms || []).map(it => `<div class="kv"><b>${esc(it.k)}</b><span><strong>${esc(it.v)}</strong>${it.s ? `<br>${esc(it.s)}${it.su ? `<br><span class="suggest">${esc(it.su)}</span>` : ''}` : ''}</span></div>`).join('');
+  if (!meta && !rows) return '';
+  return `<div class="sheet-sec"><h4>🔤 لفظ کی صورتیں و گرامر</h4>${meta}${rows}</div>`;
+}
+window.formsBlockHTML = formsBlockHTML;
 
 /* ---------- share the app ---------- */
 const INVITE_TEXT = 'د پښتو مصدرونه — پشتو و فارسی مصادر کی آف لائن ڈکشنری (تیار کردہ: کلثوم درانی)';
@@ -798,7 +856,7 @@ function dictDetailCard(e) {
   }
   const v = ldView(e);
   return `<div class="sheet-word">${esc(v.w)}</div><div class="sheet-roman">${esc(v.r)}</div>
-    <div class="sheet-sec"><h4>تلفظ</h4><div class="kv"><b>رومن</b><span dir="ltr">${esc(v.r)}</span></div></div>${detail}<div style="margin-top:8px"><button class="btn-ghost" data-dictedit="${esc(e[0])}">✏️ تصحیح کریں / معنی لکھیں</button></div>`;
+    <div class="sheet-sec"><h4>تلفظ</h4><div class="kv"><b>رومن</b><span dir="ltr">${esc(v.r)}</span></div></div>${detail}${formsBlockHTML(v.w)}<div style="margin-top:8px"><button class="btn-ghost" data-dictedit="${esc(e[0])}">✏️ تصحیح کریں / معنی لکھیں</button></div>`;
 }
 function myDictCard(w) {
   return `<div class="card"><div class="sheet-word">${esc(w.word)}</div><div class="sheet-roman">${esc(w.roman || '')}</div>
@@ -807,6 +865,7 @@ function myDictCard(w) {
     ${w.english ? `<div class="kv"><b>🇬🇧 English</b><span dir="ltr">${esc(w.english)}</span></div>` : ''}
     ${w.farsi ? `<div class="kv"><b>🇮🇷 فارسی</b><span>${esc(w.farsi)}</span></div>` : ''}
     ${w.sentence ? `<div class="kv"><b>مثالی جملہ</b><span>${esc(w.sentence)}</span></div>` : ''}
+    ${formsBlockHTML(w.word)}
     <button class="btn-ghost" onclick="showDetail('my','${w.id}')">مکمل تفصیل ⏎</button></div></div>`;
 }
 function findMyWord(q) {
@@ -1300,6 +1359,7 @@ function showDetail(type, id) {
       h += `<div class="sheet-sec"><h4>گردانیں</h4>` + renderConjTables(pc) + `</div>`;
     }
     h += renderGardananBlock(e[2]);
+    h += formsBlockHTML(e[2]);
     h += `<div style="display:flex;gap:8px"><button class="btn-ghost" style="flex:1;margin:0" onclick="openEntryEditor('ps', '${e[0]}')">✏️ مصدر درست کریں</button><button class="btn-ghost" style="flex:1;margin:0" onclick="openConjEditor('ps', '${e[0]}')">✏️ گردانیں لکھیں / درست کریں</button></div>`;
     openSheet(h);
   } else if (type === 'fa') {
