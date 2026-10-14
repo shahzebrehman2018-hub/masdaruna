@@ -12,7 +12,7 @@ function visibleMyWords() {
   return myWords.filter(w => !base.has(norm(w.word)));
 }
 /* ---------- export / import my data ---------- */
-function exportMyData() {
+function buildMyExportText() {
   const data = {
     app: 'د پښتو مصدرونه', v: 1,
     date: new Date().toISOString().slice(0, 10),
@@ -20,7 +20,30 @@ function exportMyData() {
     entryfix: getEntryFix(), grammarfix: getGrammarFix(),
     dictedits: dictEdits, dicttexts: dictTexts, dictalpha: localStorage.getItem('masdar_dict_alpha') || ''
   };
-  const text = JSON.stringify(data, null, 2);
+  return JSON.stringify(data, null, 2);
+}
+/* Online export: copy the export and open the website (GitHub) submit page
+   with the data pre-filled, so the user's words reach the project online. */
+function exportOnline() {
+  const text = buildMyExportText();
+  const openSite = () => {
+    const title = encodeURIComponent('Masdaruna — میرا ڈیٹا ایکسپورٹ');
+    let url = 'https://github.com/shahzebrehman2018-hub/masdaruna/issues/new?title=' + title;
+    const body = 'میرا Masdaruna ڈیٹا (الفاظ / گردانیں / تصحیحات):\n\n' + text;
+    if (encodeURIComponent(body).length <= 6500) url += '&body=' + encodeURIComponent(body);
+    else url += '&body=' + encodeURIComponent('ڈیٹا لمبا تھا، اس لیے کلپ بورڈ میں کاپی کر دیا گیا ہے — براہ کرم یہاں پیسٹ کر دیں۔');
+    const a = document.createElement('a');
+    a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    document.body.appendChild(a); a.click(); a.remove();
+    toast('🌐 ویب سائٹ کھل رہی ہے — وہاں «Submit» دبا دیں');
+  };
+  if (window.MasdarBridge && MasdarBridge.copyText) { MasdarBridge.copyText(text); setTimeout(openSite, 300); }
+  else if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(openSite).catch(openSite); }
+  else openSite();
+}
+window.exportOnline = exportOnline;
+function exportMyData() {
+  const text = buildMyExportText();
   if (window.MasdarBridge && MasdarBridge.saveFile) { MasdarBridge.saveFile('masdar-my-data.json', text); return; }
   const blob = new Blob([text], {type: 'application/json'});
   const a = document.createElement('a');
@@ -138,7 +161,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 25;
+const APP_VERSION_CODE = 26;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -1459,6 +1482,13 @@ function initMyWords() {
   $('wfCancel').onclick = () => { $('wordForm').hidden = true; };
   $('exportBtn').onclick = exportMyData;
   $('importBtn').onclick = () => $('importFile').click();
+  const eob = $('exportOnlineBtn'); if (eob) eob.onclick = exportOnline;
+  const mob = $('mwOnlineBtn');
+  if (mob) mob.onclick = () => {
+    if (window._goNav) window._goNav('about');
+    toast('🌐 ویب سائٹ سے ڈائریکٹ اپڈیٹ چیک ہو رہا ہے…');
+    setTimeout(() => { const b = $('updCheck'); if (b) { b.scrollIntoView({ behavior: 'smooth', block: 'center' }); b.click(); } }, 450);
+  };
   $('importFile').onchange = e => { if (e.target.files[0]) importMyData(e.target.files[0]); e.target.value = ''; };
   $('wfSave').onclick = () => {
     const word = $('wfWord').value.trim();

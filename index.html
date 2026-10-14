@@ -139,12 +139,17 @@
       <div class="card" style="margin:12px 0">
         <h4>📤📥 میرا ڈیٹا شیئر کریں</h4>
         <p class="hint">آپ کے لکھے الفاظ، گردانیں اور نوٹس صرف آپ کے فون میں ہیں۔ دوسروں تک پہنچانے کے لیے:</p>
-        <p class="hint"><strong>1.</strong> «ایکسپورٹ» دبائیں — فائل ڈاؤن لوڈ ہو گی<br><strong>2.</strong> وہ فائل مجھے (چیٹ میں) بھیج دیں<br><strong>3.</strong> میں انہیں ایپ میں شامل کر کے <strong>نیا ورژن</strong> بنا دوں گا — پھر سب کو ملیں گے! 🎉</p>
+        <p class="hint"><strong>1.</strong> «ایکسپورٹ» دبائیں — فائل ڈاؤن لوڈ ہو گی<br><strong>2.</strong> وہ فائل مجھے (چیٹ میں) بھیج دیں، یا نیچے «🌐 آنلائن بھیجیں» سے ویب سائٹ کے ذریعے بھیج دیں<br><strong>3.</strong> میں انہیں ایپ میں شامل کر کے <strong>نیا ورژن</strong> بنا دوں گا — پھر سب کو ملیں گے! 🎉</p>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button id="exportBtn" class="btn-primary" style="flex:1">📤 ایکسپورٹ</button>
           <button id="importBtn" class="btn-ghost" style="flex:1;margin:0">📥 امپورٹ</button>
           <input type="file" id="importFile" accept=".json" hidden>
         </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+          <button id="exportOnlineBtn" class="btn-primary" style="flex:1">🌐 آنلائن بھیجیں (ویب سائٹ)</button>
+          <button id="mwOnlineBtn" class="btn-ghost" style="flex:1;margin:0">🌐 ویب سائٹ سے ڈائریکٹ اپڈیٹ</button>
+        </div>
+        <p class="hint" style="margin-top:8px">«ڈائریکٹ اپڈیٹ» ویب سائٹ سے نیا ورژن، نئی گردانیں، جملے، مصادر اور لفظوں کی صورتیں ایک ساتھ لے آتا ہے۔ ایپ کھولنے پر یہ اپڈیٹ خود بھی ہو جاتا ہے۔</p>
       </div>
       <div id="myWordsList" class="results"></div>
       <div id="wordForm" class="card form-card" hidden>
@@ -251,7 +256,7 @@
       <div class="card about-card">
         <div class="about-logo">م</div>
         <h3>د پښتو مصدرونه</h3>
-        <p class="version">ورژن 2.23 — آف لائن</p>
+        <p class="version">ورژن 2.24 — آف لائن</p>
         <div class="card" style="margin:10px 0"><h4>🔄 ایپ اپ ڈیٹ</h4><p class="hint" id="siteLine" style="display:none">🌐 ویب سائٹ: <a id="siteLink" href="#" target="_blank" rel="noopener" dir="ltr"></a></p><p class="hint">نیا ورژن اور نئی گردانیں چیک کریں:</p><button id="updCheck" class="btn-primary">🌐 آنلائن اپڈیٹ چیک کریں</button><button id="updFileBtn" class="btn-ghost" style="margin:6px 0 0">📁 فائل سے اپڈیٹ</button><input type="file" id="updFile" accept=".json,.apk,application/json" hidden><p class="hint" style="margin-top:10px">فائل سے اپڈیٹ میں موصول شدہ گردانوں کی فائل (JSON) یا نئی ایپ کی فائل (APK) منتخب کریں۔</p><p class="hint" style="margin-top:10px">یا اپڈیٹ فائل کا پورا مواد نیچے پیسٹ کریں:</p><textarea id="updPaste" dir="ltr" rows="4" placeholder="اپڈیٹ فائل کا پورا مواد (JSON) یہاں پیسٹ کریں"></textarea><button id="updPasteBtn" class="btn-ghost" style="margin:6px 0 0">📋 پیسٹ سے اپڈیٹ کریں</button><button id="updClipBtn" class="btn-ghost" style="margin:6px 0 0">📥 کلپ بورڈ سے لائیں</button><label>ویب سائٹ کا پتہ (اگر خود لکھنا ہو)<input id="updServer" placeholder="https://example.com" dir="ltr"></label><div id="updResult"></div></div>
         <div class="about-body">
           <h4>🌟 تعارف</h4>
