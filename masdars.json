@@ -1,4 +1,75 @@
 {
- "rev": 0,
- "entries": []
+ "rev": 1,
+ "entries": [
+  {
+   "w": "اوڼل",
+   "r": "ooNúl",
+   "en": "to pick, to pluck",
+   "ur": "چننا، توڑنا",
+   "fa": "چیدن"
+  },
+  {
+   "w": "تارول",
+   "r": "taarawúl",
+   "en": "to disperse, to spread",
+   "ur": "بکھیرنا، پھیلانا",
+   "fa": "پراکندن، پخش کردن"
+  },
+  {
+   "w": "تورول",
+   "r": "torawúl",
+   "en": "to blacken, to darken",
+   "ur": "کالا کرنا، الزام لگانا",
+   "fa": "سیاه کردن، متهم کردن"
+  },
+  {
+   "w": "څپول",
+   "r": "tsapól",
+   "en": "to winnow, to sift",
+   "ur": "اناج پھٹکنا، چھاننا",
+   "fa": "غله باد دادن، غربال کردن"
+  },
+  {
+   "w": "راکاږل",
+   "r": "raakaaGúl",
+   "en": "to extract, to pull out",
+   "ur": "کھینچ کر نکالنا، اکھاڑنا",
+   "fa": "بیرون کشیدن، کندن"
+  },
+  {
+   "w": "ورستول",
+   "r": "wrastawúl",
+   "en": "to make rotten, to cause to decay",
+   "ur": "سڑانا، گلانا",
+   "fa": "پوساندن، فاسد کردن"
+  },
+  {
+   "w": "ورستېدل",
+   "r": "wrastedúl",
+   "en": "to rot, to decay",
+   "ur": "سڑنا، گلنا",
+   "fa": "پوسیدن، فاسد شدن"
+  },
+  {
+   "w": "وورول",
+   "r": "óowUrawul",
+   "en": "to pour down, to shower down",
+   "ur": "برسانا، انڈیلنا",
+   "fa": "باراندن، ریختن"
+  },
+  {
+   "w": "وورېدل",
+   "r": "óowaredul",
+   "en": "to rain, to shower",
+   "ur": "برسنا، بارش ہونا",
+   "fa": "باریدن"
+  },
+  {
+   "w": "ویرول",
+   "r": "óoyarawul",
+   "en": "to frighten, to scare",
+   "ur": "ڈرانا، خوفزدہ کرنا",
+   "fa": "ترساندن"
+  }
+ ]
 }
