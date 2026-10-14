@@ -198,7 +198,7 @@ window.GARDANAN_SEED = [
   "sections": [
    {
     "title": "حال",
-    "ur_title": "کھاتا ہوں",
+    "ur_title": "کرتا ہوں",
     "en_title": "Present",
     "lines": [
      "زه کوم (میں کرتا/کرتی ہوں، کر رہا ہوں — I do / I am doing)",
@@ -212,7 +212,7 @@ window.GARDANAN_SEED = [
    },
    {
     "title": "ماضی مطلق",
-    "ur_title": "نے کھایا",
+    "ur_title": "نے کیا",
     "en_title": "Simple past",
     "lines": [
      "ما وکړ (میں نے کیا — I did it)",
@@ -233,7 +233,7 @@ window.GARDANAN_SEED = [
    },
    {
     "title": "ماضی استمراری",
-    "ur_title": "کھا رہا تھا",
+    "ur_title": "کرتا تھا",
     "en_title": "Past continuous",
     "lines": [
      "ما کولو (میں کرتا تھا — I used to do it)",
@@ -254,7 +254,7 @@ window.GARDANAN_SEED = [
    },
    {
     "title": "حال مکمل / ماضی قریب",
-    "ur_title": "کھا لیا ہے",
+    "ur_title": "کر لیا ہے",
     "en_title": "Present perfect",
     "lines": [
      "ما کړی دی (میں نے کیا ہے — I have done it)",
@@ -274,7 +274,7 @@ window.GARDANAN_SEED = [
    },
    {
     "title": "ماضی بعيد",
-    "ur_title": "کھا لیا تھا",
+    "ur_title": "کر لیا تھا",
     "en_title": "Past perfect",
     "lines": [
      "ما کړی و (میں نے کیا تھا — I had done it)",
@@ -295,7 +295,7 @@ window.GARDANAN_SEED = [
    },
    {
     "title": "ماضی احتمالی",
-    "ur_title": "کھا لیا ہوگا",
+    "ur_title": "کیا ہوگا",
     "en_title": "Presumptive past",
     "lines": [
      "ما به کړي و (میں نے کیا ہو گا — I must have done it)",
@@ -316,7 +316,7 @@ window.GARDANAN_SEED = [
    },
    {
     "title": "مستقبل سادہ",
-    "ur_title": "کھائے گا",
+    "ur_title": "کروں گا",
     "en_title": "Simple future",
     "lines": [
      "زه به کوم (میں کروں گا/گی — I will do)",
@@ -330,7 +330,7 @@ window.GARDANAN_SEED = [
    },
    {
     "title": "مضارع",
-    "ur_title": "کھاؤں",
+    "ur_title": "کر لوں",
     "en_title": "Subjunctive",
     "lines": [
      "زه يې وکړم (میں کر لوں — that I do it)",
@@ -344,7 +344,7 @@ window.GARDANAN_SEED = [
    },
    {
     "title": "امر",
-    "ur_title": "حکم",
+    "ur_title": "کرو",
     "en_title": "Imperative",
     "lines": [
      "وکړه (تو کر / تم کرو — Do! (you))",
@@ -353,7 +353,7 @@ window.GARDANAN_SEED = [
    },
    {
     "title": "نہی",
-    "ur_title": "منع",
+    "ur_title": "مت کرو",
     "en_title": "Prohibitive",
     "lines": [
      "مه کوه (تو نہ کر / تم مت کرو — Don't do (you))",
