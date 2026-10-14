@@ -1,193 +1,348 @@
 /* Built-in گردانیں seed data — updated at build time; newer packs arrive via online/file update into localStorage (masdar_gardanan_data). */
-window.GARDANAN_SEED = [
+window.GARDANAN_SEED = {
+ "rev": 6,
+ "verbs": [
   {
-    "ps": "خوړل",
-    "ur": "کھانا",
-    "en": "to eat",
-    "kind": "متعدی",
-    "sections": [
-      {
-        "title": "حال",
-        "ur_title": "کھاتا ہوں",
-        "en_title": "Present",
-        "lines": [
-          "ناکامل: زه خورم (میں کھاتا ہوں — I eat)",
-          "ته خورې (تم کھاتے ہو — you eat)",
-          "هغه خوري (وہ کھاتا/کھاتی ہے — he/she eats)",
-          "موږ خورو (ہم کھاتے ہیں — we eat)",
-          "تاسو خورئ (آپ کھاتے ہیں — you eat)",
-          "هغوی خوري (وہ کھاتے ہیں — they eat)",
-          "کامل: زه وخورم (میں کھا لوں — I eat up)",
-          "ته وخورې (تم کھا لو — you eat up)",
-          "هغه وخوري (وہ کھا لے — he/she eats up)",
-          "موږ وخورو (ہم کھا لیں — we eat up)",
-          "تاسو وخورئ (آپ کھا لیں — you eat up)",
-          "هغوی وخوري (وہ کھا لیں — they eat up)"
-        ]
-      },
-      {
-        "title": "ماضی مطلق",
-        "ur_title": "نے کھایا",
-        "en_title": "Simple past",
-        "lines": [
-          "ما وخوړ (میں نے کھایا — I ate, masc. object)",
-          "ما وخوړه (میں نے کھائی — I ate, fem. object)",
-          "تا وخوړ (تم نے کھایا — you ate, masc. object)",
-          "تا وخوړه (تم نے کھائی — you ate, fem. object)",
-          "هغه وخوړ (اس نے کھایا — he/she ate, masc. object)",
-          "هغې وخوړه (اس نے کھائی — he/she ate, fem. object)",
-          "موږ وخوړل (ہم نے کھائے — we ate, masc. pl. object)",
-          "موږ وخوړې (ہم نے کھائیں — we ate, fem. pl. object)",
-          "تاسو وخوړل (آپ نے کھائے — you ate, masc. pl. object)",
-          "تاسو وخوړې (آپ نے کھائیں — you ate, fem. pl. object)",
-          "هغوی وخوړل (انہوں نے کھائے — they ate, masc. pl. object)",
-          "هغوی وخوړې (انہوں نے کھائیں — they ate, fem. pl. object)",
-          "دوی وخوړل (انہوں نے کھائے — they ate, masc. pl. object)",
-          "دوی وخوړې (انہوں نے کھائیں — they ate, fem. pl. object)"
-        ]
-      },
-      {
-        "title": "ماضی استمراری",
-        "ur_title": "کھا رہا تھا",
-        "en_title": "Past continuous",
-        "lines": [
-          "ما خوړلو (میں کھا رہا تھا — I was eating, masc.)",
-          "ما خوړله (میں کھا رہی تھی — I was eating, fem.)",
-          "تا خوړلو (تم کھا رہے تھے — you were eating, masc.)",
-          "تا خوړله (تم کھا رہی تھیں — you were eating, fem.)",
-          "هغه خوړلو (وہ کھا رہا تھا — he was eating)",
-          "هغې خوړله (وہ کھا رہی تھی — she was eating)",
-          "موږ خوړل (ہم کھا رہے تھے — we were eating, masc.)",
-          "موږ خوړلې (ہم کھا رہی تھیں — we were eating, fem.)",
-          "تاسو خوړل (آپ کھا رہے تھے — you were eating, masc.)",
-          "تاسو خوړلې (آپ کھا رہی تھیں — you were eating, fem.)",
-          "هغوی خوړل (وہ کھا رہے تھے — they were eating, masc.)",
-          "هغوی خوړلې (وہ کھا رہی تھیں — they were eating, fem.)",
-          "دوی خوړل (وہ کھا رہے تھے — they were eating, masc.)",
-          "دوی خوړلې (وہ کھا رہی تھیں — they were eating, fem.)"
-        ]
-      },
-      {
-        "title": "حال مکمل / ماضی قریب",
-        "ur_title": "کھا لیا ہے",
-        "en_title": "Present perfect",
-        "lines": [
-          "ما خوړلی دی (میں نے کھا لیا ہے — I have eaten, masc. object)",
-          "ما خوړلې ده (میں نے کھا لی ہے — I have eaten, fem. object)",
-          "تا خوړلی دی (تم نے کھا لیا ہے — you have eaten, masc. object)",
-          "تا خوړلې ده (تم نے کھا لی ہے — you have eaten, fem. object)",
-          "هغه خوړلی دی (اس نے کھا لیا ہے — he has eaten, masc. object)",
-          "هغې خوړلې ده (اس نے کھا لی ہے — she has eaten, fem. object)",
-          "موږ خوړلي دي (ہم نے کھا لیے ہیں — we have eaten, masc. pl. object)",
-          "موږ خوړلې دي (ہم نے کھا لی ہیں — we have eaten, fem. pl. object)",
-          "تاسو خوړلي دي (آپ نے کھا لیے ہیں — you have eaten, masc. pl. object)",
-          "تاسو خوړلې دي (آپ نے کھا لی ہیں — you have eaten, fem. pl. object)",
-          "هغوی خوړلي دي (انہوں نے کھا لیے ہیں — they have eaten, masc. pl. object)",
-          "هغوی خوړلې دي (انہوں نے کھا لی ہیں — they have eaten, fem. pl. object)",
-          "دوی خوړلي دي (انہوں نے کھا لیے ہیں — they have eaten, masc. pl. object)",
-          "دوی خوړلې دي (انہوں نے کھا لی ہیں — they have eaten, fem. pl. object)"
-        ]
-      },
-      {
-        "title": "ماضی بعيد",
-        "ur_title": "کھا لیا تھا",
-        "en_title": "Past perfect",
-        "lines": [
-          "ما خوړلی و (میں نے کھا لیا تھا — I had eaten, masc. object)",
-          "ما خوړلې وه (میں نے کھا لی تھی — I had eaten, fem. object)",
-          "تا خوړلی و (تم نے کھا لیا تھا — you had eaten, masc. object)",
-          "تا خوړلې وه (تم نے کھا لی تھی — you had eaten, fem. object)",
-          "هغه خوړلی و (اس نے کھا لیا تھا — he/she had eaten, masc. object)",
-          "هغه خوړلې وه (اس نے کھا لی تھی — he/she had eaten, fem. object)",
-          "موږ خوړلي وو (ہم نے کھا لیے تھے — we had eaten, masc. pl. object)",
-          "موږ خوړلې وې (ہم نے کھا لی تھیں — we had eaten, fem. pl. object)",
-          "تاسو خوړلي وو (آپ نے کھا لیے تھے — you had eaten, masc. pl. object)",
-          "تاسو خوړلې وې (آپ نے کھا لی تھیں — you had eaten, fem. pl. object)",
-          "هغوی خوړلي وو (انہوں نے کھا لیے تھے — they had eaten, masc. pl. object)",
-          "هغوی خوړلې وې (انہوں نے کھا لی تھیں — they had eaten, fem. pl. object)",
-          "دوی خوړلي وو (انہوں نے کھا لیے تھے — they had eaten, masc. pl. object)",
-          "دوی خوړلې وې (انہوں نے کھا لی تھیں — they had eaten, fem. pl. object)"
-        ]
-      },
-      {
-        "title": "ماضی احتمالی",
-        "ur_title": "کھا لیا ہوگا",
-        "en_title": "Presumptive past",
-        "lines": [
-          "ما به خوړلی و (میں نے کھا لیا ہوگا — I must have eaten, masc. object)",
-          "ما به خوړلې وه (میں نے کھا لی ہوگی — I must have eaten, fem. object)",
-          "تا به خوړلی و (تم نے کھا لیا ہوگا — you must have eaten, masc. object)",
-          "تا به خوړلې وه (تم نے کھا لی ہوگی — you must have eaten, fem. object)",
-          "موږ به خوړلي وو (ہم نے کھا لیے ہوں گے — we must have eaten, masc. pl. object)",
-          "موږ به خوړلې وې (ہم نے کھا لی ہوں گی — we must have eaten, fem. pl. object)",
-          "تاسو به خوړلي وو (آپ نے کھا لیے ہوں گے — you must have eaten, masc. pl. object)",
-          "تاسو به خوړلې وې (آپ نے کھا لی ہوں گی — you must have eaten, fem. pl. object)",
-          "هغوی به خوړلي وو (انہوں نے کھا لیے ہوں گے — they must have eaten, masc. pl. object)",
-          "هغوی به خوړلې وې (انہوں نے کھا لی ہوں گی — they must have eaten, fem. pl. object)",
-          "دوی به خوړلي وو (انہوں نے کھا لیے ہوں گے — they must have eaten, masc. pl. object)",
-          "دوی به خوړلې وې (انہوں نے کھا لی ہوں گی — they must have eaten, fem. pl. object)"
-        ]
-      },
-      {
-        "title": "مستقبل سادہ",
-        "ur_title": "کھائے گا",
-        "en_title": "Simple future",
-        "lines": [
-          "زه به خورم (میں کھاؤں گا — I will eat)",
-          "ته به خورې (تم کھاؤ گے — you will eat)",
-          "هغه به خوري (وہ کھائے گا — he/she will eat)",
-          "موږ به خورو (ہم کھائیں گے — we will eat)",
-          "تاسو به خورئ (آپ کھائیں گے — you will eat)",
-          "هغوی به خوري (وہ کھائیں گے — they will eat)",
-          "دوی به خوري (وہ کھائیں گے — they will eat)"
-        ]
-      },
-      {
-        "title": "ارادی مستقبل",
-        "ur_title": "کھا لوں گا",
-        "en_title": "Resolutive future",
-        "lines": [
-          "زه به يې وخورم (میں اسے کھا لوں گا — I will eat it)",
-          "ته به يې وخورې (تم اسے کھا لو گے — you will eat it)",
-          "هغه به يې وخوري (وہ اسے کھا لے گا — he/she will eat it)",
-          "موږ به يې وخورو (ہم اسے کھا لیں گے — we will eat it)",
-          "تاسو به يې وخورئ (آپ اسے کھا لیں گے — you will eat it)",
-          "هغوی به يې وخوري (وہ اسے کھا لیں گے — they will eat it)",
-          "دوی به يې وخوري (وہ اسے کھا لیں گے — they will eat it)"
-        ]
-      },
-      {
-        "title": "مضارع",
-        "ur_title": "کھاؤں",
-        "en_title": "Subjunctive",
-        "lines": [
-          "زه يې وخورم (میں اسے کھاؤں — that I eat it)",
-          "ته يې وخوره (تم اسے کھاؤ — that you eat it)",
-          "هغه يې وخوري (وہ اسے کھائے — that he/she eat it)",
-          "موږ يې وخورو (ہم اسے کھائیں — that we eat it)",
-          "تاسو يې وخورئ (آپ اسے کھائیں — that you eat it)",
-          "هغوی يې وخوري (وہ اسے کھائیں — that they eat it)",
-          "دوی يې وخوري (وہ اسے کھائیں — that they eat it)"
-        ]
-      },
-      {
-        "title": "امر",
-        "ur_title": "حکم",
-        "en_title": "Imperative",
-        "lines": [
-          "وخوره (کھاؤ / کھا لو — eat! / eat up!)",
-          "وخورئ (کھائیے / کھا لیجیے — eat! (plural / polite))"
-        ]
-      },
-      {
-        "title": "نہی",
-        "ur_title": "منع",
-        "en_title": "Prohibitive",
-        "lines": [
-          "مه خوره (مت کھاؤ — don't eat!)",
-          "مه خورئ (مت کھائیے — don't eat! (plural / polite))"
-        ]
-      }
-    ]
+   "ps": "خوړل",
+   "ur": "کھانا",
+   "en": "to eat",
+   "kind": "متعدی",
+   "sections": [
+    {
+     "title": "حال",
+     "ur_title": "کھاتا ہوں",
+     "en_title": "Present",
+     "lines": [
+      "ناکامل: زه خورم (میں کھاتا ہوں — I eat)",
+      "ته خورې (تم کھاتے ہو — you eat)",
+      "هغه خوري (وہ کھاتا/کھاتی ہے — he/she eats)",
+      "موږ خورو (ہم کھاتے ہیں — we eat)",
+      "تاسو خورئ (آپ کھاتے ہیں — you eat)",
+      "هغوی خوري (وہ کھاتے ہیں — they eat)",
+      "کامل: زه وخورم (میں کھا لوں — I eat up)",
+      "ته وخورې (تم کھا لو — you eat up)",
+      "هغه وخوري (وہ کھا لے — he/she eats up)",
+      "موږ وخورو (ہم کھا لیں — we eat up)",
+      "تاسو وخورئ (آپ کھا لیں — you eat up)",
+      "هغوی وخوري (وہ کھا لیں — they eat up)"
+     ]
+    },
+    {
+     "title": "ماضی مطلق",
+     "ur_title": "نے کھایا",
+     "en_title": "Simple past",
+     "lines": [
+      "ما وخوړ (میں نے کھایا — I ate, masc. object)",
+      "ما وخوړه (میں نے کھائی — I ate, fem. object)",
+      "تا وخوړ (تم نے کھایا — you ate, masc. object)",
+      "تا وخوړه (تم نے کھائی — you ate, fem. object)",
+      "هغه وخوړ (اس نے کھایا — he/she ate, masc. object)",
+      "هغې وخوړه (اس نے کھائی — he/she ate, fem. object)",
+      "موږ وخوړل (ہم نے کھائے — we ate, masc. pl. object)",
+      "موږ وخوړې (ہم نے کھائیں — we ate, fem. pl. object)",
+      "تاسو وخوړل (آپ نے کھائے — you ate, masc. pl. object)",
+      "تاسو وخوړې (آپ نے کھائیں — you ate, fem. pl. object)",
+      "هغوی وخوړل (انہوں نے کھائے — they ate, masc. pl. object)",
+      "هغوی وخوړې (انہوں نے کھائیں — they ate, fem. pl. object)",
+      "دوی وخوړل (انہوں نے کھائے — they ate, masc. pl. object)",
+      "دوی وخوړې (انہوں نے کھائیں — they ate, fem. pl. object)"
+     ]
+    },
+    {
+     "title": "ماضی استمراری",
+     "ur_title": "کھا رہا تھا",
+     "en_title": "Past continuous",
+     "lines": [
+      "ما خوړلو (میں کھا رہا تھا — I was eating, masc.)",
+      "ما خوړله (میں کھا رہی تھی — I was eating, fem.)",
+      "تا خوړلو (تم کھا رہے تھے — you were eating, masc.)",
+      "تا خوړله (تم کھا رہی تھیں — you were eating, fem.)",
+      "هغه خوړلو (وہ کھا رہا تھا — he was eating)",
+      "هغې خوړله (وہ کھا رہی تھی — she was eating)",
+      "موږ خوړل (ہم کھا رہے تھے — we were eating, masc.)",
+      "موږ خوړلې (ہم کھا رہی تھیں — we were eating, fem.)",
+      "تاسو خوړل (آپ کھا رہے تھے — you were eating, masc.)",
+      "تاسو خوړلې (آپ کھا رہی تھیں — you were eating, fem.)",
+      "هغوی خوړل (وہ کھا رہے تھے — they were eating, masc.)",
+      "هغوی خوړلې (وہ کھا رہی تھیں — they were eating, fem.)",
+      "دوی خوړل (وہ کھا رہے تھے — they were eating, masc.)",
+      "دوی خوړلې (وہ کھا رہی تھیں — they were eating, fem.)"
+     ]
+    },
+    {
+     "title": "حال مکمل / ماضی قریب",
+     "ur_title": "کھا لیا ہے",
+     "en_title": "Present perfect",
+     "lines": [
+      "ما خوړلی دی (میں نے کھا لیا ہے — I have eaten, masc. object)",
+      "ما خوړلې ده (میں نے کھا لی ہے — I have eaten, fem. object)",
+      "تا خوړلی دی (تم نے کھا لیا ہے — you have eaten, masc. object)",
+      "تا خوړلې ده (تم نے کھا لی ہے — you have eaten, fem. object)",
+      "هغه خوړلی دی (اس نے کھا لیا ہے — he has eaten, masc. object)",
+      "هغې خوړلې ده (اس نے کھا لی ہے — she has eaten, fem. object)",
+      "موږ خوړلي دي (ہم نے کھا لیے ہیں — we have eaten, masc. pl. object)",
+      "موږ خوړلې دي (ہم نے کھا لی ہیں — we have eaten, fem. pl. object)",
+      "تاسو خوړلي دي (آپ نے کھا لیے ہیں — you have eaten, masc. pl. object)",
+      "تاسو خوړلې دي (آپ نے کھا لی ہیں — you have eaten, fem. pl. object)",
+      "هغوی خوړلي دي (انہوں نے کھا لیے ہیں — they have eaten, masc. pl. object)",
+      "هغوی خوړلې دي (انہوں نے کھا لی ہیں — they have eaten, fem. pl. object)",
+      "دوی خوړلي دي (انہوں نے کھا لیے ہیں — they have eaten, masc. pl. object)",
+      "دوی خوړلې دي (انہوں نے کھا لی ہیں — they have eaten, fem. pl. object)"
+     ]
+    },
+    {
+     "title": "ماضی بعيد",
+     "ur_title": "کھا لیا تھا",
+     "en_title": "Past perfect",
+     "lines": [
+      "ما خوړلی و (میں نے کھا لیا تھا — I had eaten, masc. object)",
+      "ما خوړلې وه (میں نے کھا لی تھی — I had eaten, fem. object)",
+      "تا خوړلی و (تم نے کھا لیا تھا — you had eaten, masc. object)",
+      "تا خوړلې وه (تم نے کھا لی تھی — you had eaten, fem. object)",
+      "هغه خوړلی و (اس نے کھا لیا تھا — he/she had eaten, masc. object)",
+      "هغه خوړلې وه (اس نے کھا لی تھی — he/she had eaten, fem. object)",
+      "موږ خوړلي وو (ہم نے کھا لیے تھے — we had eaten, masc. pl. object)",
+      "موږ خوړلې وې (ہم نے کھا لی تھیں — we had eaten, fem. pl. object)",
+      "تاسو خوړلي وو (آپ نے کھا لیے تھے — you had eaten, masc. pl. object)",
+      "تاسو خوړلې وې (آپ نے کھا لی تھیں — you had eaten, fem. pl. object)",
+      "هغوی خوړلي وو (انہوں نے کھا لیے تھے — they had eaten, masc. pl. object)",
+      "هغوی خوړلې وې (انہوں نے کھا لی تھیں — they had eaten, fem. pl. object)",
+      "دوی خوړلي وو (انہوں نے کھا لیے تھے — they had eaten, masc. pl. object)",
+      "دوی خوړلې وې (انہوں نے کھا لی تھیں — they had eaten, fem. pl. object)"
+     ]
+    },
+    {
+     "title": "ماضی احتمالی",
+     "ur_title": "کھا لیا ہوگا",
+     "en_title": "Presumptive past",
+     "lines": [
+      "ما به خوړلی و (میں نے کھا لیا ہوگا — I must have eaten, masc. object)",
+      "ما به خوړلې وه (میں نے کھا لی ہوگی — I must have eaten, fem. object)",
+      "تا به خوړلی و (تم نے کھا لیا ہوگا — you must have eaten, masc. object)",
+      "تا به خوړلې وه (تم نے کھا لی ہوگی — you must have eaten, fem. object)",
+      "موږ به خوړلي وو (ہم نے کھا لیے ہوں گے — we must have eaten, masc. pl. object)",
+      "موږ به خوړلې وې (ہم نے کھا لی ہوں گی — we must have eaten, fem. pl. object)",
+      "تاسو به خوړلي وو (آپ نے کھا لیے ہوں گے — you must have eaten, masc. pl. object)",
+      "تاسو به خوړلې وې (آپ نے کھا لی ہوں گی — you must have eaten, fem. pl. object)",
+      "هغوی به خوړلي وو (انہوں نے کھا لیے ہوں گے — they must have eaten, masc. pl. object)",
+      "هغوی به خوړلې وې (انہوں نے کھا لی ہوں گی — they must have eaten, fem. pl. object)",
+      "دوی به خوړلي وو (انہوں نے کھا لیے ہوں گے — they must have eaten, masc. pl. object)",
+      "دوی به خوړلې وې (انہوں نے کھا لی ہوں گی — they must have eaten, fem. pl. object)"
+     ]
+    },
+    {
+     "title": "مستقبل سادہ",
+     "ur_title": "کھائے گا",
+     "en_title": "Simple future",
+     "lines": [
+      "زه به خورم (میں کھاؤں گا — I will eat)",
+      "ته به خورې (تم کھاؤ گے — you will eat)",
+      "هغه به خوري (وہ کھائے گا — he/she will eat)",
+      "موږ به خورو (ہم کھائیں گے — we will eat)",
+      "تاسو به خورئ (آپ کھائیں گے — you will eat)",
+      "هغوی به خوري (وہ کھائیں گے — they will eat)",
+      "دوی به خوري (وہ کھائیں گے — they will eat)"
+     ]
+    },
+    {
+     "title": "ارادی مستقبل",
+     "ur_title": "کھا لوں گا",
+     "en_title": "Resolutive future",
+     "lines": [
+      "زه به يې وخورم (میں اسے کھا لوں گا — I will eat it)",
+      "ته به يې وخورې (تم اسے کھا لو گے — you will eat it)",
+      "هغه به يې وخوري (وہ اسے کھا لے گا — he/she will eat it)",
+      "موږ به يې وخورو (ہم اسے کھا لیں گے — we will eat it)",
+      "تاسو به يې وخورئ (آپ اسے کھا لیں گے — you will eat it)",
+      "هغوی به يې وخوري (وہ اسے کھا لیں گے — they will eat it)",
+      "دوی به يې وخوري (وہ اسے کھا لیں گے — they will eat it)"
+     ]
+    },
+    {
+     "title": "مضارع",
+     "ur_title": "کھاؤں",
+     "en_title": "Subjunctive",
+     "lines": [
+      "زه يې وخورم (میں اسے کھاؤں — that I eat it)",
+      "ته يې وخوره (تم اسے کھاؤ — that you eat it)",
+      "هغه يې وخوري (وہ اسے کھائے — that he/she eat it)",
+      "موږ يې وخورو (ہم اسے کھائیں — that we eat it)",
+      "تاسو يې وخورئ (آپ اسے کھائیں — that you eat it)",
+      "هغوی يې وخوري (وہ اسے کھائیں — that they eat it)",
+      "دوی يې وخوري (وہ اسے کھائیں — that they eat it)"
+     ]
+    },
+    {
+     "title": "امر",
+     "ur_title": "حکم",
+     "en_title": "Imperative",
+     "lines": [
+      "وخوره (کھاؤ / کھا لو — eat! / eat up!)",
+      "وخورئ (کھائیے / کھا لیجیے — eat! (plural / polite))"
+     ]
+    },
+    {
+     "title": "نہی",
+     "ur_title": "منع",
+     "en_title": "Prohibitive",
+     "lines": [
+      "مه خوره (مت کھاؤ — don't eat!)",
+      "مه خورئ (مت کھائیے — don't eat! (plural / polite))"
+     ]
+    }
+   ]
+  },
+  {
+   "ps": "کول",
+   "ur": "کرنا",
+   "en": "to do",
+   "kind": "متعدی",
+   "sections": [
+    {
+     "t": "حال",
+     "lines": [
+      "زه کوم (میں کرتا/کرتی ہوں، کر رہا ہوں — I do / I am doing)",
+      "ته کوې (تم کرتے ہو / تو کرتا ہے — You do)",
+      "هغه کوي (وہ کرتا ہے — He does)",
+      "موږ کوو (ہم کرتے ہیں — We do)",
+      "تاسو کوئ (آپ کرتے ہیں — You do)",
+      "هغوی کوي (وہ کرتے ہیں — They do)",
+      "دوی کوي (وہ کرتے ہیں — They do)"
+     ]
+    },
+    {
+     "t": "ماضی مطلق",
+     "lines": [
+      "ما وکړ (میں نے کیا — I did it)",
+      "ما وکړه (میں نے کی — I did it (fem.))",
+      "تا وکړ (تم نے کیا — You did it)",
+      "تا وکړه (تم نے کی — You did it (fem.))",
+      "هغه وکړ (اُس نے کیا — He did it)",
+      "هغې وکړه (اُس نے کی — She did it (fem.))",
+      "موږ وکړل (ہم نے کیے — We did them)",
+      "موږ وکړې (ہم نے کیں — We did them (fem.))",
+      "تاسو وکړل (آپ نے کیے — You did them)",
+      "تاسو وکړې (آپ نے کیں — You did them (fem.))",
+      "هغوی وکړل (اُنہوں نے کیے — They did them)",
+      "هغوی وکړې (اُنہوں نے کیں — They did them (fem.))",
+      "دوی وکړل (اِنہوں نے کیے — They did them)",
+      "دوی وکړې (اِنہوں نے کیں — They did them (fem.))"
+     ]
+    },
+    {
+     "t": "ماضی استمراری",
+     "lines": [
+      "ما کولو (میں کرتا تھا — I used to do it)",
+      "ما کوله (میں کرتی تھی — I used to do it (fem.))",
+      "تا کولو (تو کرتا تھا — You used to do it)",
+      "تا کوله (تو کرتی تھی — You used to do it (fem.))",
+      "هغه کولو (وہ کرتا تھا — He used to do it)",
+      "هغې کوله (وہ کرتی تھی — She used to do it)",
+      "موږ کول (ہم کرتے تھے — We used to do them)",
+      "موږ کولې (ہم کرتی تھیں — We used to do them (fem.))",
+      "تاسو کول (آپ کرتے تھے — You used to do them)",
+      "تاسو کولې (آپ کرتی تھیں — You used to do them (fem.))",
+      "هغوی کول (وہ کرتے تھے — They used to do them)",
+      "هغوی کولې (وہ کرتی تھیں — They used to do them (fem.))",
+      "دوی کول (وہ کرتے تھے — They used to do them)",
+      "دوی کولې (وہ کرتی تھیں — They used to do them (fem.))"
+     ]
+    },
+    {
+     "t": "حال مکمل / ماضی قریب",
+     "lines": [
+      "ما کړی دی (میں نے کیا ہے — I have done it)",
+      "ما کړې ده (میں نے کی ہے — I have done it (fem.))",
+      "تا کړې دی (تو نے کیا ہے — You have done it)",
+      "تا کړې ده (تو نے کی ہے — You have done it (fem.))",
+      "هغه کړی دی (اُس نے کیا ہے — He has done it)",
+      "هغې کړې ده (اُس نے کی ہے — She has done it (fem.))",
+      "موږ کړي دي (ہم نے کیے ہیں — We have done them)",
+      "موږ کړې دي (ہم نے کی ہیں — We have done them (fem.))",
+      "تاسو کړي دي (آپ نے کیے ہیں — You have done them)",
+      "هغوی کړي دي (اُنہوں نے کیے ہیں — They have done them)",
+      "هغوی کړې دي (اُنہوں نے کی ہیں — They have done them (fem.))",
+      "دوی کړي دي (انہوں نے کیے ہیں — They have done them)",
+      "دوی کړې دي (انہوں نے کی ہیں — They have done them (fem.))"
+     ]
+    },
+    {
+     "t": "ماضی بعيد",
+     "lines": [
+      "ما کړی و (میں نے کیا تھا — I had done it)",
+      "ما کړې وه (میں نے کی تھی — I had done it (fem.))",
+      "تا کړی و (تو نے کیا تھا — You had done it)",
+      "تا کړې وه (تو نے کی تھی — You had done it (fem.))",
+      "هغه کړی و (اُس نے کیا تھا — He had done it)",
+      "هغې کړې وه (اُس نے کی تھی — She had done it (fem.))",
+      "موږ کړي وو (ہم نے کیے تھے — We had done them)",
+      "موږ کړې وې (ہم نے کی تھیں — We had done them (fem.))",
+      "تاسو کړي وو (آپ نے کیے تھے — You had done them)",
+      "تاسو کړې وې (آپ نے کی تھیں — You had done them (fem.))",
+      "هغوی کړي وو (اُنہوں نے کیے تھے — They had done them)",
+      "هغوی کړې وې (اُنہوں نے کی تھیں — They had done them (fem.))",
+      "دوی کړي وو (انہوں نے کیے تھے — They had done them)",
+      "دوی کړي وو (انہوں نے کی تھیں — They had done them (fem.))"
+     ]
+    },
+    {
+     "t": "ماضی احتمالی",
+     "lines": [
+      "ما به کړي و (میں نے کیا ہو گا — I must have done it)",
+      "ما به کړې وه (میں نے کی ہو گی — I must have done it (fem.))",
+      "تا به کړی و (تو نے کیا ہو گا — You must have done it)",
+      "تا به کړې وه (تو نے کی ہو گی — You must have done it (fem.))",
+      "هغه به کړی و (اُس نے کیا ہو گا — He must have done it)",
+      "هغې به کړې وه (اُس نے کی ہو گی — She must have done it (fem.))",
+      "موږ به کړي وو (ہم نے کیے ہوں گے — We must have done them)",
+      "موږ به کړې وې (ہم نے کی ہوں گی — We must have done them (fem.))",
+      "تاسو به کړي وو (آپ نے کیے ہوں گے — You must have done them)",
+      "تاسو به کړې وې (آپ نے کی ہوں گی — You must have done them (fem.))",
+      "هغوی به کړي وو (اُنہوں نے کیے ہوں گے — They must have done them)",
+      "هغوی به کړې وې (اُنہوں نے کی ہوں گی — They must have done them (fem.))",
+      "دوی به کړي وو (انہوں نے کیے ہوں گے — They must have done them)",
+      "دوی به کرې وې (انہوں نے کی ہوں گی — They must have done them (fem.))"
+     ]
+    },
+    {
+     "t": "مستقبل سادہ",
+     "lines": [
+      "زه به کوم (میں کروں گا/گی — I will do)",
+      "ته به کوې (تو کرے گا — You will do)",
+      "هغه به کوي (وہ کرے گا — He will do)",
+      "موږ به کوو (ہم کریں گے — We will do)",
+      "تاسو به کوئ (آپ کریں گے — You will do)",
+      "هغوی به کوي (وہ کریں گے — They will do)",
+      "دوی به کوي (وہ کریں گے — They will do)"
+     ]
+    },
+    {
+     "t": "مضارع",
+     "lines": [
+      "زه يې وکړم (میں کر لوں — that I do it)",
+      "ته يې وکړه (تم کر لو — that you do it)",
+      "هغه يې وکړي (وہ کر لے — that he do it)",
+      "موږ يې وکړو (ہم کر لیں — that we do it)",
+      "تاسو يې وکړئ (آپ کر لیں — that you do it)",
+      "هغوی يې وکړي (وہ کر لیں — that they do it)",
+      "دوی يې وکړي (وہ کر لیں — that they do it)"
+     ]
+    },
+    {
+     "t": "امر",
+     "lines": [
+      "وکړه (تو کر / تم کرو — Do! (you))",
+      "وکړئ (آپ کریں — Do! (you pl.))"
+     ]
+    },
+    {
+     "t": "نہی",
+     "lines": [
+      "مه کوه (تو نہ کر / تم مت کرو — Don't do (you))",
+      "مه کوئ (آپ مت کریں — Don't do (you pl.))"
+     ]
+    }
+   ]
   }
-];
+ ]
+};
