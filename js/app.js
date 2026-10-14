@@ -243,6 +243,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   safeInit('sentences', initSentences);
   safeInit('jsonmaker', initJsonMaker); safeInit('gtranslate', initGTranslate);
   safeInit('qamosona', initQamosonaHome);
+  safeInit('applink', () => { if (window.MasdarBridge) { const dc = $('apkDlCard'); if (dc) dc.hidden = true; const dl = $('dlDrawerLink'); if (dl) dl.hidden = true; } });
   try {
     if (typeof PS_DATA !== 'undefined' && typeof FA_DATA !== 'undefined') {
       PS = PS_DATA; FA = FA_DATA;

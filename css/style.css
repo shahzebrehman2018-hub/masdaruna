@@ -59,6 +59,8 @@ code{background:var(--line); padding:2px 8px; border-radius:6px; font-size:14px}
 #drawer button{display:block; width:100%; text-align:right; background:none; border:none; color:var(--ink);
   padding:12px 10px; font-size:17px; border-radius:10px}
 #drawer button:hover{background:var(--bg)}
+#drawer a.dl-link{display:block; width:100%; text-align:right; color:var(--ink); padding:12px 10px; font-size:17px; border-radius:10px; text-decoration:none}
+#drawer a.dl-link:hover{background:var(--bg)}
 .drawer-foot{margin-top:16px; font-size:12px; color:var(--ink2); border-top:1px solid var(--line); padding-top:10px}
 #scrim,#sheetScrim{position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:110; opacity:0; pointer-events:none; transition:opacity .3s}
 #scrim.show,#sheetScrim.show{opacity:1; pointer-events:auto}
