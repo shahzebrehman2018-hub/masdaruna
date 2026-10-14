@@ -197,7 +197,9 @@ window.GARDANAN_SEED = [
   "kind": "متعدی",
   "sections": [
    {
-    "t": "حال",
+    "title": "حال",
+    "ur_title": "کھاتا ہوں",
+    "en_title": "Present",
     "lines": [
      "زه کوم (میں کرتا/کرتی ہوں، کر رہا ہوں — I do / I am doing)",
      "ته کوې (تم کرتے ہو / تو کرتا ہے — You do)",
@@ -209,7 +211,9 @@ window.GARDANAN_SEED = [
     ]
    },
    {
-    "t": "ماضی مطلق",
+    "title": "ماضی مطلق",
+    "ur_title": "نے کھایا",
+    "en_title": "Simple past",
     "lines": [
      "ما وکړ (میں نے کیا — I did it)",
      "ما وکړه (میں نے کی — I did it (fem.))",
@@ -228,7 +232,9 @@ window.GARDANAN_SEED = [
     ]
    },
    {
-    "t": "ماضی استمراری",
+    "title": "ماضی استمراری",
+    "ur_title": "کھا رہا تھا",
+    "en_title": "Past continuous",
     "lines": [
      "ما کولو (میں کرتا تھا — I used to do it)",
      "ما کوله (میں کرتی تھی — I used to do it (fem.))",
@@ -247,7 +253,9 @@ window.GARDANAN_SEED = [
     ]
    },
    {
-    "t": "حال مکمل / ماضی قریب",
+    "title": "حال مکمل / ماضی قریب",
+    "ur_title": "کھا لیا ہے",
+    "en_title": "Present perfect",
     "lines": [
      "ما کړی دی (میں نے کیا ہے — I have done it)",
      "ما کړې ده (میں نے کی ہے — I have done it (fem.))",
@@ -265,7 +273,9 @@ window.GARDANAN_SEED = [
     ]
    },
    {
-    "t": "ماضی بعيد",
+    "title": "ماضی بعيد",
+    "ur_title": "کھا لیا تھا",
+    "en_title": "Past perfect",
     "lines": [
      "ما کړی و (میں نے کیا تھا — I had done it)",
      "ما کړې وه (میں نے کی تھی — I had done it (fem.))",
@@ -284,7 +294,9 @@ window.GARDANAN_SEED = [
     ]
    },
    {
-    "t": "ماضی احتمالی",
+    "title": "ماضی احتمالی",
+    "ur_title": "کھا لیا ہوگا",
+    "en_title": "Presumptive past",
     "lines": [
      "ما به کړي و (میں نے کیا ہو گا — I must have done it)",
      "ما به کړې وه (میں نے کی ہو گی — I must have done it (fem.))",
@@ -303,7 +315,9 @@ window.GARDANAN_SEED = [
     ]
    },
    {
-    "t": "مستقبل سادہ",
+    "title": "مستقبل سادہ",
+    "ur_title": "کھائے گا",
+    "en_title": "Simple future",
     "lines": [
      "زه به کوم (میں کروں گا/گی — I will do)",
      "ته به کوې (تو کرے گا — You will do)",
@@ -315,7 +329,9 @@ window.GARDANAN_SEED = [
     ]
    },
    {
-    "t": "مضارع",
+    "title": "مضارع",
+    "ur_title": "کھاؤں",
+    "en_title": "Subjunctive",
     "lines": [
      "زه يې وکړم (میں کر لوں — that I do it)",
      "ته يې وکړه (تم کر لو — that you do it)",
@@ -327,14 +343,18 @@ window.GARDANAN_SEED = [
     ]
    },
    {
-    "t": "امر",
+    "title": "امر",
+    "ur_title": "حکم",
+    "en_title": "Imperative",
     "lines": [
      "وکړه (تو کر / تم کرو — Do! (you))",
      "وکړئ (آپ کریں — Do! (you pl.))"
     ]
    },
    {
-    "t": "نہی",
+    "title": "نہی",
+    "ur_title": "منع",
+    "en_title": "Prohibitive",
     "lines": [
      "مه کوه (تو نہ کر / تم مت کرو — Don't do (you))",
      "مه کوئ (آپ مت کریں — Don't do (you pl.))"
