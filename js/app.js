@@ -246,7 +246,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 27;
+const APP_VERSION_CODE = 28;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -309,6 +309,7 @@ function initUpdate() {
           if (g && typeof g.rev === 'number' && g.rev > cur && Array.isArray(g.verbs)) {
             localStorage.setItem('masdar_gardanan_data', JSON.stringify(g));
             localStorage.setItem('masdar_gardanan_rev', String(g.rev));
+            _resetKindCache();
             if (typeof renderGardanan === 'function') renderGardanan();
             msgs.push('<p class="good">✅ نئی گردانیں شامل ہو گئیں</p>');
           }
@@ -352,6 +353,7 @@ function initUpdate() {
           if (fj && typeof fj.rev === 'number' && fj.rev > curF && fj.words && typeof fj.words === 'object') {
             localStorage.setItem('masdar_forms_data', JSON.stringify(fj));
             localStorage.setItem('masdar_forms_rev', String(fj.rev));
+            _resetKindCache();
             msgs.push('<p class="good">✅ الفاظ کی نئی صورتیں شامل ہو گئیں</p>');
           }
         }
@@ -509,6 +511,7 @@ async function autoFetchPacks() {
         if (fj && typeof fj.rev === 'number' && fj.rev > cur && fj.words && typeof fj.words === 'object') {
           localStorage.setItem('masdar_forms_data', JSON.stringify(fj));
           localStorage.setItem('masdar_forms_rev', String(fj.rev));
+          _resetKindCache();
         }
       }
     } catch (e) {}
@@ -520,6 +523,7 @@ async function autoFetchPacks() {
         if (gj && typeof gj.rev === 'number' && gj.rev > cur && Array.isArray(gj.verbs)) {
           localStorage.setItem('masdar_gardanan_data', JSON.stringify(gj));
           localStorage.setItem('masdar_gardanan_rev', String(gj.rev));
+          _resetKindCache();
           if (typeof renderGardanan === 'function') renderGardanan();
         }
       }
@@ -538,6 +542,7 @@ window.MasdarUpdateFile = function (text) {
     const rev = (typeof g.rev === 'number' && g.rev) ? g.rev : Date.now();
     localStorage.setItem('masdar_gardanan_data', JSON.stringify({ rev, verbs: g.verbs }));
     localStorage.setItem('masdar_gardanan_rev', String(rev));
+    _resetKindCache();
     if (typeof renderGardanan === 'function') renderGardanan();
     toast('✅ گردانیں شامل ہو گئیں');
     return;
@@ -571,6 +576,7 @@ window.MasdarUpdateFile = function (text) {
     try { const st = JSON.parse(localStorage.getItem('masdar_forms_data') || 'null'); if (st && st.words) curW = st.words; } catch (e) {}
     localStorage.setItem('masdar_forms_data', JSON.stringify({ rev, words: Object.assign({}, curW, d.forms) }));
     localStorage.setItem('masdar_forms_rev', String(rev));
+    _resetKindCache();
     toast('✅ الفاظ کی صورتیں شامل ہو گئیں');
     return;
   }
@@ -806,6 +812,30 @@ function renderGardananBlock(word) {
   ).join('') + `</div>`;
 }
 function initGardanan() { renderGardanan(); }
+
+/* ---------- فعل کی قسم (متعدی / لازم) ----------
+   A masdar's kind, wherever it has been written: the گردانیں entry's
+   `kind`, or the لفظ کی صورتیں meta «فعل کی قسم». Cached because word
+   cards render in bulk; the cache resets whenever a pack lands. */
+let _kindCache = null;
+function _resetKindCache() { _kindCache = null; }
+window._resetKindCache = _resetKindCache;
+function verbKind(word) {
+  if (!word) return '';
+  if (!_kindCache) {
+    _kindCache = new Map();
+    try { getGardananVerbs().forEach(v => { if (v && v.ps && v.kind) _kindCache.set(norm(v.ps), v.kind); }); } catch (e) {}
+    try {
+      const fm = getFormsMap();
+      for (const k in fm) {
+        const f = fm[k];
+        if (f && Array.isArray(f.meta)) { const m = f.meta.find(x => x[0] === 'فعل کی قسم'); if (m && !_kindCache.has(k)) _kindCache.set(k, m[1]); }
+      }
+    } catch (e) {}
+  }
+  return _kindCache.get(norm(word)) || '';
+}
+window.verbKind = verbKind;
 
 /* ---------- لفظ کی صورتیں و گرامر ----------
    Per-word forms: gender/number/case variants, derived adjectives
@@ -1262,9 +1292,10 @@ function doSearch() {
   bindCards(box);
 }
 function psCard(e) {
+  const kind = verbKind(e[2]);
   return `<div class="result-card" data-type="ps" data-id="${e[0]}"><span class="tag">پشتو</span>
     <div class="w">${esc(e[2])}</div><div class="r">${esc(e[3])}</div>
-    <div class="m">🇬🇧 ${esc(e[4])}<br>🇵🇰 ${esc(e[5])}<br>🇮🇷 ${esc(e[6])}</div></div>`;
+    <div class="m">🇬🇧 ${esc(e[4])}<br>🇵🇰 ${esc(e[5])}<br>🇮🇷 ${esc(e[6])}${kind ? '<br>🔤 فعل کی قسم: ' + esc(kind) : ''}</div></div>`;
 }
 function faCard(e) {
   return `<div class="result-card" data-type="fa" data-id="${e[0]}"><span class="tag">فارسی</span>
@@ -1540,6 +1571,7 @@ function showDetail(type, id) {
         <div class="kv"><b>🇬🇧 English</b><span>${esc(e[4])}</span></div>
         <div class="kv"><b>🇵🇰 اردو</b><span>${esc(e[5])}</span></div>
         <div class="kv"><b>🇮🇷 فارسی</b><span>${esc(e[6])}</span></div>
+        ${verbKind(e[2]) ? `<div class="kv"><b>فعل کی قسم</b><span>${esc(verbKind(e[2]))}</span></div>` : ''}
         <div class="kv"><b>حرف</b><span>${esc(e[1])} — نمبر ${e[0]}</span></div>
       </div>`;
     const pc = getMergedConj('ps', e);
