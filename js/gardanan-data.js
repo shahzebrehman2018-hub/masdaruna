@@ -329,6 +329,20 @@ window.GARDANAN_SEED = [
     ]
    },
    {
+    "title": "ارادی مستقبل",
+    "ur_title": "کر لوں گا",
+    "en_title": "Resolutive future",
+    "lines": [
+     "زه به يې وکړم (میں کر لوں گا/ گی — I will do it)",
+     "ته به يې وکړې (تم کر لو گے — You will do it)",
+     "هغه به يې وکړي (وہ کر لے گا — He will do it)",
+     "موږ به يې وکړو (ہم کر لیں گے — We will do it)",
+     "تاسو به يې وکړئ (آپ کر لیں گے — You will do it)",
+     "هغوی به يې وکړي (وہ کر لیں گے — They will do it)",
+     "دوی به يې وکړي (وہ کر لیں گے — They will do it)"
+    ]
+   },
+   {
     "title": "مضارع",
     "ur_title": "کروں",
     "en_title": "Subjunctive",
