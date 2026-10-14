@@ -86,6 +86,34 @@ function initJsonMaker() {
 }
 window.initJsonMaker = initJsonMaker;
 
+/* ---------- 📊 تعداد و شمار (counts by language) ---------- */
+function renderStats() {
+  const box = $('statsBody'); if (!box) return;
+  const comm = (typeof COMMUNITY_DATA !== 'undefined' && Array.isArray(COMMUNITY_DATA)) ? COMMUNITY_DATA : [];
+  const commBy = l => comm.filter(w => w.lang === l).length;
+  const sents = getSentences();
+  const row = (label, n) => `<div class="kv"><b>${label}</b><span><strong>${Number(n).toLocaleString('ur')}</strong></span></div>`;
+  box.innerHTML =
+    `<div class="card"><h4 style="margin:0 0 6px">📚 الفاظ — زبان کے حساب سے</h4>`
+    + row('پشتو مصادر', PS.length)
+    + row('فارسی مصادر', FA.length)
+    + row('پشتو لغت کے الفاظ', LD.length)
+    + row('شامل کردہ الفاظ — پشتو', commBy('ps'))
+    + row('شامل کردہ الفاظ — فارسی', commBy('fa'))
+    + row('شامل کردہ الفاظ — اردو', commBy('ur'))
+    + row('میرے الفاظ (اس فون میں)', myWords.length)
+    + `</div><div class="card" style="margin-top:10px"><h4 style="margin:0 0 6px">📜 جملے — ترجمے کے حساب سے</h4>`
+    + row('کل جملے', sents.length)
+    + row('اردو ترجمے والے', sents.filter(s => s.ur).length)
+    + row('فارسی ترجمے والے', sents.filter(s => s.fa).length)
+    + row('انگریزی ترجمے والے', sents.filter(s => s.en).length)
+    + `</div><div class="card" style="margin-top:10px"><h4 style="margin:0 0 6px">📖 گرامر</h4>`
+    + row('گردانیں والے افعال', getGardananVerbs().length)
+    + row('صورتیں والے الفاظ', Object.keys(getFormsMap()).length)
+    + `</div>`;
+}
+window.renderStats = renderStats;
+
 /* ---------- 🌐 گوگل ترجمہ ----------
    Google Translate forbids framing (X-Frame-Options: SAMEORIGIN), so the
    app opens it in the browser with the text and languages pre-filled. */
@@ -246,7 +274,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 28;
+const APP_VERSION_CODE = 29;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -943,6 +971,7 @@ function initNav() {
     } else {
       window.scrollTo(0, 0);
     }
+    if (name === 'stats' && typeof renderStats === 'function') renderStats();
   };
   window._goNav = go;
   document.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => go(b.dataset.nav));
