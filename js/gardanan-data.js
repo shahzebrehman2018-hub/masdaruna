@@ -532,5 +532,192 @@ window.GARDANAN_SEED = [
     ]
    }
   ]
+ },
+ {
+  "ps": "ليکل",
+  "ur": "لکھنا",
+  "en": "to write",
+  "kind": "متعدی",
+  "sections": [
+   {
+    "title": "حال",
+    "ur_title": "لکھتا ہوں",
+    "en_title": "Present",
+    "lines": [
+     "زه ليکم (میں لکھتا ہُوں — I write)",
+     "ته ليکې (تم لکھتے ہو — You write)",
+     "هغه ليکي (وہ لکھتا ہے — He writes)",
+     "موږ ليکو (ہم لکھتے ہیں — We write)",
+     "تاسو ليکئ (آپ لکھتے ہیں — You write)",
+     "هغوی ليکي (وہ لکھتے ہیں — They write)",
+     "دوی ليکي (وہ لکھتے ہیں — They write)"
+    ]
+   },
+   {
+    "title": "ماضی مطلق",
+    "ur_title": "نے لکھا",
+    "en_title": "Simple past",
+    "lines": [
+     "ما وليک (میں نے لکھا — I wrote it (masc.))",
+     "ما وليکله (میں نے لکھ لی — I wrote it (fem.))",
+     "تا وليک (تم نے لکھا — You wrote it (masc.))",
+     "تا وليکله (تم نے لکھ لی — You wrote it (fem.))",
+     "هغه وليک (اُس نے لکھا — He wrote it (masc.))",
+     "هغې وليکله (اُس نے لکھ لی — She wrote it (fem.))",
+     "موږ وليکل (ہم نے لکھے — We wrote them (masc.))",
+     "موږ وليکلې (ہم نے لکھ لیں — We wrote them (fem.))",
+     "تاسو وليکل (آپ نے لکھے — You wrote them (masc.))",
+     "تاسو وليکلې (آپ نے لکھ لیں — You wrote them (fem.))",
+     "هغوی وليکل (اُنہوں نے لکھے — They wrote them (masc.))",
+     "هغوی وليکلې (اُنہوں نے لکھ لیں — They wrote them (fem.))",
+     "دوی وليکل (انہوں نے لکھے — They wrote them (masc.))",
+     "دوی وليکلې (انہوں نے لکھ لیں — They wrote them (fem.))"
+    ]
+   },
+   {
+    "title": "ماضی استمراری",
+    "ur_title": "لکھ رہا تھا",
+    "en_title": "Past continuous",
+    "lines": [
+     "ما ليکلو (میں لکھتا تھا — I used to write (masc.))",
+     "ما ليکله (میں لکھتی تھی — I used to write (fem.))",
+     "تا ليکلو (تو لکھتا تھا — You used to write (masc.))",
+     "تا ليکله (تو لکھتی تھی — You used to write (fem.))",
+     "هغه ليکلو (وہ لکھتا تھا — He used to write)",
+     "هغې ليکله (وہ لکھتی تھی — She used to write)",
+     "موږ ليکل (ہم لکھتے تھے — We used to write (masc.))",
+     "موږ ليکلې (ہم لکھتی تھیں — We used to write (fem.))",
+     "تاسو ليکل (آپ لکھتے تھے — You used to write (masc.))",
+     "تاسو ليکلې (آپ لکھتی تھیں — You used to write (fem.))",
+     "هغوی ليکل (وہ لکھتے تھے — They used to write (masc.))",
+     "هغوی ليکلې (وہ لکھتی تھیں — They used to write (fem.))",
+     "دوی ليکل (وہ لکھتے تھے — They used to write (masc.))",
+     "دوی ليکلې (وہ لکھتی تھیں — They used to write (fem.))"
+    ]
+   },
+   {
+    "title": "حال مکمل / ماضی قریب",
+    "ur_title": "لکھا ہے",
+    "en_title": "Present perfect",
+    "lines": [
+     "ما ليکلی دی (میں نے لکھا ہے — I have written it (masc.))",
+     "ما ليکلې ده (میں نے لکھی ہے — I have written it (fem.))",
+     "تا ليکلی دی (تم نے لکھا ہے — You have written it (masc.))",
+     "تا ليکلې ده (تم نے لکھی ہے — You have written it (fem.))",
+     "هغه ليکلی دی (اُس نے لکھا ہے — He has written it (masc.))",
+     "هغې ليکلې ده (اُس نے لکھی ہے — She has written it (fem.))",
+     "موږ ليکلي دي (ہم نے لکھے ہیں — We have written them (masc.))",
+     "موږ ليکلې دي (ہم نے لکھی ہیں — We have written them (fem.))",
+     "تاسو ليکلي دي (آپ نے لکھے ہیں — You have written them (masc.))",
+     "تاسو ليکلې دي (آپ نے لکھی ہیں — You have written them (fem.))",
+     "هغوی ليکلي دي (اُنہوں نے لکھے ہیں — They have written them (masc.))",
+     "هغوی ليکلې دي (اُنہوں نے لکھی ہیں — They have written them (fem.))",
+     "دوی ليکلي دي (انہوں نے لکھے ہیں — They have written them (masc.))",
+     "دوی ليکلې دي (انہوں نے لکھی ہیں — They have written them (fem.))"
+    ]
+   },
+   {
+    "title": "ماضی بعيد",
+    "ur_title": "لکھا تھا",
+    "en_title": "Past perfect",
+    "lines": [
+     "ما ليکلی و (میں نے لکھا تھا — I had written it (masc.))",
+     "ما ليکلې وه (میں نے لکھی تھی — I had written it (fem.))",
+     "تا ليکلی و (تم نے لکھا تھا — You had written it (masc.))",
+     "تا ليکلې وه (تم نے لکھی تھی — You had written it (fem.))",
+     "هغه ليکلی و (اُس نے لکھا تھا — He had written it (masc.))",
+     "هغې ليکلې وه (اُس نے لکھی تھی — She had written it (fem.))",
+     "موږ ليکلي وو (ہم نے لکھے تھے — We had written them (masc.))",
+     "موږ ليکلې وې (ہم نے لکھی تھیں — We had written them (fem.))",
+     "تاسو ليکلي وو (آپ نے لکھے تھے — You had written them (masc.))",
+     "تاسو ليکلې وې (آپ نے لکھی تھیں — You had written them (fem.))",
+     "هغوی ليکلي وو (اُنہوں نے لکھے تھے — They had written them (masc.))",
+     "هغوی ليکلې وې (اُنہوں نے لکھی تھیں — They had written them (fem.))",
+     "دوی ليکلي وو (انہوں نے لکھے تھے — They had written them (masc.))",
+     "دوی ليکلې وې (انہوں نے لکھی تھیں — They had written them (fem.))"
+    ]
+   },
+   {
+    "title": "ماضی احتمالی",
+    "ur_title": "لکھا ہوگا",
+    "en_title": "Presumptive past",
+    "lines": [
+     "ما به ليکلی و (میں نے لکھا ہوگا — I must have written it (masc.))",
+     "ما به ليکلې وه (میں نے لکھی ہوگی — I must have written it (fem.))",
+     "تا به ليکلی و (تم نے لکھا ہوگا — You must have written it (masc.))",
+     "تا به ليکلې وه (تم نے لکھی ہوگی — You must have written it (fem.))",
+     "هغه به ليکلی و (اُس نے لکھا ہوگا — He must have written it (masc.))",
+     "هغې به ليکلې وه (اُس نے لکھی ہو گی — She must have written it (fem.))",
+     "موږ به ليکلي وو (ہم نے لکھے ہوں گے — We must have written them (masc.))",
+     "موږ به ليکلې وې (ہم نے لکھی ہوں گی — We must have written them (fem.))",
+     "تاسو به ليکلي وو (آپ نے لکھے ہوں گے — You must have written them (masc.))",
+     "تاسو به ليکلې وې (آپ نے لکھی ہوں گی — You must have written them (fem.))",
+     "هغوی به ليکلي وو (اُنہوں نے لکھے ہوں گے — They must have written them (masc.))",
+     "هغوی به ليکلې وې (اُنہوں نے لکھی ہوں گی — They must have written them (fem.))",
+     "دوی به ليکلي وو (انہوں نے لکھے ہوں گے — They must have written them (masc.))",
+     "دوی به ليکلې وې (انہوں نے لکھی ہوں گی — They must have written them (fem.))"
+    ]
+   },
+   {
+    "title": "مستقبل سادہ",
+    "ur_title": "لکھے گا",
+    "en_title": "Simple future",
+    "lines": [
+     "زه به ليکم (میں لکھوں گا — I will write)",
+     "ته به ليکې (تم لکھو گے — You will write)",
+     "هغه به ليکي (وہ لکھے گا — He will write)",
+     "موږ به ليکو (ہم لکھیں گے — We will write)",
+     "تاسو به ليکئ (آپ لکھیں گے — You will write)",
+     "هغوی به ليکي (وہ لکھیں گے — They will write)",
+     "دوی به ليکي (وہ لکھیں گے — They will write)"
+    ]
+   },
+   {
+    "title": "ارادی مستقبل",
+    "ur_title": "لکھ لوں گا",
+    "en_title": "Resolutive future",
+    "lines": [
+     "زه به وليکم (میں لکھ لوں گا — I will write it)",
+     "ته به وليکې (تم لکھ لو گے — You will write it)",
+     "هغه به وليکي (وہ لکھ لے گا — He will write it)",
+     "موږ به وليکو (ہم لکھ لیں گے — We will write it)",
+     "تاسو به وليکئ (آپ لکھ لیں گے — You will write it)",
+     "هغوی به وليکي (وہ لکھ لیں گے — They will write it)",
+     "دوی به وليکي (وہ لکھ لیں گے — They will write it)"
+    ]
+   },
+   {
+    "title": "مضارع",
+    "ur_title": "لکھوں",
+    "en_title": "Subjunctive",
+    "lines": [
+     "زه يې وليکم (میں لکھوں — that I write it)",
+     "ته يې وليکه (تم لکھو — that you write it)",
+     "هغه يې وليکي (وہ لکھے — that he write it)",
+     "موږ يې وليکو (ہم لکھیں — that we write it)",
+     "تاسو يې وليکئ (آپ لکھیں — that you write it)",
+     "هغوی يې وليکي (وہ لکھیں — that they write it)",
+     "دوی يې وليکي (وہ لکھیں — that they write it)"
+    ]
+   },
+   {
+    "title": "امر",
+    "ur_title": "حکم",
+    "en_title": "Imperative",
+    "lines": [
+     "ته وليکه (تو لکھ/ تم لکھو — Write! (you))",
+     "تاسو وليکئ (آپ لکھیں/ لکھیے — Write! (you pl.))"
+    ]
+   },
+   {
+    "title": "نہی",
+    "ur_title": "منع",
+    "en_title": "Prohibitive",
+    "lines": [
+     "ته مه ليکه (تو مت لکھ/ تم مت لکھو — Don't write (you))",
+     "تاسو مه ليکئ (آپ مت لکھیں/ لکھیے — Don't write (you pl.))"
+    ]
+   }
+  ]
  }
 ];
