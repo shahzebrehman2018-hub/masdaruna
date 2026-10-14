@@ -49,6 +49,8 @@
     <button data-nav="gardanan">📖 گردانیں</button>
     <button data-nav="sentences">📜 جملے</button>
     <button data-nav="online">🌐 آنلائن تلاش</button>
+    <button data-nav="gtranslate">🌐 گوگل ترجمہ</button>
+    <button data-nav="jsonmaker">🧩 JSON بنائیں</button>
     <button data-nav="about">ℹ️ ایپ کے بارے میں</button>
     <div class="drawer-foot">د پښتو مصدرونه<br>آف لائن ڈکشنری</div>
   </nav>
@@ -247,7 +249,39 @@
         <input type="search" id="sentSearchInput" placeholder="مثلاً: کتاب، school، امن…" autocomplete="off">
         <button id="sentSearchBtn">🔍</button>
       </div>
+      <button id="sentAddBtn" class="btn-primary" style="margin:0 0 6px">＋ نیا جملہ شامل کریں</button>
+      <p class="hint">کسی جملے میں غلطی ہو تو اس کے نیچے «✏️ تصحیح» سے درست کریں — تصحیح اور نئے جملے آپ کے فون میں محفوظ رہیں گے اور ایکسپورٹ میں شامل ہوں گے۔</p>
       <div id="sentResults" class="results"></div>
+    </section>
+    <section id="page-gtranslate" class="page">
+      <h2 class="page-title">گوگل ترجمہ 🌐</h2>
+      <p class="hint">متن لکھیں، زبانیں چنیں — گوگل ٹرانسلیٹر براؤزر میں ترجمے کے ساتھ کھل جائے گا۔ (گوگل اپنا صفحہ ایپ کے اندر دکھانے کی اجازت نہیں دیتا، اس لیے ترجمہ براؤزر میں کھلتا ہے۔)</p>
+      <div class="card">
+        <label>متن<textarea id="gtText" rows="3" placeholder="یہاں متن لکھیں…"></textarea></label>
+        <div style="display:flex;gap:8px;align-items:flex-end">
+          <label style="flex:1">اس زبان سے<select id="gtFrom"><option value="ps">پشتو</option><option value="ur">اردو</option><option value="en">English</option><option value="fa">فارسی</option><option value="ar">عربی</option></select></label>
+          <button id="gtSwapBtn" class="btn-ghost" style="margin:0">⇄</button>
+          <label style="flex:1">اس زبان میں<select id="gtTo"><option value="ur">اردو</option><option value="en">English</option><option value="fa">فارسی</option><option value="ps">پشتو</option><option value="ar">عربی</option></select></label>
+        </div>
+        <button id="gtOpenBtn" class="btn-primary" style="width:100%;margin-top:10px">🌐 گوگل ٹرانسلیٹر میں ترجمہ کریں</button>
+        <button id="gtCopyBtn" class="btn-ghost" style="width:100%;margin-top:8px">📋 متن کاپی کریں</button>
+      </div>
+    </section>
+    <section id="page-jsonmaker" class="page">
+      <h2 class="page-title">JSON بنائیں 🧩</h2>
+      <p class="hint">سطریں لکھیں — JSON فائل تیار ہو جائے گی۔ پھر فائل محفوظ کریں، کاپی کریں، یا اسی ایپ میں لگا دیں۔ یہی فائل مجھے بھیجنے سے آپ کا مواد سب تک پہنچے گا۔</p>
+      <div class="card">
+        <label>قسم<select id="jmType"><option value="sentences">جملے</option><option value="masdars">مصادر</option></select></label>
+        <p class="hint" id="jmHint">ہر سطر: پشتو جملہ @ اردو ترجمہ @ English @ فارسی (آخری دو اختیاری ہیں)</p>
+        <label>سطریں<textarea id="jmInput" rows="7" placeholder="زه کتاب لولم۔ @ میں کتاب پڑھتا ہوں۔ @ I read a book. @ من کتاب می‌خوانم."></textarea></label>
+        <button id="jmBuildBtn" class="btn-primary" style="width:100%;margin-top:8px">🧩 JSON بنائیں</button>
+        <label style="margin-top:10px">JSON<textarea id="jmOutput" rows="7" dir="ltr" readonly placeholder="JSON یہاں آئے گا"></textarea></label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+          <button id="jmCopyBtn" class="btn-ghost" style="flex:1;margin:0">📋 کاپی کریں</button>
+          <button id="jmSaveBtn" class="btn-ghost" style="flex:1;margin:0">📥 فائل بنائیں</button>
+          <button id="jmApplyBtn" class="btn-primary" style="flex:1;margin:0">✅ ایپ میں لگائیں</button>
+        </div>
+      </div>
     </section>
 
     <!-- ABOUT -->
@@ -256,7 +290,7 @@
       <div class="card about-card">
         <div class="about-logo">م</div>
         <h3>د پښتو مصدرونه</h3>
-        <p class="version">ورژن 2.24 — آف لائن</p>
+        <p class="version">ورژن 2.25 — آف لائن</p>
         <div class="card" style="margin:10px 0"><h4>🔄 ایپ اپ ڈیٹ</h4><p class="hint" id="siteLine" style="display:none">🌐 ویب سائٹ: <a id="siteLink" href="#" target="_blank" rel="noopener" dir="ltr"></a></p><p class="hint">نیا ورژن اور نئی گردانیں چیک کریں:</p><button id="updCheck" class="btn-primary">🌐 آنلائن اپڈیٹ چیک کریں</button><button id="updFileBtn" class="btn-ghost" style="margin:6px 0 0">📁 فائل سے اپڈیٹ</button><input type="file" id="updFile" accept=".json,.apk,application/json" hidden><p class="hint" style="margin-top:10px">فائل سے اپڈیٹ میں موصول شدہ گردانوں کی فائل (JSON) یا نئی ایپ کی فائل (APK) منتخب کریں۔</p><p class="hint" style="margin-top:10px">یا اپڈیٹ فائل کا پورا مواد نیچے پیسٹ کریں:</p><textarea id="updPaste" dir="ltr" rows="4" placeholder="اپڈیٹ فائل کا پورا مواد (JSON) یہاں پیسٹ کریں"></textarea><button id="updPasteBtn" class="btn-ghost" style="margin:6px 0 0">📋 پیسٹ سے اپڈیٹ کریں</button><button id="updClipBtn" class="btn-ghost" style="margin:6px 0 0">📥 کلپ بورڈ سے لائیں</button><label>ویب سائٹ کا پتہ (اگر خود لکھنا ہو)<input id="updServer" placeholder="https://example.com" dir="ltr"></label><div id="updResult"></div></div>
         <div class="about-body">
           <h4>🌟 تعارف</h4>

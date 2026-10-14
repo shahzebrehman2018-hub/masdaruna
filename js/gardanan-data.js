@@ -4,6 +4,7 @@ window.GARDANAN_SEED = [
     "ps": "خوړل",
     "ur": "کھانا",
     "en": "to eat",
+    "kind": "متعدی",
     "sections": [
       {
         "title": "حال",

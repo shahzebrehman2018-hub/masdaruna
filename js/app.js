@@ -18,6 +18,7 @@ function buildMyExportText() {
     date: new Date().toISOString().slice(0, 10),
     words: myWords, conj: getCustomConj(), notes: grammarNotes,
     entryfix: getEntryFix(), grammarfix: getGrammarFix(),
+    mysent: getMySentences(), sentfix: getSentFixes(),
     dictedits: dictEdits, dicttexts: dictTexts, dictalpha: localStorage.getItem('masdar_dict_alpha') || ''
   };
   return JSON.stringify(data, null, 2);
@@ -42,6 +43,78 @@ function exportOnline() {
   else openSite();
 }
 window.exportOnline = exportOnline;
+
+/* ---------- 🧩 JSON بنائیں (update-file maker) ---------- */
+function jmBuild() {
+  const type = $('jmType').value;
+  const lines = $('jmInput').value.split('\n').map(x => x.trim()).filter(Boolean);
+  let obj = null;
+  if (type === 'sentences') {
+    const arr = lines.map(l => { const p = l.split('@').map(x => x.trim()); return { ps: p[0] || '', ur: p[1] || '', en: p[2] || '', fa: p[3] || '' }; }).filter(s => s.ps);
+    obj = { sentences: arr }; window._jmName = 'sentences.json';
+  } else {
+    const arr = lines.map(l => { const p = l.split('@').map(x => x.trim()); return { w: p[0] || '', r: p[1] || '', en: p[2] || '', ur: p[3] || '', fa: p[4] || '' }; }).filter(s => s.w);
+    obj = { masdars: arr }; window._jmName = 'masdars.json';
+  }
+  $('jmOutput').value = JSON.stringify(obj, null, 1);
+  toast('🧩 JSON تیار ہو گیا');
+}
+function jmCopy() {
+  const t = $('jmOutput').value; if (!t) { toast('پہلے JSON بنائیں'); return; }
+  if (window.MasdarBridge && MasdarBridge.copyText) MasdarBridge.copyText(t);
+  else if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).catch(() => {});
+  toast('📋 کاپی ہو گیا');
+}
+function jmSave() {
+  const t = $('jmOutput').value; if (!t) { toast('پہلے JSON بنائیں'); return; }
+  const name = window._jmName || 'update.json';
+  if (window.MasdarBridge && MasdarBridge.saveFile) { MasdarBridge.saveFile(name, t); return; }
+  const blob = new Blob([t], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+function initJsonMaker() {
+  if (!$('jmBuildBtn')) return;
+  $('jmBuildBtn').onclick = jmBuild;
+  $('jmCopyBtn').onclick = jmCopy;
+  $('jmSaveBtn').onclick = jmSave;
+  $('jmApplyBtn').onclick = () => { const t = $('jmOutput').value.trim(); if (!t) { toast('پہلے JSON بنائیں'); return; } if (window.MasdarUpdateFile) window.MasdarUpdateFile(t); };
+  const sel = $('jmType');
+  if (sel) sel.onchange = () => { $('jmHint').textContent = sel.value === 'sentences' ? 'ہر سطر: پشتو جملہ @ اردو ترجمہ @ English @ فارسی (آخری دو اختیاری ہیں)' : 'ہر سطر: مصدر @ رومن @ English @ اردو @ فارسی (مصدر ضروری، باقی اختیاری)'; };
+}
+window.initJsonMaker = initJsonMaker;
+
+/* ---------- 🌐 گوگل ترجمہ ----------
+   Google Translate forbids framing (X-Frame-Options: SAMEORIGIN), so the
+   app opens it in the browser with the text and languages pre-filled. */
+function gtOpenUrl() {
+  const f = ($('gtFrom') || {}).value || 'ps';
+  const t = ($('gtTo') || {}).value || 'ur';
+  const x = (($('gtText') || {}).value || '').trim();
+  return 'https://translate.google.com/?sl=' + f + '&tl=' + t + (x ? '&text=' + encodeURIComponent(x) : '') + '&op=translate';
+}
+function gtOpen() {
+  const a = document.createElement('a');
+  a.href = gtOpenUrl(); a.target = '_blank'; a.rel = 'noopener';
+  document.body.appendChild(a); a.click(); a.remove();
+}
+function initGTranslate() {
+  const b = $('gtOpenBtn'); if (!b) return;
+  b.onclick = gtOpen;
+  const sw = $('gtSwapBtn');
+  if (sw) sw.onclick = () => { const f = $('gtFrom'), t = $('gtTo'); const v = f.value; f.value = t.value; t.value = v; };
+  const cb = $('gtCopyBtn');
+  if (cb) cb.onclick = () => {
+    const x = ($('gtText') || {}).value || '';
+    if (window.MasdarBridge && MasdarBridge.copyText) MasdarBridge.copyText(x);
+    else if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(x).catch(() => {});
+    toast('📋 متن کاپی ہو گیا');
+  };
+}
+window.initGTranslate = initGTranslate;
+window.gtOpenUrl = gtOpenUrl;
 function exportMyData() {
   const text = buildMyExportText();
   if (window.MasdarBridge && MasdarBridge.saveFile) { MasdarBridge.saveFile('masdar-my-data.json', text); return; }
@@ -78,6 +151,17 @@ function mergeMyDataObject(d) {
     Object.keys(d.grammarfix).forEach(k => { cur[k] = d.grammarfix[k]; n++; });
     saveGrammarFix(cur);
   }
+  if (Array.isArray(d.mysent)) {
+    const cur = getMySentences(); const have = new Set(cur.map(s => norm(s.ps)));
+    d.mysent.forEach(s => { if (s && s.ps && !have.has(norm(s.ps))) { cur.push(s); have.add(norm(s.ps)); n++; } });
+    saveMySentences(cur);
+  }
+  if (d.sentfix && typeof d.sentfix === 'object') {
+    const cur = getSentFixes();
+    Object.keys(d.sentfix).forEach(k => { cur[k] = d.sentfix[k]; n++; });
+    saveSentFixes(cur);
+  }
+  if (typeof renderSentences === 'function' && $('sentResults')) renderSentences(($('sentSearchInput') || {}).value || '');
   if (d.dictedits && typeof d.dictedits === 'object') { dictEdits = d.dictedits; saveDictEdits(); n++; }
   if (d.dicttexts && typeof d.dicttexts === 'object') { dictTexts = d.dicttexts; localStorage.setItem('masdar_dict_texts', JSON.stringify(dictTexts)); applyDictTexts(); n++; }
   if (typeof d.dictalpha === 'string' && d.dictalpha) { localStorage.setItem('masdar_dict_alpha', d.dictalpha); buildDictLetters(); }
@@ -129,6 +213,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   safeInit('mywords', initMyWords); safeInit('practice', initPractice); safeInit('grammar', initGrammar);
   safeInit('share', initShare); safeInit('intro', initIntro); safeInit('gardanan', initGardanan);
   safeInit('sentences', initSentences);
+  safeInit('jsonmaker', initJsonMaker); safeInit('gtranslate', initGTranslate);
   safeInit('qamosona', initQamosonaHome);
   try {
     if (typeof PS_DATA !== 'undefined' && typeof FA_DATA !== 'undefined') {
@@ -161,7 +246,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 26;
+const APP_VERSION_CODE = 27;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -427,6 +512,18 @@ async function autoFetchPacks() {
         }
       }
     } catch (e) {}
+    try {
+      const r = await fetchTimeout(base + '/gardanan.json?_=' + Date.now(), 8000);
+      if (r.ok) {
+        const gj = await r.json();
+        const cur = Number(localStorage.getItem('masdar_gardanan_rev') || 0);
+        if (gj && typeof gj.rev === 'number' && gj.rev > cur && Array.isArray(gj.verbs)) {
+          localStorage.setItem('masdar_gardanan_data', JSON.stringify(gj));
+          localStorage.setItem('masdar_gardanan_rev', String(gj.rev));
+          if (typeof renderGardanan === 'function') renderGardanan();
+        }
+      }
+    } catch (e) {}
   } catch (e) {}
 }
 /* Called by the Android bridge (and the web file fallback) with the text of a
@@ -456,7 +553,13 @@ window.MasdarUpdateFile = function (text) {
   }
   if (Array.isArray(d.sentences)) {
     const rev = (typeof d.rev === 'number' && d.rev) ? d.rev : Date.now();
-    localStorage.setItem('masdar_sentences_data', JSON.stringify({ rev, sentences: d.sentences }));
+    /* merge with whatever pack is already stored — a small file must not
+       wipe the sentences that arrived online */
+    let curList = [];
+    try { const st = JSON.parse(localStorage.getItem('masdar_sentences_data') || 'null'); if (st && Array.isArray(st.sentences)) curList = st.sentences; } catch (e) {}
+    const smap = new Map(); curList.forEach(s => { if (s && s.ps) smap.set(norm(s.ps), s); });
+    d.sentences.forEach(s => { if (s && s.ps) smap.set(norm(s.ps), s); });
+    localStorage.setItem('masdar_sentences_data', JSON.stringify({ rev, sentences: Array.from(smap.values()) }));
     localStorage.setItem('masdar_sentences_rev', String(rev));
     if (typeof renderSentences === 'function') renderSentences('');
     toast('✅ جملے شامل ہو گئے');
@@ -464,14 +567,19 @@ window.MasdarUpdateFile = function (text) {
   }
   if (d.forms && typeof d.forms === 'object') {
     const rev = (typeof d.rev === 'number' && d.rev) ? d.rev : Date.now();
-    localStorage.setItem('masdar_forms_data', JSON.stringify({ rev, words: d.forms }));
+    let curW = {};
+    try { const st = JSON.parse(localStorage.getItem('masdar_forms_data') || 'null'); if (st && st.words) curW = st.words; } catch (e) {}
+    localStorage.setItem('masdar_forms_data', JSON.stringify({ rev, words: Object.assign({}, curW, d.forms) }));
     localStorage.setItem('masdar_forms_rev', String(rev));
     toast('✅ الفاظ کی صورتیں شامل ہو گئیں');
     return;
   }
   if (Array.isArray(d.masdars) || Array.isArray(d.entries)) {
-    const entries = Array.isArray(d.masdars) ? d.masdars : d.entries;
+    let entries = Array.isArray(d.masdars) ? d.masdars : d.entries;
     const rev = (typeof d.rev === 'number' && d.rev) ? d.rev : Date.now();
+    let curE = [];
+    try { const st = JSON.parse(localStorage.getItem('masdar_masdars_data') || 'null'); if (st && Array.isArray(st.entries)) curE = st.entries; } catch (e) {}
+    if (curE.length) { const emap = new Map(); curE.forEach(en => { if (en && en.w) emap.set(norm(en.w), en); }); entries.forEach(en => { if (en && en.w) emap.set(norm(en.w), en); }); entries = Array.from(emap.values()); }
     localStorage.setItem('masdar_masdars_data', JSON.stringify({ rev, entries }));
     localStorage.setItem('masdar_masdars_rev', String(rev));
     mergeMasdarPack();
@@ -504,6 +612,10 @@ function mergeMasdarPack() {
 /* ---------- جملے page ----------
    Built-in seed (js/sentences-data.js) + online pack (sentences.json,
    localStorage masdar_sentences_data) merged by Pashto sentence. */
+function getSentFixes() { try { const o = JSON.parse(localStorage.getItem('masdar_sent_fix') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
+function saveSentFixes(o) { localStorage.setItem('masdar_sent_fix', JSON.stringify(o)); }
+function getMySentences() { try { const a = JSON.parse(localStorage.getItem('masdar_my_sentences') || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+function saveMySentences(a) { localStorage.setItem('masdar_my_sentences', JSON.stringify(a)); }
 function getSentences() {
   const map = new Map();
   const add = s => { if (s && s.ps) map.set(norm(s.ps), s); };
@@ -513,7 +625,22 @@ function getSentences() {
     const list = stored && Array.isArray(stored.sentences) ? stored.sentences : (Array.isArray(stored) ? stored : []);
     list.forEach(add);
   } catch (e) {}
-  return Array.from(map.values());
+  /* the user's own corrections replace the stored sentence (keyed by the
+     original sentence's normalised Pashto); when only the translations
+     changed, set() in place so the sentence keeps its position */
+  const fixes = getSentFixes();
+  for (const k in fixes) {
+    const fx = fixes[k];
+    if (fx && fx.ps && map.has(k)) {
+      if (norm(fx.ps) === k) map.set(k, fx);
+      else { map.delete(k); map.set(norm(fx.ps), fx); }
+    }
+  }
+  /* the user's own added sentences lead the list (and win on duplicates) */
+  const mineList = getMySentences().filter(s => s && s.ps);
+  const mineKeys = new Set(mineList.map(s => norm(s.ps)));
+  const rest = Array.from(map.values()).filter(s => !mineKeys.has(norm(s.ps)));
+  return mineList.concat(rest);
 }
 function renderSentences(q) {
   const box = $('sentResults');
@@ -525,16 +652,46 @@ function renderSentences(q) {
     : all;
   if (!list.length) { box.innerHTML = '<div class="empty">کوئی جملہ نہیں ملا — کوئی اور لفظ لکھ کر دیکھیں۔</div>'; return; }
   const show = list.slice(0, 300);
+  window._sentRendered = show;
+  const mineSet = new Set(getMySentences().map(s => norm(s.ps)));
   box.innerHTML = (query
     ? `<p class="hint">«${esc(q)}» — ${list.length.toLocaleString('ur')} جملے ملے</p>`
     : `<p class="hint">سب جملے — اوپر کسی لفظ سے تلاش کریں</p>`)
-    + show.map(s => `<div class="result-card"><div class="w" style="font-size:19px;line-height:1.9">${esc(s.ps)}</div>`
+    + show.map((s, i) => { const mine = mineSet.has(norm(s.ps)); return `<div class="result-card"><div class="w" style="font-size:19px;line-height:1.9">${esc(s.ps)}</div>`
       + (s.ur ? `<div class="m">🇵🇰 ${esc(s.ur)}</div>` : '')
       + (s.fa ? `<div class="m">🇮🇷 ${esc(s.fa)}</div>` : '')
       + (s.en ? `<div class="m">🇬🇧 <span dir="ltr">${esc(s.en)}</span></div>` : '')
-      + `</div>`).join('')
+      + `<div style="margin-top:6px;display:flex;gap:6px;align-items:center"><button class="btn-ghost" data-sentedit="${i}">✏️ تصحیح</button>${mine ? '<span class="tag">میرا جملہ</span><button class="btn-ghost" data-sentdel="' + i + '">🗑️ حذف</button>' : ''}</div></div>`; }).join('')
     + (list.length > show.length ? `<p class="hint">… اور ${(list.length - show.length).toLocaleString('ur')} جملے — تلاش سے مخصوص لفظ لکھیں</p>` : '');
 }
+/* Sentence editor: correction of any stored sentence (saved as a fix keyed
+   by the original) or editing/deleting one of the user's own sentences;
+   new sentences go to the user's own store. Both ride along in exports. */
+let sentEditCtx = null;
+function openSentEditor(rec, isNew) {
+  sentEditCtx = { origKey: rec ? norm(rec.ps) : '', isNew: !!isNew };
+  openSheet(`<h3 style="text-align:center">${isNew ? '＋ نیا جملہ' : '✏️ جملے کی تصحیح'}</h3>
+    <label>پشتو جملہ<textarea id="sePs" rows="2">${esc(rec ? rec.ps : '')}</textarea></label>
+    <label>اردو ترجمہ<textarea id="seUr" rows="2">${esc(rec ? rec.ur || '' : '')}</textarea></label>
+    <label>فارسی ترجمہ<textarea id="seFa" rows="2">${esc(rec ? rec.fa || '' : '')}</textarea></label>
+    <label>English<textarea id="seEn" rows="2" dir="ltr">${esc(rec ? rec.en || '' : '')}</textarea></label>
+    <button class="btn-primary" style="width:100%;margin-top:8px" onclick="saveSentEdit()">💾 محفوظ کریں</button>
+    <p class="hint" style="margin-top:8px">یہ تصحیح/اضافہ آپ کے فون میں محفوظ رہے گا اور ایکسپورٹ میں شامل ہو گا — بھیجنے پر سب کے لیے مستقل ہو جائے گا۔</p>`);
+}
+function saveSentEdit() {
+  const rec = { ps: $('sePs').value.trim(), ur: $('seUr').value.trim(), fa: $('seFa').value.trim(), en: $('seEn').value.trim() };
+  if (!rec.ps) { toast('پشتو جملہ لکھیں'); return; }
+  const mine = getMySentences();
+  const mi = sentEditCtx.isNew ? -1 : mine.findIndex(s => norm(s.ps) === sentEditCtx.origKey);
+  if (mi >= 0) { mine[mi] = rec; saveMySentences(mine); }
+  else if (sentEditCtx.isNew) { mine.push(rec); saveMySentences(mine); }
+  else { const fx = getSentFixes(); fx[sentEditCtx.origKey] = rec; saveSentFixes(fx); }
+  closeSheet();
+  renderSentences(($('sentSearchInput') || {}).value || '');
+  toast('✅ جملہ محفوظ ہو گیا');
+}
+window.openSentEditor = openSentEditor;
+window.saveSentEdit = saveSentEdit;
 window.renderSentences = renderSentences;
 function initSentences() {
   const inp = $('sentSearchInput'), btn = $('sentSearchBtn');
@@ -543,6 +700,14 @@ function initSentences() {
   if (btn) btn.onclick = run;
   inp.addEventListener('input', () => { clearTimeout(window._st); window._st = setTimeout(run, 250); });
   inp.addEventListener('keydown', e => { if (e.key === 'Enter') run(); });
+  const add = $('sentAddBtn'); if (add) add.onclick = () => openSentEditor(null, true);
+  const box = $('sentResults');
+  if (box) box.addEventListener('click', e => {
+    const eb = e.target.closest('[data-sentedit]');
+    const db = e.target.closest('[data-sentdel]');
+    if (eb) { const rec = (window._sentRendered || [])[Number(eb.dataset.sentedit)]; if (rec) openSentEditor(rec, false); }
+    if (db) { const rec = (window._sentRendered || [])[Number(db.dataset.sentdel)]; if (rec) { saveMySentences(getMySentences().filter(s => norm(s.ps) !== norm(rec.ps))); renderSentences(inp.value); toast('جملہ حذف ہو گیا'); } }
+  });
   renderSentences('');
 }
 
@@ -565,7 +730,7 @@ function renderGardanan() {
   box.hidden = false;
   const verbs = getGardananVerbs();
   if (!verbs.length) { box.innerHTML = '<div class="empty">ابھی کوئی گردان موجود نہیں۔</div>'; return; }
-  box.innerHTML = verbs.map((v, i) => `<div class="result-card" data-gard="${i}"><div class="w">${esc(v.ps)}</div><div class="m">🇵🇰 ${esc(v.ur || '')}${v.en ? ' · <span dir="ltr">' + esc(v.en) + '</span>' : ''}</div></div>`).join('');
+  box.innerHTML = verbs.map((v, i) => `<div class="result-card" data-gard="${i}"><div class="w">${esc(v.ps)}</div><div class="m">🇵🇰 ${esc(v.ur || '')}${v.en ? ' · <span dir="ltr">' + esc(v.en) + '</span>' : ''}${v.kind ? ' · ' + esc(v.kind) : ''}</div></div>`).join('');
   box.querySelectorAll('[data-gard]').forEach(c => c.onclick = () => openGardananVerb(verbs[Number(c.dataset.gard)]));
 }
 window.renderGardanan = renderGardanan;
@@ -622,7 +787,7 @@ function openGardananVerb(v) {
   detail.hidden = false;
   detail.innerHTML = `<button class="btn-ghost" id="gardBack" style="margin:0 0 10px">⬅ واپس</button>
     <div class="card" style="margin:0 0 12px"><div class="sheet-word">${esc(v.ps)}</div>
-    <div class="sheet-roman">🇵🇰 ${esc(v.ur || '')}${v.en ? ' · <span dir="ltr">' + esc(v.en) + '</span>' : ''}</div></div>`
+    <div class="sheet-roman">🇵🇰 ${esc(v.ur || '')}${v.en ? ' · <span dir="ltr">' + esc(v.en) + '</span>' : ''}${v.kind ? ' · ' + esc(v.kind) : ''}</div></div>`
     + (v.sections || []).map(s => `<div class="card" style="margin:0 0 12px"><h4 style="margin:0 0 8px">${esc(s.title || '')}${s.ur_title ? ' — ' + esc(s.ur_title) : ''}${s.en_title ? ' · <span dir="ltr">' + esc(s.en_title) + '</span>' : ''}</h4>${expandGardananLines(s.lines).map(l => `<p dir="rtl" style="margin:0;padding:7px 0;border-bottom:1px dashed rgba(127,127,127,.35);font-size:17px;line-height:1.9">${esc(l)}</p>`).join('')}</div>`).join('');
   const back = $('gardBack');
   if (back) back.onclick = () => renderGardanan();
@@ -635,7 +800,7 @@ function renderGardananBlock(word) {
   if (!word) return '';
   const v = getGardananVerbs().find(x => String(x.ps) === String(word));
   if (!v || !Array.isArray(v.sections) || !v.sections.length) return '';
-  return `<div class="sheet-sec"><h4>📖 مکمل گردان</h4>` + v.sections.map(s =>
+  return `<div class="sheet-sec"><h4>📖 مکمل گردان${v.kind ? ' — ' + esc(v.kind) : ''}</h4>` + v.sections.map(s =>
     `<h4 style="margin-top:10px">${esc(s.title || '')}${s.ur_title ? ' — ' + esc(s.ur_title) : ''}${s.en_title ? ' · <span dir="ltr">' + esc(s.en_title) + '</span>' : ''}</h4>` +
     expandGardananLines(s.lines).map(l => `<p dir="rtl" style="margin:0;padding:7px 0;border-bottom:1px dashed rgba(127,127,127,.35);font-size:17px;line-height:1.9">${esc(l)}</p>`).join('')
   ).join('') + `</div>`;
