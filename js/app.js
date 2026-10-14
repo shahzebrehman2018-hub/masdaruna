@@ -105,11 +105,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   safeInit('dict', initDict); safeInit('letters', initLetters); safeInit('update', initUpdate);
   safeInit('mywords', initMyWords); safeInit('practice', initPractice); safeInit('grammar', initGrammar);
   safeInit('share', initShare); safeInit('intro', initIntro); safeInit('gardanan', initGardanan);
+  safeInit('sentences', initSentences);
   safeInit('qamosona', initQamosonaHome);
   try {
     if (typeof PS_DATA !== 'undefined' && typeof FA_DATA !== 'undefined') {
       PS = PS_DATA; FA = FA_DATA;
       if (typeof LD_DATA !== 'undefined') LD = LD_DATA;
+      mergeMasdarPack();
       applyAllEntryFixes();
     } else {
       const [ps, fa] = await Promise.all([
@@ -118,6 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       ]);
       PS = ps; FA = fa;
       try { LD = await fetch('data/lingdocs.json').then(r => r.json()); } catch (e2) {}
+      mergeMasdarPack();
       applyAllEntryFixes();
     }
     $('statPs').textContent = PS.length.toLocaleString('ur');
@@ -135,7 +138,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 23;
+const APP_VERSION_CODE = 24;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -203,6 +206,35 @@ function initUpdate() {
           }
         }
       } catch (e) { /* a missing gardanan.json on the server is not an error */ }
+      /* (c) sentences content check */
+      try {
+        const r3 = await fetchTimeout(base + '/sentences.json');
+        if (r3.ok) {
+          const sj = await r3.json();
+          const curS = Number(localStorage.getItem('masdar_sentences_rev') || 0);
+          if (sj && typeof sj.rev === 'number' && sj.rev > curS && Array.isArray(sj.sentences)) {
+            localStorage.setItem('masdar_sentences_data', JSON.stringify(sj));
+            localStorage.setItem('masdar_sentences_rev', String(sj.rev));
+            if (typeof renderSentences === 'function') renderSentences(($('sentSearchInput') || {}).value || '');
+            msgs.push('<p class="good">✅ نئے جملے شامل ہو گئے</p>');
+          }
+        }
+      } catch (e) { /* a missing sentences.json on the server is not an error */ }
+      /* (d) new masdars content check */
+      try {
+        const r4 = await fetchTimeout(base + '/masdars.json');
+        if (r4.ok) {
+          const mj = await r4.json();
+          const curM = Number(localStorage.getItem('masdar_masdars_rev') || 0);
+          if (mj && typeof mj.rev === 'number' && mj.rev > curM && Array.isArray(mj.entries)) {
+            localStorage.setItem('masdar_masdars_data', JSON.stringify(mj));
+            localStorage.setItem('masdar_masdars_rev', String(mj.rev));
+            mergeMasdarPack();
+            try { $('statPs').textContent = PS.length.toLocaleString('ur'); } catch (e2) {}
+            msgs.push('<p class="good">✅ نئے مصادر شامل ہو گئے</p>');
+          }
+        }
+      } catch (e) { /* a missing masdars.json on the server is not an error */ }
     } finally {
       res.innerHTML = msgs.join('') || '<p class="bad">سرور سے رابطہ نہیں ہو سکا۔ پتہ درست لکھیں (مثلاً https://example.com)</p>';
       /* in the app, the download link goes through the one-tap installer */
@@ -250,7 +282,7 @@ function initUpdate() {
     const t = pbox.value.trim();
     if (!t) { toast('پہلے مواد پیسٹ کریں'); return; }
     let ok = false;
-    try { const d = JSON.parse(t); ok = !!(d && typeof d === 'object' && ((d.gardanan && typeof d.gardanan === 'object') || Array.isArray(d.verbs) || Array.isArray(d.words))); } catch (e) {}
+    try { const d = JSON.parse(t); ok = !!(d && typeof d === 'object' && ((d.gardanan && typeof d.gardanan === 'object') || Array.isArray(d.verbs) || Array.isArray(d.words) || Array.isArray(d.sentences) || Array.isArray(d.masdars) || Array.isArray(d.entries))); } catch (e) {}
     window.MasdarUpdateFile(t);
     if (ok) pbox.value = '';
   };
@@ -266,6 +298,8 @@ function initUpdate() {
   };
   /* quiet automatic check shortly after start (banner only if newer) */
   setTimeout(autoCheckUpdate, 1500);
+  /* quiet refresh of the sentence / new-masdar packs shortly after start */
+  setTimeout(autoFetchPacks, 2600);
 }
 
 /* ---------- automatic update notice (home-page banner) ---------- */
@@ -314,6 +348,40 @@ async function autoCheckUpdate() {
     showUpdBanner(v, apk);
   } catch (e) { /* offline / server error: stay silent, manual card remains */ }
 }
+/* Quietly refresh the جملے and نئے مصادر packs from the site at start:
+   the store of sentences and masdars keeps growing without a new APK. */
+async function autoFetchPacks() {
+  try {
+    if (!navigator.onLine) return;
+    const base = autoUpdateBase();
+    if (!base) return;
+    try {
+      const r = await fetchTimeout(base + '/sentences.json?_=' + Date.now(), 8000);
+      if (r.ok) {
+        const sj = await r.json();
+        const cur = Number(localStorage.getItem('masdar_sentences_rev') || 0);
+        if (sj && typeof sj.rev === 'number' && sj.rev > cur && Array.isArray(sj.sentences)) {
+          localStorage.setItem('masdar_sentences_data', JSON.stringify(sj));
+          localStorage.setItem('masdar_sentences_rev', String(sj.rev));
+          if (typeof renderSentences === 'function') renderSentences(($('sentSearchInput') || {}).value || '');
+        }
+      }
+    } catch (e) {}
+    try {
+      const r = await fetchTimeout(base + '/masdars.json?_=' + Date.now(), 8000);
+      if (r.ok) {
+        const mj = await r.json();
+        const cur = Number(localStorage.getItem('masdar_masdars_rev') || 0);
+        if (mj && typeof mj.rev === 'number' && mj.rev > cur && Array.isArray(mj.entries)) {
+          localStorage.setItem('masdar_masdars_data', JSON.stringify(mj));
+          localStorage.setItem('masdar_masdars_rev', String(mj.rev));
+          mergeMasdarPack();
+          try { $('statPs').textContent = PS.length.toLocaleString('ur'); } catch (e2) {}
+        }
+      }
+    } catch (e) {}
+  } catch (e) {}
+}
 /* Called by the Android bridge (and the web file fallback) with the text of a
    chosen update file: a gardanan pack ({rev, verbs} or {gardanan:{...}}) or a
    میرے الفاظ export file ({words:[...]}). */
@@ -339,8 +407,90 @@ window.MasdarUpdateFile = function (text) {
     else toast(n ? n + ' چیزیں شامل ہو گئیں ✅' : 'نئی کوئی چیز نہیں ملی');
     return;
   }
+  if (Array.isArray(d.sentences)) {
+    const rev = (typeof d.rev === 'number' && d.rev) ? d.rev : Date.now();
+    localStorage.setItem('masdar_sentences_data', JSON.stringify({ rev, sentences: d.sentences }));
+    localStorage.setItem('masdar_sentences_rev', String(rev));
+    if (typeof renderSentences === 'function') renderSentences('');
+    toast('✅ جملے شامل ہو گئے');
+    return;
+  }
+  if (Array.isArray(d.masdars) || Array.isArray(d.entries)) {
+    const entries = Array.isArray(d.masdars) ? d.masdars : d.entries;
+    const rev = (typeof d.rev === 'number' && d.rev) ? d.rev : Date.now();
+    localStorage.setItem('masdar_masdars_data', JSON.stringify({ rev, entries }));
+    localStorage.setItem('masdar_masdars_rev', String(rev));
+    mergeMasdarPack();
+    try { $('statPs').textContent = PS.length.toLocaleString('ur'); } catch (e) {}
+    toast('✅ نئے مصادر شامل ہو گئے');
+    return;
+  }
   toast('فائل سمجھ نہیں آئی ❌');
 };
+
+/* ---------- نئے مصادر pack (online masdars.json) ----------
+   Masdars that are not in the built-in data yet arrive as a pack
+   ({rev, entries:[{w, r, en, ur, fa}]}) and merge into PS at load. */
+function mergeMasdarPack() {
+  try {
+    const stored = JSON.parse(localStorage.getItem('masdar_masdars_data') || 'null');
+    const list = stored && Array.isArray(stored.entries) ? stored.entries : [];
+    if (!list.length || !PS) return;
+    const have = new Set(PS.map(e => norm(e[2])));
+    list.forEach((en, i) => {
+      if (!en || !en.w) return;
+      const k = norm(en.w);
+      if (have.has(k)) return;
+      have.add(k);
+      PS.push(['np' + i + '_' + k, String(en.w).charAt(0), en.w, en.r || '', en.en || '', en.ur || '', en.fa || '', []]);
+    });
+  } catch (e) {}
+}
+
+/* ---------- جملے page ----------
+   Built-in seed (js/sentences-data.js) + online pack (sentences.json,
+   localStorage masdar_sentences_data) merged by Pashto sentence. */
+function getSentences() {
+  const map = new Map();
+  const add = s => { if (s && s.ps) map.set(norm(s.ps), s); };
+  (window.SENTENCES_SEED || []).forEach(add);
+  try {
+    const stored = JSON.parse(localStorage.getItem('masdar_sentences_data') || 'null');
+    const list = stored && Array.isArray(stored.sentences) ? stored.sentences : (Array.isArray(stored) ? stored : []);
+    list.forEach(add);
+  } catch (e) {}
+  return Array.from(map.values());
+}
+function renderSentences(q) {
+  const box = $('sentResults');
+  if (!box) return;
+  const all = getSentences();
+  const query = norm(q || '');
+  const list = query
+    ? all.filter(s => norm(s.ps).includes(query) || norm(s.ur || '').includes(query) || norm(s.fa || '').includes(query) || latin(s.en || '').includes(latin(query)))
+    : all;
+  if (!list.length) { box.innerHTML = '<div class="empty">کوئی جملہ نہیں ملا — کوئی اور لفظ لکھ کر دیکھیں۔</div>'; return; }
+  const show = list.slice(0, 300);
+  box.innerHTML = (query
+    ? `<p class="hint">«${esc(q)}» — ${list.length.toLocaleString('ur')} جملے ملے</p>`
+    : `<p class="hint">سب جملے — اوپر کسی لفظ سے تلاش کریں</p>`)
+    + show.map(s => `<div class="result-card"><div class="w" style="font-size:19px;line-height:1.9">${esc(s.ps)}</div>`
+      + (s.ur ? `<div class="m">🇵🇰 ${esc(s.ur)}</div>` : '')
+      + (s.fa ? `<div class="m">🇮🇷 ${esc(s.fa)}</div>` : '')
+      + (s.en ? `<div class="m">🇬🇧 <span dir="ltr">${esc(s.en)}</span></div>` : '')
+      + `</div>`).join('')
+    + (list.length > show.length ? `<p class="hint">… اور ${(list.length - show.length).toLocaleString('ur')} جملے — تلاش سے مخصوص لفظ لکھیں</p>` : '');
+}
+window.renderSentences = renderSentences;
+function initSentences() {
+  const inp = $('sentSearchInput'), btn = $('sentSearchBtn');
+  if (!inp) return;
+  const run = () => renderSentences(inp.value);
+  if (btn) btn.onclick = run;
+  inp.addEventListener('input', () => { clearTimeout(window._st); window._st = setTimeout(run, 250); });
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') run(); });
+  renderSentences('');
+}
 
 /* ---------- گردانیں page ---------- */
 function getGardananVerbs() {
