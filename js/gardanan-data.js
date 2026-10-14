@@ -361,5 +361,148 @@ window.GARDANAN_SEED = [
     ]
    }
   ]
+ },
+ {
+  "ps": "ویل",
+  "ur": "کہنا",
+  "en": "to say",
+  "kind": "متعدی",
+  "sections": [
+   {
+    "title": "حال",
+    "ur_title": "کہتا ہوں",
+    "en_title": "Present",
+    "lines": [
+     "زه وايم (میں کہتا ہُوں — I say)",
+     "ته وايې (تم کہتے ہو — You say)",
+     "هغه وايي (وہ کہتا ہے — He says)",
+     "موږ وايو (ہم کہتے ہیں — We say)",
+     "تاسو وايئ (آپ کہتے ہیں — You say)",
+     "هغوی وايي (وہ کہتے ہیں — They say)",
+     "دوی وايي (وہ کہتے ہیں — They say)"
+    ]
+   },
+   {
+    "title": "ماضی مطلق",
+    "ur_title": "نے کہا",
+    "en_title": "Simple past",
+    "lines": [
+     "ما وويل (میں نے کہا — I said)",
+     "تا وويل (تم نے کہا — You said)",
+     "هغه وويل (اُس نے کہا — He said)",
+     "هغې وويل (اُس نے کہا — She said)",
+     "موږ وويل (ہم نے کہا — We said)",
+     "تاسو وويل (آپ نے کہا — You said)",
+     "هغوی وويل (اُنہوں نے کہا — They said)",
+     "دوی وویل (اِنہوں نے کہا — They said)"
+    ]
+   },
+   {
+    "title": "ماضی استمراری",
+    "ur_title": "کہہ رہا تھا",
+    "en_title": "Past continuous",
+    "lines": [
+     "ما ويل (میں کہتا تھا / تھی — I used to say)",
+     "تا ويل (تو کہتا تھا / تھی — You used to say)",
+     "هغه ويل (وہ کہتا تھا — He used to say)",
+     "هغې ويل (وہ کہتی تھی — She used to say)",
+     "موږ ويل (ہم کہتے تھے / تھیں — We used to say)",
+     "تاسو ويل (آپ کہتے تھے/ تھیں — You used to say)",
+     "هغوی ويل (وہ کہتے تھے / تھیں — They used to say)",
+     "دوی ويل (وہ کہتے تھے / تھیں — They used to say)"
+    ]
+   },
+   {
+    "title": "حال مکمل / ماضی قریب",
+    "ur_title": "کہا ہے",
+    "en_title": "Present perfect",
+    "lines": [
+     "ما ویلي دي (میں نے کہا ہے — I have said)",
+     "تا ويلي دي (تو نے کہا ہے — You have said)",
+     "هغه ويلي دي (اُس نے کہا ہے — He has said)",
+     "هغې ويلي دي (اُس نے کہا ہے — She has said)",
+     "موږ ويلي دي (ہم نے کہا ہے — We have said)",
+     "تاسو ويلي دي (آپ نے کہا ہے — You have said)",
+     "هغوی ويلې دي (اُنہوں نے کہا ہے — They have said)",
+     "دوی ويلي دي (انہوں نے کہا ہے — They have said)"
+    ]
+   },
+   {
+    "title": "ماضی بعيد",
+    "ur_title": "کہا تھا",
+    "en_title": "Past perfect",
+    "lines": [
+     "ما ويلي وو (میں نے کہا تھا — I had said)",
+     "تا ويلي وو (تو نے کہا تھا — You had said)",
+     "هغه ويلي وو (اُس نے کہا تھا — He had said)",
+     "هغې ويلي وو (اُس نے کہا تھا — She had said)",
+     "موږ ويلي وو (ہم نے کہا تھا — We had said)",
+     "تاسو ويلي وو (آپ نے کہا تھا — You had said)",
+     "هغوی ويلي وو (اُنہوں نے کہا تھا — They had said)",
+     "دوی ويلي وو (انہوں نے کہا تھا — They had said)"
+    ]
+   },
+   {
+    "title": "ماضی احتمالی",
+    "ur_title": "کہا ہوگا",
+    "en_title": "Presumptive past",
+    "lines": [
+     "ما به ويلي وي (میں نے کہا ہوگا — I must have said)",
+     "تا به ويلي وي (تم نے کہا ہوگا — You must have said)",
+     "هغه به ويلي وي (اُس نے کہا ہو گا — He must have said)",
+     "هغې به ويلي وي (اُس نے کہا ہوگا — She must have said)",
+     "موږ به ويلي وي (ہم نے کہا ہوگا — We must have said)",
+     "تاسو به ويلي وي (آپ نے کہا ہوگا — You must have said)",
+     "هغوی به ويلي وي (اُنہوں نے کہا ہوگا — They must have said)",
+     "دوی به ويلي وي (انہوں نے کہا ہوگا — They must have said)"
+    ]
+   },
+   {
+    "title": "مستقبل سادہ",
+    "ur_title": "کہے گا",
+    "en_title": "Simple future",
+    "lines": [
+     "زه به وايم (میں کہوں گا — I will say)",
+     "ته به وايې (تم کہو گے — You will say)",
+     "هغه به وايي (وہ کہے گا — He will say)",
+     "موږ به وايو (ہم کہیں گے — We will say)",
+     "تاسو به وايئ (آپ کہیں گے — You will say)",
+     "هغوی به وايي (وہ کہیں گے — They will say)",
+     "دوی به وايي (وہ کہیں گے — They will say)"
+    ]
+   },
+   {
+    "title": "مضارع",
+    "ur_title": "کہوں",
+    "en_title": "Subjunctive",
+    "lines": [
+     "زه وویم (میں کہوں — that I say)",
+     "ته وويه / وويې (تم کہو / تم کہہ دو — that you say)",
+     "هغه وويي (وہ کہے — that he say)",
+     "موږ وويو (ہم کہیں — that we say)",
+     "تاسو وويئ (آپ کہیں — that you say)",
+     "هغوی وويي (وہ کہیں — that they say)",
+     "دوی وويي (وہ کہیں — that they say)"
+    ]
+   },
+   {
+    "title": "امر",
+    "ur_title": "حکم",
+    "en_title": "Imperative",
+    "lines": [
+     "ته وايه (تو کہہ/ تم کہو — Say! (you))",
+     "تاسو وايئ (آپ کہیں — Say! (you pl.))"
+    ]
+   },
+   {
+    "title": "نہی",
+    "ur_title": "منع",
+    "en_title": "Prohibitive",
+    "lines": [
+     "ته مه وايه (تو مت کہہ/ تم مت کہو — Don't say (you))",
+     "تاسو مه وايئ (آپ مت کہیں/ کہیے — Don't say (you pl.))"
+    ]
+   }
+  ]
  }
 ];
