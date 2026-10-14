@@ -472,6 +472,20 @@ window.GARDANAN_SEED = [
     ]
    },
    {
+    "title": "ارادی مستقبل",
+    "ur_title": "کہہ دوں گا",
+    "en_title": "Resolutive future",
+    "lines": [
+     "زه به وويم (میں کہہ دوں گا/ گی — I will say it)",
+     "ته به وويې (تم کہہ دو گے — You will say it)",
+     "هغه به وويي (وہ کہہ دے گا — He will say it)",
+     "موږ به وويو (ہم کہہ دیں گے — We will say it)",
+     "تاسو به وويئ (آپ کہہ دیں گے — You will say it)",
+     "هغوی به وويي (وہ کہہ دیں گے — They will say it)",
+     "دوی به وويي (وہ کہہ دیں گے — They will say it)"
+    ]
+   },
+   {
     "title": "مضارع",
     "ur_title": "کہوں",
     "en_title": "Subjunctive",
