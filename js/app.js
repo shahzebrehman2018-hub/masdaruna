@@ -277,7 +277,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 31;
+const APP_VERSION_CODE = 32;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -1065,8 +1065,7 @@ function renderPsPs() {
 }
 window.renderPsPs = renderPsPs;
 
-/* ---------- Pashto-to-Pashto dictionary page (own لغت + Qamosona view) ---------- */
-let _pspsLoaded = false;
+/* ---------- Pashto to Pashto dictionary page (our own لغت) ---------- */
 let _pspsWired = false;
 function initPsPs() {
   if (!_pspsWired) {
@@ -1076,16 +1075,6 @@ function initPsPs() {
     if (btn) btn.onclick = () => renderPsPs();
   }
   renderPsPs();
-  const fr = $('pspsFrame'), off = $('pspsOff');
-  if (!fr) return;
-  if (navigator.onLine === false) {
-    fr.hidden = true;
-    if (off) off.hidden = false;
-    return;
-  }
-  if (off) off.hidden = true;
-  fr.hidden = false;
-  if (!_pspsLoaded) { fr.src = QAMOSONA_URL; _pspsLoaded = true; }
 }
 
 /* ---------- header clock + Gregorian/Hijri dates ---------- */
