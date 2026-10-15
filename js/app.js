@@ -243,6 +243,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   safeInit('sentences', initSentences);
   safeInit('jsonmaker', initJsonMaker); safeInit('gtranslate', initGTranslate);
   safeInit('qamosona', initQamosonaHome);
+  safeInit('clockdates', initClockDates);
   safeInit('applink', () => { if (window.MasdarBridge) { const dc = $('apkDlCard'); if (dc) dc.hidden = true; const dl = $('dlDrawerLink'); if (dl) dl.hidden = true; } });
   try {
     if (typeof PS_DATA !== 'undefined' && typeof FA_DATA !== 'undefined') {
@@ -275,7 +276,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 29;
+const APP_VERSION_CODE = 30;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -973,6 +974,7 @@ function initNav() {
       window.scrollTo(0, 0);
     }
     if (name === 'stats' && typeof renderStats === 'function') renderStats();
+    if (name === 'psps') initPsPs();
   };
   window._goNav = go;
   document.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => go(b.dataset.nav));
@@ -1003,6 +1005,42 @@ function initOnline() {
   fr.hidden = false;
   if (!_onlineLoaded) { fr.src = QAMOSONA_URL; _onlineLoaded = true; }
 }
+/* ---------- Pashto-to-Pashto dictionary (Qamosona live view) ---------- */
+let _pspsLoaded = false;
+function initPsPs() {
+  const fr = $('pspsFrame'), off = $('pspsOff');
+  if (!fr) return;
+  if (navigator.onLine === false) {
+    fr.hidden = true;
+    if (off) off.hidden = false;
+    return;
+  }
+  if (off) off.hidden = true;
+  fr.hidden = false;
+  if (!_pspsLoaded) { fr.src = QAMOSONA_URL; _pspsLoaded = true; }
+}
+
+/* ---------- header clock + Gregorian/Hijri dates ---------- */
+function initClockDates() {
+  const g = $('dateGreg'), h = $('dateHijri'), c = $('clock');
+  if (!g || !c) return;
+  const tick = () => {
+    const now = new Date();
+    try { g.textContent = new Intl.DateTimeFormat('ur-PK', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(now); }
+    catch (e) { g.textContent = now.toDateString(); }
+    if (h) {
+      try { h.textContent = new Intl.DateTimeFormat('ur-PK-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' }).format(now) + 'ھ'; }
+      catch (e) { h.textContent = ''; }
+    }
+    let hh = now.getHours();
+    const mm = String(now.getMinutes()).padStart(2, '0'), ss = String(now.getSeconds()).padStart(2, '0');
+    const ap = hh >= 12 ? 'PM' : 'AM'; hh = hh % 12 || 12;
+    c.textContent = String(hh).padStart(2, '0') + ':' + mm + ':' + ss + ' ' + ap;
+  };
+  tick();
+  setInterval(tick, 1000);
+}
+
 function initQamosonaHome() {
   const sec = $('qamosonaHome');
   if (!sec) return;
