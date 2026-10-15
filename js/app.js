@@ -277,7 +277,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 33;
+const APP_VERSION_CODE = 34;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -1052,12 +1052,12 @@ function renderPsPs() {
   const box = $('pspsResults');
   if (!box) return;
   const all = getPsPsEntries();
-  if (!all.length) { box.innerHTML = '<div class="empty">ابھی کوئی تشریح شامل نہیں — جلد آ رہی ہیں۔</div>'; return; }
+  if (!all.length) { box.innerHTML = '<div class="empty">تر اوسه کومه تشریح نه ده شامله — ژر به راشي۔</div>'; return; }
   const query = norm(($('pspsInput') || {}).value || '');
   const list = query
     ? all.filter(e => norm(e.w).includes(query) || norm(e.def).includes(query) || norm(e.syn).includes(query))
     : all;
-  if (!list.length) { box.innerHTML = '<div class="empty">کوئی لفظ نہیں ملا — کوئی اور لفظ لکھ کر دیکھیں۔</div>'; return; }
+  if (!list.length) { box.innerHTML = '<div class="empty">کوم ويی ونه موندل شو — بل ويی وليکئ او بيا لټون وکړئ۔</div>'; return; }
   box.innerHTML = list.slice(0, 60).map(e => `<div class="result-card"><div class="w">${esc(e.w)}</div>`
     + (e.def ? `<div class="m">${esc(e.def)}</div>` : '')
     + (e.syn ? `<div class="m">مترادف: ${esc(e.syn)}</div>` : '')
