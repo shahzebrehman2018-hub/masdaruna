@@ -28,7 +28,7 @@ code{background:var(--line); padding:2px 8px; border-radius:6px; font-size:14px}
 
 /* Splash */
 #splash{position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
-  background:radial-gradient(circle at 50% 30%, #14573f, #0b3d2e 70%); transition:opacity .5s}
+  background:#000000; transition:opacity .5s}
 #splash.hide{opacity:0; pointer-events:none}
 .splash-inner{text-align:center; color:#f4f1e8}
 .splash-logo{width:92px; height:92px; margin:0 auto 10px; border-radius:28px; display:flex; align-items:center; justify-content:center;

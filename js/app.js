@@ -110,6 +110,7 @@ function renderStats() {
     + `</div><div class="card" style="margin-top:10px"><h4 style="margin:0 0 6px">📖 گرامر</h4>`
     + row('گردانیں والے افعال', getGardananVerbs().length)
     + row('صورتیں والے الفاظ', Object.keys(getFormsMap()).length)
+    + (typeof getPsPsEntries === 'function' ? row('پشتو-پشتو تشریحات', getPsPsEntries().length) : '')
     + `</div>`;
 }
 window.renderStats = renderStats;
@@ -276,7 +277,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 30;
+const APP_VERSION_CODE = 31;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -388,6 +389,20 @@ function initUpdate() {
           }
         }
       } catch (e) { /* a missing forms.json on the server is not an error */ }
+      /* (f) Pashto-to-Pashto definitions content check */
+      try {
+        const r6 = await fetchTimeout(base + '/psps.json');
+        if (r6.ok) {
+          const pj = await r6.json();
+          const curP = Number(localStorage.getItem('masdar_psps_rev') || 0);
+          if (pj && typeof pj.rev === 'number' && pj.rev > curP && Array.isArray(pj.entries)) {
+            localStorage.setItem('masdar_psps_data', JSON.stringify(pj));
+            localStorage.setItem('masdar_psps_rev', String(pj.rev));
+            if (typeof renderPsPs === 'function') renderPsPs();
+            msgs.push('<p class="good">✅ پشتو-پشتو تشریحات شامل ہو گئیں</p>');
+          }
+        }
+      } catch (e) { /* a missing psps.json on the server is not an error */ }
     } finally {
       res.innerHTML = msgs.join('') || '<p class="bad">سرور سے رابطہ نہیں ہو سکا۔ پتہ درست لکھیں (مثلاً https://example.com)</p>';
       /* in the app, the download link goes through the one-tap installer */
@@ -555,6 +570,18 @@ async function autoFetchPacks() {
           localStorage.setItem('masdar_gardanan_rev', String(gj.rev));
           _resetKindCache();
           if (typeof renderGardanan === 'function') renderGardanan();
+        }
+      }
+    } catch (e) {}
+    try {
+      const r = await fetchTimeout(base + '/psps.json?_=' + Date.now(), 8000);
+      if (r.ok) {
+        const pj = await r.json();
+        const cur = Number(localStorage.getItem('masdar_psps_rev') || 0);
+        if (pj && typeof pj.rev === 'number' && pj.rev > cur && Array.isArray(pj.entries)) {
+          localStorage.setItem('masdar_psps_data', JSON.stringify(pj));
+          localStorage.setItem('masdar_psps_rev', String(pj.rev));
+          if (typeof renderPsPs === 'function') renderPsPs();
         }
       }
     } catch (e) {}
@@ -1005,9 +1032,50 @@ function initOnline() {
   fr.hidden = false;
   if (!_onlineLoaded) { fr.src = QAMOSONA_URL; _onlineLoaded = true; }
 }
-/* ---------- Pashto-to-Pashto dictionary (Qamosona live view) ---------- */
+/* ---------- اپنی پشتو-پشتو لغت (offline seed + online psps.json pack) ----------
+   Entries are {w, def, syn}: the definition of a Pashto word written IN
+   Pashto. Built-in seed (js/psps-data.js) + online pack (psps.json,
+   localStorage masdar_psps_data) merged by word — the pack wins. */
+function getPsPsEntries() {
+  const map = new Map();
+  const add = e => { if (e && e.w) map.set(norm(e.w), { w: e.w, def: e.def || '', syn: e.syn || '' }); };
+  (window.PSPS_SEED || []).forEach(add);
+  try {
+    const stored = JSON.parse(localStorage.getItem('masdar_psps_data') || 'null');
+    const list = stored && Array.isArray(stored.entries) ? stored.entries : (Array.isArray(stored) ? stored : []);
+    list.forEach(add);
+  } catch (e) {}
+  return Array.from(map.values());
+}
+window.getPsPsEntries = getPsPsEntries;
+function renderPsPs() {
+  const box = $('pspsResults');
+  if (!box) return;
+  const all = getPsPsEntries();
+  if (!all.length) { box.innerHTML = '<div class="empty">ابھی کوئی تشریح شامل نہیں — جلد آ رہی ہیں۔</div>'; return; }
+  const query = norm(($('pspsInput') || {}).value || '');
+  const list = query
+    ? all.filter(e => norm(e.w).includes(query) || norm(e.def).includes(query) || norm(e.syn).includes(query))
+    : all;
+  if (!list.length) { box.innerHTML = '<div class="empty">کوئی لفظ نہیں ملا — کوئی اور لفظ لکھ کر دیکھیں۔</div>'; return; }
+  box.innerHTML = list.slice(0, 60).map(e => `<div class="result-card"><div class="w">${esc(e.w)}</div>`
+    + (e.def ? `<div class="m">${esc(e.def)}</div>` : '')
+    + (e.syn ? `<div class="m">مترادف: ${esc(e.syn)}</div>` : '')
+    + `</div>`).join('');
+}
+window.renderPsPs = renderPsPs;
+
+/* ---------- Pashto-to-Pashto dictionary page (own لغت + Qamosona view) ---------- */
 let _pspsLoaded = false;
+let _pspsWired = false;
 function initPsPs() {
+  if (!_pspsWired) {
+    _pspsWired = true;
+    const inp = $('pspsInput'), btn = $('pspsBtn');
+    if (inp) inp.addEventListener('input', () => { clearTimeout(window._pspsT); window._pspsT = setTimeout(renderPsPs, 250); });
+    if (btn) btn.onclick = () => renderPsPs();
+  }
+  renderPsPs();
   const fr = $('pspsFrame'), off = $('pspsOff');
   if (!fr) return;
   if (navigator.onLine === false) {
@@ -1021,6 +1089,31 @@ function initPsPs() {
 }
 
 /* ---------- header clock + Gregorian/Hijri dates ---------- */
+/* Hijri date follows Pakistan's moon-based sequence (the built-in Intl
+   islamic calendar runs ahead of it). Anchored at 15 Oct 2026 = 3 Jumada
+   al-Awwal 1448 and walked with tabular month lengths from there. */
+const HIJRI_MONTHS = ['محرم', 'صفر', 'ربیع الاول', 'ربیع الثانی', 'جمادی الاول', 'جمادی الثانی', 'رجب', 'شعبان', 'رمضان', 'شوال', 'ذوالقعدہ', 'ذوالحجہ'];
+const UR_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
+const toUrDigits = n => String(n).replace(/\d/g, d => UR_DIGITS[+d]);
+function hijriString(now) {
+  const MS = 86400000;
+  const anchor = Date.UTC(2026, 9, 15);
+  const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  let diff = Math.round((today - anchor) / MS);
+  let y = 1448, m = 4, d = 3;
+  const leap = yy => [2, 5, 7, 10, 13, 16, 18, 21, 24, 26, 29].includes(((yy - 1) % 30) + 1);
+  const mlen = (yy, mm) => mm === 11 ? (leap(yy) ? 30 : 29) : (mm % 2 === 0 ? 30 : 29);
+  while (diff > 0) {
+    const L = mlen(y, m);
+    if (d + diff <= L) { d += diff; diff = 0; }
+    else { diff -= (L - d + 1); d = 1; m++; if (m > 11) { m = 0; y++; } }
+  }
+  while (diff < 0) {
+    if (d + diff >= 1) { d += diff; diff = 0; }
+    else { diff += d; m--; if (m < 0) { m = 11; y--; } d = mlen(y, m); }
+  }
+  return toUrDigits(d) + ' ' + HIJRI_MONTHS[m] + ' ' + toUrDigits(y) + 'ھ';
+}
 function initClockDates() {
   const g = $('dateGreg'), h = $('dateHijri'), c = $('clock');
   if (!g || !c) return;
@@ -1029,7 +1122,7 @@ function initClockDates() {
     try { g.textContent = new Intl.DateTimeFormat('ur-PK', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(now); }
     catch (e) { g.textContent = now.toDateString(); }
     if (h) {
-      try { h.textContent = new Intl.DateTimeFormat('ur-PK-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' }).format(now) + 'ھ'; }
+      try { h.textContent = hijriString(now); }
       catch (e) { h.textContent = ''; }
     }
     let hh = now.getHours();
