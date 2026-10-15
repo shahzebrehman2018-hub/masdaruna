@@ -277,7 +277,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 32;
+const APP_VERSION_CODE = 33;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -1101,7 +1101,7 @@ function hijriString(now) {
     if (d + diff >= 1) { d += diff; diff = 0; }
     else { diff += d; m--; if (m < 0) { m = 11; y--; } d = mlen(y, m); }
   }
-  return toUrDigits(d) + ' ' + HIJRI_MONTHS[m] + ' ' + toUrDigits(y) + 'ھ';
+  return d + ' ' + HIJRI_MONTHS[m] + ' ' + y + 'ھ';
 }
 function initClockDates() {
   const g = $('dateGreg'), h = $('dateHijri'), c = $('clock');
