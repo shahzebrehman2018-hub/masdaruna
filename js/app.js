@@ -277,7 +277,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 38;
+const APP_VERSION_CODE = 39;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -1048,21 +1048,43 @@ function getPsPsEntries() {
   return Array.from(map.values());
 }
 window.getPsPsEntries = getPsPsEntries;
+function psFold(s) { return norm(s).replace(/ے/g, 'ی'); }
 function renderPsPs() {
   const box = $('pspsResults');
   if (!box) return;
   const all = getPsPsEntries();
   if (!all.length) { box.innerHTML = '<div class="empty">تر اوسه کومه تشریح نه ده شامله — ژر به راشي۔</div>'; return; }
-  const query = norm(($('pspsInput') || {}).value || '');
+  const query = psFold(($('pspsInput') || {}).value || '');
   const list = query
-    ? all.filter(e => norm(e.w).includes(query) || norm(e.def).includes(query) || norm(e.syn).includes(query))
+    ? all.filter(e => psFold(e.w).includes(query) || psFold(e.def).includes(query) || psFold(e.syn).includes(query))
     : all;
+  window._pspsList = list;
   if (!list.length) { box.innerHTML = '<div class="empty">کوم ويی ونه موندل شو — بل ويی وليکئ او بيا لټون وکړئ۔</div>'; return; }
-  box.innerHTML = list.slice(0, 60).map(e => `<div class="result-card"><div class="w">${esc(e.w)}</div>`
+  box.innerHTML = list.slice(0, 60).map((e, i) => `<div class="result-card" data-psps="${i}"><div class="w">${esc(e.w)}</div>`
     + (e.def ? `<div class="m">${esc(e.def)}</div>` : '')
     + (e.syn ? `<div class="m">مترادف: ${esc(e.syn)}</div>` : '')
     + `</div>`).join('');
+  box.querySelectorAll('[data-psps]').forEach(el => el.addEventListener('click', () => openPsPsDetail(window._pspsList[+el.dataset.psps])));
 }
+function pspsEquivs(e) {
+  return (e.def || '').split(/[،؛,]/).map(s => s.trim()).filter(Boolean);
+}
+function openPsPsDetail(e) {
+  if (!e) return;
+  const eq = pspsEquivs(e);
+  const syn = e.syn ? `<div class="sheet-sec"><h4>مترادف</h4><div class="ex">${esc(e.syn)}</div></div>` : '';
+  openSheet(`<h3 style="margin:6px 0 2px">${esc(e.w)}</h3>`
+    + `<div class="sheet-sec"><h4>پشتو</h4>`
+    + (eq.length ? eq.map(s => `<button type="button" class="chipbtn" data-eq="${esc(s)}">${esc(s)}</button>`).join(' ') : `<div class="ex">${esc(e.def || '')}</div>`)
+    + `</div>` + syn);
+  document.querySelectorAll('#sheetBody [data-eq]').forEach(b => b.addEventListener('click', () => {
+    closeSheet();
+    const inp = $('pspsInput'); if (inp) inp.value = b.dataset.eq;
+    renderPsPs();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }));
+}
+window.openPsPsDetail = openPsPsDetail;
 window.renderPsPs = renderPsPs;
 
 /* ---------- Pashto to Pashto dictionary page (our own لغت) ---------- */
