@@ -719,5 +719,184 @@ window.GARDANAN_SEED = [
     ]
    }
   ]
+ },
+ {
+  "ps": "راتلل",
+  "ur": "آنا",
+  "en": "to come",
+  "kind": "لازم",
+  "sections": [
+   {
+    "title": "حال",
+    "ur_title": "آتا ہوں",
+    "en_title": "Present",
+    "lines": [
+     "زه راځم (میں آتا ہُوں — I come / I am coming)",
+     "ته راځې (تم آتے ہو — You come)",
+     "هغه راځي (وہ آتا ہے — He comes)",
+     "موږ راځو (ہم آتے ہیں — We come)",
+     "تاسو راځئ (آپ آتے ہیں — You come)",
+     "هغوی راځي (وہ آتے ہیں — They come)",
+     "دوی راځي (وہ آتے ہیں — They come)"
+    ]
+   },
+   {
+    "title": "ماضی مطلق",
+    "ur_title": "آیا",
+    "en_title": "Simple past",
+    "lines": [
+     "زه راغلم (میں آیا/ میں آئی — I came)",
+     "ته راغلې (تو آیا/ تو آئی — You came)",
+     "هغه راغی/ راغلو (وہ آیا — He came)",
+     "هغه راغله (وہ آئی — She came)",
+     "موږ راغلو (ہم آئے — We came)",
+     "تاسو راغلئ (آپ آئے — You came)",
+     "هغوی راغلل (وہ آئے — They came)",
+     "هغوی راغللې (وہ آئیں — They (fem.) came)",
+     "دوی راغلل (وہ آئے — They came)",
+     "دوی راغللې (وہ آئیں — They (fem.) came)"
+    ]
+   },
+   {
+    "title": "ماضی استمراری",
+    "ur_title": "آتا تھا",
+    "en_title": "Past continuous",
+    "lines": [
+     "زه راتللم (میں آتا تھا/ میں آتی تھی — I used to come / I was coming)",
+     "ته راتللې (تو آتا تھا/ تو آتی تھی — You used to come)",
+     "هغه راتللو (وہ آتا تھا — He used to come)",
+     "هغه راتلله (وہ آتی تھی — She used to come)",
+     "موږ راتللو (ہم آتے تھے — We used to come)",
+     "تاسو راتللئ (آپ آتے تھے — You used to come)",
+     "هغوی راتلل (وہ آتے تھے — They used to come)",
+     "هغوی راتللې (وہ آتی تھیں — They (fem.) used to come)",
+     "دوی راتلل (وہ آتے تھے — They used to come)",
+     "دوی راتللې (وہ آتی تھیں — They (fem.) used to come)"
+    ]
+   },
+   {
+    "title": "حال مکمل / ماضی قریب",
+    "ur_title": "آیا ہے",
+    "en_title": "Present perfect",
+    "lines": [
+     "زه راغلی يم (میں آیا ہُوں — I have come)",
+     "زه راغلې يم (میں آئی ہُوں — I (fem.) have come)",
+     "ته راغلی يې (تم آئے ہو/ تو آیا ہے — You have come)",
+     "ته راغلې يې (تو آئی ہے/ تم آئی ہو — You (fem.) have come)",
+     "هغه راغلی دی (وہ آیا ہے — He has come)",
+     "هغه راغلې ده (وہ آئی ہے — She has come)",
+     "موږ راغلي يو (ہم آئے ہیں — We have come)",
+     "موږ راغلې يو (ہم آئی ہیں — We (fem.) have come)",
+     "تاسو راغلي يئ (آپ آئے ہیں — You have come)",
+     "تاسو راغلې يئ (آپ آئی ہیں — You (fem.) have come)",
+     "هغوی راغلي دي (وہ آئے ہیں — They have come)",
+     "هغوی راغلې دي (وہ آئی ہیں — They (fem.) have come)",
+     "دوی راغلي دي (وہ آئے ہیں — They have come)",
+     "دوی راغلې دي (وہ آئی ہیں — They (fem.) have come)"
+    ]
+   },
+   {
+    "title": "ماضی بعيد",
+    "ur_title": "آیا تھا",
+    "en_title": "Past perfect",
+    "lines": [
+     "زه راغلی وم (میں آیا تھا — I had come)",
+     "زه راغلې وم (میں آئی تھی — I (fem.) had come)",
+     "ته راغلی وې (تم آئے تھے — You had come)",
+     "ته راغلې وې (تم آئی تھی — You (fem.) had come)",
+     "هغه راغلی و (وہ آیا تھا — He had come)",
+     "هغه راغلې وه (وہ آئی تھی — She had come)",
+     "موږ راغلي وو (ہم آئے تھے — We had come)",
+     "موږ راغلې وو (ہم آئی تھیں — We (fem.) had come)",
+     "تاسو راغلي وئ (آپ آئے تھے — You had come)",
+     "تاسو راغلې وئ (آپ آئی تھیں — You (fem.) had come)",
+     "هغوی راغلي وو (وہ آئے تھے — They had come)",
+     "هغوی راغلې وې (وہ آئی تھیں — They (fem.) had come)",
+     "دوی راغلي وو (وہ آئے تھے — They had come)",
+     "دوی راغلې وې (وہ آئی تھیں — They (fem.) had come)"
+    ]
+   },
+   {
+    "title": "ماضی احتمالی",
+    "ur_title": "آیا ہوگا",
+    "en_title": "Presumptive past",
+    "lines": [
+     "زه به راغلی وم (میں آیا ہوں گا — I will have come)",
+     "زه به راغلې وم (میں آئی ہوں گی — I (fem.) will have come)",
+     "ته به راغلی وې (تو آیا ہو گا/ تم آئے ہو گے — You will have come)",
+     "ته به راغلې وې (تو آئی ہو گی/ تم آئی ہو گی — You (fem.) will have come)",
+     "هغه به راغلی و (وہ آیا ہو گا — He will have come)",
+     "هغه به راغلې وه (وہ آئی ہو گی — She will have come)",
+     "موږ به راغلي وو (ہم آئے ہوں گے — We will have come)",
+     "موږ به راغلې وو (ہم آئی ہوں گی — We (fem.) will have come)",
+     "تاسو به راغلي وئ (آپ آئے ہوں گے — You will have come)",
+     "تاسو به راغلې وئ (آپ آئی ہوں گی — You (fem.) will have come)",
+     "هغوی به راغلي وو (وہ آئے ہوں گے — They will have come)",
+     "هغوی به راغلې وې (وہ آئی ہوں گی — They (fem.) will have come)",
+     "دوی به راغلي وو (وہ آئے ہوں گے — They will have come)",
+     "دوی به راغلې وې (وہ آئی ہوں گی — They (fem.) will have come)"
+    ]
+   },
+   {
+    "title": "مستقبل سادہ",
+    "ur_title": "آئے گا",
+    "en_title": "Simple future",
+    "lines": [
+     "زه به راځم (میں آؤں گا — I will come)",
+     "ته به راځې (تم آؤ گے — You will come)",
+     "هغه به راځي (وہ آئے گا — He will come)",
+     "موږ به راځو (ہم آئیں گے — We will come)",
+     "تاسو به راځئ (آپ آئیں گے — You will come)",
+     "هغوی به راځي (وہ آئیں گے — They will come)",
+     "دوی به راځي (وہ آئیں گے — They will come)"
+    ]
+   },
+   {
+    "title": "ارادی مستقبل",
+    "ur_title": "آ جاؤں گا",
+    "en_title": "Resolutive future",
+    "lines": [
+     "زه به راشم (میں آجاؤں گا — I will come (for sure))",
+     "ته به راشې (تم آجاؤ گے — You will come)",
+     "هغه به راشي (وہ آجائے گا — He will come)",
+     "موږ به راشو (ہم آجائیں گے — We will come)",
+     "تاسو به راشئ (آپ آجائیں گے — You will come)",
+     "هغوی به راشي (وہ آجائیں گے — They will come)",
+     "دوی به راشي (وہ آجائیں گے — They will come)"
+    ]
+   },
+   {
+    "title": "مضارع",
+    "ur_title": "آؤں",
+    "en_title": "Subjunctive",
+    "lines": [
+     "زه راشم (میں آجاؤں — that I come)",
+     "ته راشه (تم آجاؤ — that you come)",
+     "هغه راشي (وہ آجائے — that he come)",
+     "موږ راشو (ہم آجائیں — that we come)",
+     "تاسو راشئ (آپ آجائیں — that you come)",
+     "هغوی راشي (وہ آجائیں — that they come)",
+     "دوی راشي (وہ آجائیں — that they come)"
+    ]
+   },
+   {
+    "title": "امر",
+    "ur_title": "حکم",
+    "en_title": "Imperative",
+    "lines": [
+     "ته راځه (تو آ/ تم آؤ — Come!)",
+     "تاسو راځئ (آپ آئیں/ آئیے — Come!)"
+    ]
+   },
+   {
+    "title": "نہی",
+    "ur_title": "منع",
+    "en_title": "Prohibitive",
+    "lines": [
+     "ته مه راځه (تو مت آ/ تم مت آؤ — Don't come!)",
+     "تاسو مه راځئ (آپ مت آئیں/ آئیے — Don't come!)"
+    ]
+   }
+  ]
  }
 ];
