@@ -110,7 +110,6 @@ function renderStats() {
     + `</div><div class="card" style="margin-top:10px"><h4 style="margin:0 0 6px">📖 گرامر</h4>`
     + row('گردانیں والے افعال', getGardananVerbs().length)
     + row('صورتیں والے الفاظ', Object.keys(getFormsMap()).length)
-    + (typeof getPsPsEntries === 'function' ? row('پشتو-پشتو تشریحات', getPsPsEntries().length) : '')
     + `</div>`;
 }
 window.renderStats = renderStats;
@@ -277,7 +276,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 36;
+const APP_VERSION_CODE = 37;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
