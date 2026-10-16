@@ -110,6 +110,7 @@ function renderStats() {
     + `</div><div class="card" style="margin-top:10px"><h4 style="margin:0 0 6px">📖 گرامر</h4>`
     + row('گردانیں والے افعال', getGardananVerbs().length)
     + row('صورتیں والے الفاظ', Object.keys(getFormsMap()).length)
+    + `<div class="kv"><b>گرامر موضوعات (پشتو / فارسی)</b><span><strong>${getGrammarTopics('ps').length} / ${getGrammarTopics('fa').length}</strong></span></div>`
     + (typeof getPsPsEntries === 'function' ? row('Urdu to Pashto لغت کے الفاظ', getPsPsEntries().length) : '')
     + `</div>`;
 }
@@ -277,7 +278,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 40;
+const APP_VERSION_CODE = 41;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -403,6 +404,20 @@ function initUpdate() {
           }
         }
       } catch (e) { /* a missing psps.json on the server is not an error */ }
+      /* (g) grammar topics content check */
+      try {
+        const r7 = await fetchTimeout(base + '/grammar.json');
+        if (r7.ok) {
+          const gj = await r7.json();
+          const curG = Number(localStorage.getItem('masdar_grammar_rev') || 0);
+          if (gj && typeof gj.rev === 'number' && gj.rev > curG && (Array.isArray(gj.ps) || Array.isArray(gj.fa))) {
+            localStorage.setItem('masdar_grammar_data', JSON.stringify(gj));
+            localStorage.setItem('masdar_grammar_rev', String(gj.rev));
+            if (typeof renderGrammarTopics === 'function') renderGrammarTopics();
+            msgs.push('<p class="good">✅ گرامر کے نئے موضوعات شامل ہو گئے</p>');
+          }
+        }
+      } catch (e) { /* a missing grammar.json on the server is not an error */ }
     } finally {
       res.innerHTML = msgs.join('') || '<p class="bad">سرور سے رابطہ نہیں ہو سکا۔ پتہ درست لکھیں (مثلاً https://example.com)</p>';
       /* in the app, the download link goes through the one-tap installer */
@@ -450,7 +465,7 @@ function initUpdate() {
     const t = pbox.value.trim();
     if (!t) { toast('پہلے مواد پیسٹ کریں'); return; }
     let ok = false;
-    try { const d = JSON.parse(t); ok = !!(d && typeof d === 'object' && ((d.gardanan && typeof d.gardanan === 'object') || Array.isArray(d.verbs) || Array.isArray(d.words) || Array.isArray(d.sentences) || Array.isArray(d.masdars) || Array.isArray(d.entries) || (d.forms && typeof d.forms === 'object'))); } catch (e) {}
+    try { const d = JSON.parse(t); ok = !!(d && typeof d === 'object' && ((d.gardanan && typeof d.gardanan === 'object') || Array.isArray(d.verbs) || Array.isArray(d.words) || Array.isArray(d.sentences) || Array.isArray(d.masdars) || Array.isArray(d.entries) || (d.forms && typeof d.forms === 'object') || (d.grammar && typeof d.grammar === 'object') || Array.isArray(d.ps) || Array.isArray(d.fa))); } catch (e) {}
     window.MasdarUpdateFile(t);
     if (ok) pbox.value = '';
   };
@@ -585,6 +600,18 @@ async function autoFetchPacks() {
         }
       }
     } catch (e) {}
+    try {
+      const r = await fetchTimeout(base + '/grammar.json?_=' + Date.now(), 8000);
+      if (r.ok) {
+        const gj = await r.json();
+        const cur = Number(localStorage.getItem('masdar_grammar_rev') || 0);
+        if (gj && typeof gj.rev === 'number' && gj.rev > cur && (Array.isArray(gj.ps) || Array.isArray(gj.fa))) {
+          localStorage.setItem('masdar_grammar_data', JSON.stringify(gj));
+          localStorage.setItem('masdar_grammar_rev', String(gj.rev));
+          if (typeof renderGrammarTopics === 'function') renderGrammarTopics();
+        }
+      }
+    } catch (e) {}
   } catch (e) {}
 }
 /* Called by the Android bridge (and the web file fallback) with the text of a
@@ -635,6 +662,28 @@ window.MasdarUpdateFile = function (text) {
     localStorage.setItem('masdar_forms_rev', String(rev));
     _resetKindCache();
     toast('✅ الفاظ کی صورتیں شامل ہو گئیں');
+    return;
+  }
+  const gr = (d.grammar && typeof d.grammar === 'object') ? d.grammar
+    : ((Array.isArray(d.ps) || Array.isArray(d.fa)) ? d : null);
+  if (gr && (Array.isArray(gr.ps) || Array.isArray(gr.fa))) {
+    const rev = (typeof gr.rev === 'number' && gr.rev) ? gr.rev : Date.now();
+    /* merge with the stored pack by topic title — a small file must not
+       wipe the grammar topics that arrived online */
+    let curG = {};
+    try { const st = JSON.parse(localStorage.getItem('masdar_grammar_data') || 'null'); if (st && typeof st === 'object') curG = st; } catch (e) {}
+    const merged = { rev };
+    ['ps', 'fa'].forEach(lang => {
+      const gm = new Map();
+      const gadd = t => { if (t && t.t) gm.set(norm(t.t), t); };
+      (Array.isArray(curG[lang]) ? curG[lang] : []).forEach(gadd);
+      (Array.isArray(gr[lang]) ? gr[lang] : []).forEach(gadd);
+      merged[lang] = Array.from(gm.values());
+    });
+    localStorage.setItem('masdar_grammar_data', JSON.stringify(merged));
+    localStorage.setItem('masdar_grammar_rev', String(rev));
+    if (typeof renderGrammarTopics === 'function') renderGrammarTopics();
+    toast('✅ گرامر موضوعات شامل ہو گئے');
     return;
   }
   if (Array.isArray(d.masdars) || Array.isArray(d.entries)) {
@@ -1002,6 +1051,7 @@ function initNav() {
     }
     if (name === 'stats' && typeof renderStats === 'function') renderStats();
     if (name === 'psps') initPsPs();
+    if (name === 'grammar') initGrammarTopics();
   };
   window._goNav = go;
   document.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => go(b.dataset.nav));
@@ -1098,6 +1148,66 @@ function initPsPs() {
   }
   renderPsPs();
 }
+
+/* ---------- 📚 گرامر topics (offline seed + online grammar.json pack) ----------
+   Topics are {t, tu, lines}: a Pashto/Farsi title, its Urdu title shown
+   alongside, and body lines (a line starting with «◆» is a sub-heading).
+   Built-in seed (js/grammar-data.js, window.GRAMMAR_SEED) + online pack
+   (grammar.json, localStorage masdar_grammar_data) merged by title — the
+   pack wins. Content is added only after the user's per-topic approval. */
+function getGrammarTopics(lang) {
+  const map = new Map();
+  const add = t => { if (t && t.t) map.set(norm(t.t), { t: t.t, tu: t.tu || '', lines: Array.isArray(t.lines) ? t.lines : [] }); };
+  const seed = (window.GRAMMAR_SEED && Array.isArray(window.GRAMMAR_SEED[lang])) ? window.GRAMMAR_SEED[lang] : [];
+  seed.forEach(add);
+  try {
+    const stored = JSON.parse(localStorage.getItem('masdar_grammar_data') || 'null');
+    if (stored && Array.isArray(stored[lang])) stored[lang].forEach(add);
+  } catch (e) {}
+  return Array.from(map.values());
+}
+window.getGrammarTopics = getGrammarTopics;
+let _grammarLang = 'ps';
+function setGrammarLang(lang) {
+  _grammarLang = lang;
+  document.querySelectorAll('#grammarTabs button').forEach(b => b.classList.toggle('active', b.dataset.glang === lang));
+  renderGrammarTopics();
+}
+function renderGrammarTopics() {
+  const box = $('grammarTopics');
+  if (!box) return;
+  const list = getGrammarTopics(_grammarLang);
+  window._grammarList = list;
+  if (!list.length) {
+    box.innerHTML = `<div class="empty">${_grammarLang === 'ps' ? 'ابھی کوئی موضوع شامل نہیں — جلد آئے گا' : 'هنوز هیچ موضوعی اضافه نشده است — به‌زودی اضافه می‌شود'}</div>`;
+    return;
+  }
+  box.innerHTML = list.map((t, i) => `<div class="result-card" data-gt="${i}"><div class="w">${esc(t.t)}</div>`
+    + (t.tu ? `<div class="m">${esc(t.tu)}</div>` : '')
+    + `</div>`).join('');
+  box.querySelectorAll('[data-gt]').forEach(el => el.addEventListener('click', () => openGrammarTopic(window._grammarList[+el.dataset.gt])));
+}
+function openGrammarTopic(t) {
+  if (!t) return;
+  const body = (t.lines || []).map(l => String(l).startsWith('◆')
+    ? `<h4 style="margin:12px 0 4px">${esc(String(l).replace(/^◆\s*/, ''))}</h4>`
+    : `<p style="margin:4px 0;line-height:2">${esc(l)}</p>`).join('');
+  openSheet(`<h3 style="margin:6px 0 2px">${esc(t.t)}</h3>`
+    + (t.tu ? `<div class="m" style="margin-bottom:6px">${esc(t.tu)}</div>` : '')
+    + `<div class="sheet-sec">${body}</div>`);
+}
+window.openGrammarTopic = openGrammarTopic;
+window.renderGrammarTopics = renderGrammarTopics;
+window.setGrammarLang = setGrammarLang;
+let _grammarWired = false;
+function initGrammarTopics() {
+  if (!_grammarWired) {
+    _grammarWired = true;
+    document.querySelectorAll('#grammarTabs button').forEach(b => b.addEventListener('click', () => setGrammarLang(b.dataset.glang)));
+  }
+  renderGrammarTopics();
+}
+window.initGrammarTopics = initGrammarTopics;
 
 /* ---------- header clock + Gregorian/Hijri dates ---------- */
 /* Hijri date follows Pakistan's moon-based sequence (the built-in Intl
