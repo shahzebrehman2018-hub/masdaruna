@@ -278,7 +278,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 43;
+const APP_VERSION_CODE = 44;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -1900,7 +1900,7 @@ function showDetail(type, id) {
         <div class="kv"><b>🇵🇰 اردو</b><span>${esc(w.urdu || '')}</span></div>
         <div class="kv"><b>🇬🇧 English</b><span>${esc(w.english || '')}</span></div>
         ${w.farsi ? `<div class="kv"><b>🇮🇷 فارسی</b><span>${esc(w.farsi)}</span></div>` : ''}
-        <div class="kv"><b>زبان</b><span>${w.lang === 'ps' ? 'پشتو' : w.lang === 'fa' ? 'فارسی' : 'اردو'}</span></div></div>
+        <div class="kv"><b>زبان</b><span>${w.lang === 'ps' ? 'پشتو' : w.lang === 'fa' ? 'فارسی' : w.lang === 'en' ? 'انگریزی' : 'اردو'}</span></div></div>
       ${w.sentence ? `<div class="sheet-sec"><h4>مثالی جملہ</h4><p style="white-space:pre-wrap">${esc(w.sentence)}</p>${w.sentenceTr ? `<p class="hint">${esc(w.sentenceTr)}</p>` : ''}</div>` : ''}
       ${w.conj ? `<div class="sheet-sec"><h4>گردان / نوٹ</h4><p style="white-space:pre-wrap">${esc(w.conj)}</p></div>` : ''}
       <button class="btn-ghost" onclick="delWord('${w.id}')">🗑 حذف کریں</button>`);
