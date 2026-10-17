@@ -1,5 +1,5 @@
 {
- "rev": 12,
+ "rev": 13,
  "verbs": [
   {
    "ps": "خوړل",
@@ -1093,6 +1093,203 @@
      "lines": [
       "مه ورستېږه (مت سڑ/ مت سڑو — do not rot)",
       "مه ورستېږئ (مت سڑیں/ مت سڑئیے — do not rot)"
+     ]
+    }
+   ]
+  },
+  {
+   "ps": "ليدل",
+   "ur": "دیکھنا",
+   "en": "to see",
+   "kind": "متعدی",
+   "sections": [
+    {
+     "title": "حال",
+     "ur_title": "دیکھتا ہوں",
+     "en_title": "Present",
+     "lines": [
+      "زه وینم (میں دیکھتا ہوں / دیکھتی ہوں — I see)",
+      "ته وینې (تم دیکھتے ہو / دیکھتی ہو — you see)",
+      "هغه وینی (وہ دیکھتا ہے / دیکھتی ہے — he/she sees)",
+      "موږ وینو (ہم دیکھتے ہیں / دیکھتی ہیں — we see)",
+      "تاسو وینئ (آپ دیکھتے ہیں / دیکھتی ہیں — you see)",
+      "هغوی وینی (وہ دیکھتے ہیں / دیکھتی ہیں — they see)",
+      "دوی وینی (وہ دیکھتے ہیں / دیکھتی ہیں — they see)"
+     ]
+    },
+    {
+     "title": "ماضی مطلق",
+     "ur_title": "نے دیکھا",
+     "en_title": "Simple past",
+     "lines": [
+      "ما ولید (میں نے دیکھا — I saw it (m.))",
+      "ما ولیده (میں نے دیکھی — I saw it (f.))",
+      "تا ولید (تم نے دیکھا — you saw it (m.))",
+      "تا ولیده (تم نے دیکھی — you saw it (f.))",
+      "دۀ ولید (اس نے دیکھا — he saw it (m.))",
+      "دې ولیده (اس نے دیکھی — she saw it (f.))",
+      "هغه ولید (اس نے دیکھا — he saw it (m.))",
+      "هغې ولیده (اس نے دیکھی — she saw it (f.))",
+      "موږ ولیدل (ہم نے دیکھے — we saw them (m.))",
+      "موږ ولیدې (ہم نے دیکھیں — we saw them (f.))",
+      "تاسو ولیدل (آپ نے دیکھے — you saw them (m.))",
+      "تاسو ولیدې (آپ نے دیکھیں — you saw them (f.))",
+      "هغوی ولیدل (انہوں نے دیکھے — they saw them (m.))",
+      "هغوی ولیدې (انہوں نے دیکھیں — they saw them (f.))",
+      "دوی ولیدل (انہوں نے دیکھے — they saw them (m.))",
+      "دوی ولیدې (انہوں نے دیکھیں — they saw them (f.))"
+     ]
+    },
+    {
+     "title": "ماضی استمراری",
+     "ur_title": "دیکھ رہا تھا",
+     "en_title": "Past continuous",
+     "lines": [
+      "ما لیدلو (میں دیکھتا تھا — I was seeing (m.))",
+      "ما لیدله (میں دیکھتی تھی — I was seeing (f.))",
+      "تا لیدلو (تم دیکھتے تھے — you were seeing (m.))",
+      "تا لیدله (تم دیکھتی تھیں — you were seeing (f.))",
+      "دۀ لیدلو (وہ دیکھتا تھا — he was seeing)",
+      "دې لیدله (وہ دیکھتی تھی — she was seeing)",
+      "هغه لیدلو (وہ دیکھتا تھا — he was seeing)",
+      "هغې لیدله (وہ دیکھتی تھی — she was seeing)",
+      "موږ لیدل (ہم دیکھتے تھے — we were seeing (m.))",
+      "موږ لیدلې (ہم دیکھتی تھیں — we were seeing (f.))",
+      "تاسو لیدل (آپ دیکھتے تھے — you were seeing (m.))",
+      "تاسو لیدلې (آپ دیکھتی تھیں — you were seeing (f.))",
+      "هغوی لیدل (وہ دیکھتے تھے — they were seeing (m.))",
+      "هغوی لیدلې (وہ دیکھتی تھیں — they were seeing (f.))",
+      "دوی لیدل (وہ دیکھتے تھے — they were seeing (m.))",
+      "دوی لیدلې (وہ دیکھتی تھیں — they were seeing (f.))"
+     ]
+    },
+    {
+     "title": "حال مکمل / ماضی قریب",
+     "ur_title": "دیکھ لیا ہے",
+     "en_title": "Present perfect",
+     "lines": [
+      "ما لیدلی دی (میں نے دیکھا ہے — I have seen it (m.))",
+      "ما لیدلې ده (میں نے دیکھی ہے — I have seen it (f.))",
+      "تا لیدلی دی (تم نے دیکھا ہے — you have seen it (m.))",
+      "تا لیدلې ده (تم نے دیکھی ہے — you have seen it (f.))",
+      "دۀ لیدلی دی (اس نے دیکھا ہے — he has seen it (m.))",
+      "دې لیدلې ده (اس نے دیکھی ہے — she has seen it (f.))",
+      "هغه لیدلی دی (اس نے دیکھا ہے — he has seen it (m.))",
+      "هغې لیدلې ده (اس نے دیکھی ہے — she has seen it (f.))",
+      "موږ لیدلي دي (ہم نے دیکھے ہیں — we have seen them (m.))",
+      "موږ لیدلې دي (ہم نے دیکھیں ہیں — we have seen them (f.))",
+      "تاسو لیدلي دي (آپ نے دیکھے ہیں — you have seen them (m.))",
+      "تاسو لیدلې دي (آپ نے دیکھیں ہیں — you have seen them (f.))",
+      "هغوی لیدلي دي (انہوں نے دیکھے ہیں — they have seen them (m.))",
+      "هغوی لیدلې دي (انہوں نے دیکھیں ہیں — they have seen them (f.))",
+      "دوی لیدلي دي (انہوں نے دیکھے ہیں — they have seen them (m.))",
+      "دوی لیدلې دي (انہوں نے دیکھیں ہیں — they have seen them (f.))"
+     ]
+    },
+    {
+     "title": "ماضی بعيد",
+     "ur_title": "دیکھ لیا تھا",
+     "en_title": "Past perfect",
+     "lines": [
+      "ما لیدلی و (میں نے دیکھا تھا — I had seen it (m.))",
+      "ما لیدلې وه (میں نے دیکھی تھی — I had seen it (f.))",
+      "تا لیدلی و (تم نے دیکھا تھا — you had seen it (m.))",
+      "تا لیدلې وه (تم نے دیکھی تھی — you had seen it (f.))",
+      "دۀ لیدلی و (اس نے دیکھا تھا — he had seen it (m.))",
+      "دې لیدلې وه (اس نے دیکھی تھی — she had seen it (f.))",
+      "هغه لیدلی و (اس نے دیکھا تھا — he had seen it (m.))",
+      "هغې لیدلې وه (اس نے دیکھی تھی — she had seen it (f.))",
+      "موږ لیدلي وو (ہم نے دیکھے تھے — we had seen them (m.))",
+      "موږ لیدلې وې (ہم نے دیکھیں تھیں — we had seen them (f.))",
+      "تاسو لیدلي وو (آپ نے دیکھے تھے — you had seen them (m.))",
+      "تاسو لیدلې وې (آپ نے دیکھیں تھیں — you had seen them (f.))",
+      "هغوی لیدلي وو (انہوں نے دیکھے تھے — they had seen them (m.))",
+      "هغوی لیدلې وې (انہوں نے دیکھیں تھیں — they had seen them (f.))",
+      "دوی لیدلي وو (انہوں نے دیکھے تھے — they had seen them (m.))",
+      "دوی لیدلې وې (انہوں نے دیکھیں تھیں — they had seen them (f.))"
+     ]
+    },
+    {
+     "title": "ماضی احتمالی",
+     "ur_title": "دیکھ لیا ہوگا",
+     "en_title": "Presumptive past",
+     "lines": [
+      "ما به لیدلی و (میں نے دیکھا ہو گا — I must have seen it (m.))",
+      "ما به لیدلې وه (میں نے دیکھی ہو گی — I must have seen it (f.))",
+      "تا به لیدلی و (تم نے دیکھا ہو گا — you must have seen it (m.))",
+      "تا به لیدلې وه (تم نے دیکھی ہو گی — you must have seen it (f.))",
+      "دۀ به لیدلی و (اس نے دیکھا ہو گا — he must have seen it (m.))",
+      "دې به لیدلې وه (اس نے دیکھی ہو گی — she must have seen it (f.))",
+      "هغه به لیدلی و (اس نے دیکھا ہو گا — he must have seen it (m.))",
+      "هغې به لیدلې وه (اس نے دیکھی ہو گی — she must have seen it (f.))",
+      "موږ به لیدلي وو (ہم نے دیکھے ہوں گے — we must have seen them (m.))",
+      "موږ به لیدلې وې (ہم نے دیکھیں ہوں گی — we must have seen them (f.))",
+      "تاسو به لیدلي وو (آپ نے دیکھے ہوں گے — you must have seen them (m.))",
+      "تاسو به لیدلې وې (آپ نے دیکھیں ہوں گی — you must have seen them (f.))",
+      "هغوی به لیدلي وو (انہوں نے دیکھے ہوں گے — they must have seen them (m.))",
+      "هغوی به لیدلې وې (انہوں نے دیکھیں ہوں گی — they must have seen them (f.))",
+      "دوی به لیدلي وو (انہوں نے دیکھے ہوں گے — they must have seen them (m.))",
+      "دوی به لیدلې وې (انہوں نے دیکھیں ہوں گی — they must have seen them (f.))"
+     ]
+    },
+    {
+     "title": "مستقبل سادہ",
+     "ur_title": "دیکھے گا",
+     "en_title": "Simple future",
+     "lines": [
+      "زه به وینم (میں دیکھوں گا / دیکھوں گی — I will see)",
+      "ته به وینې (تم دیکھو گے / دیکھو گی — you will see)",
+      "هغه به وینی (وہ دیکھے گا / دیکھے گی — he/she will see)",
+      "موږ به وینو (ہم دیکھیں گے / دیکھیں گی — we will see)",
+      "تاسو به وینئ (آپ دیکھیں گے / دیکھیں گی — you will see)",
+      "هغوی به وینی (وہ دیکھیں گے / دیکھیں گی — they will see)",
+      "دوی به وینی (وہ دیکھیں گے / دیکھیں گی — they will see)"
+     ]
+    },
+    {
+     "title": "ارادی مستقبل",
+     "ur_title": "دیکھ لوں گا",
+     "en_title": "Resolutive future",
+     "lines": [
+      "زه به يې ووينم (میں دیکھ لوں گا / دیکھ لوں گی — I will see it)",
+      "ته به يې ووينې (تم دیکھ لو گے / دیکھ لو گی — you will see it)",
+      "هغه به يې وويني (وہ دیکھ لیں گا / دیکھ لیں گی — he/she will see it)",
+      "موږ به يې ووينو (ہم دیکھ لیں گے / دیکھ لیں گی — we will see it)",
+      "تاسو به يې ووينئ (آپ دیکھ لیں گے / دیکھ لیں گی — you will see it)",
+      "هغوی به يې وويني (وہ دیکھ لیں گے / دیکھ لیں گی — they will see it)",
+      "دوی به يې وويني (وہ دیکھ لیں گے / دیکھ لیں گی — they will see it)"
+     ]
+    },
+    {
+     "title": "مضارع",
+     "ur_title": "دیکھوں",
+     "en_title": "Subjunctive",
+     "lines": [
+      "زه يې ووينم (میں دیکھ لوں — that I see it)",
+      "ته يې ووينې (تم دیکھ لو — that you see it)",
+      "هغه يې وويني (وہ دیکھ لے — that he/she sees it)",
+      "موږ يې ووينو (ہم دیکھ لیں — that we see it)",
+      "تاسو يې ووينئ (آپ دیکھ لیں — that you see it)",
+      "هغوی يې وويني (وہ دیکھ لیں — that they see it)",
+      "دوی يې وويني (وہ دیکھ لیں — that they see it)"
+     ]
+    },
+    {
+     "title": "امر",
+     "ur_title": "حکم",
+     "en_title": "Imperative",
+     "lines": [
+      "ووينه (دیکھو / دیکھ لو — see! look!)",
+      "ووينئ (دیکھیں / دیکھ لیں — see! look! (pl.))"
+     ]
+    },
+    {
+     "title": "نہی",
+     "ur_title": "منع",
+     "en_title": "Prohibitive",
+     "lines": [
+      "مه يې وینه (مت دیکھو — don't see it!)",
+      "مه يې وینئ (مت دیکھیں — don't see it! (pl.))"
      ]
     }
    ]
