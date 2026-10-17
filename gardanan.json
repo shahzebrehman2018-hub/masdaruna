@@ -1,5 +1,5 @@
 {
- "rev": 14,
+ "rev": 15,
  "verbs": [
   {
    "ps": "خوړل",
@@ -1290,6 +1290,204 @@
      "lines": [
       "مه يې وینه (مت دیکھو — don't see it!)",
       "مه يې وینئ (مت دیکھیں — don't see it! (pl.))"
+     ]
+    }
+   ]
+  },
+  {
+   "ps": "لوستل",
+   "ur": "پڑھنا",
+   "en": "to read",
+   "kind": "متعدی",
+   "sections": [
+    {
+     "title": "حال",
+     "ur_title": "پڑھتا ہوں",
+     "en_title": "Present",
+     "lines": [
+      "زه لولم (میں پڑھتا ہوں / پڑھتی ہوں — I read)",
+      "ته لولې (تم پڑھتے ہو / پڑھتی ہو — you read)",
+      "هغه لولي (وہ پڑھتا ہے / پڑھتی ہے — he/she reads)",
+      "موږ لولو (ہم پڑھتے ہیں / پڑھتی ہیں — we read)",
+      "تاسو لولئ (آپ پڑھتے ہیں / پڑھتی ہیں — you read)",
+      "هغوی لولي (وہ پڑھتے ہیں / پڑھتی ہیں — they read)",
+      "دوی لولي (وہ پڑھتے ہیں / پڑھتی ہیں — they read)"
+     ]
+    },
+    {
+     "title": "ماضی مطلق",
+     "ur_title": "نے پڑھا",
+     "en_title": "Simple past",
+     "lines": [
+      "ما ولوست (میں نے پڑھا — I read it (m.))",
+      "ما ولوسته (میں نے پڑھی — I read it (f.))",
+      "تا ولوست (تم نے پڑھا — you read it (m.))",
+      "تا ولوسته (تم نے پڑھی — you read it (f.))",
+      "دۀ ولوست (اس نے پڑھا — he read it (m.))",
+      "دې ولوسته (اس نے پڑھی — she read it (f.))",
+      "هغه ولوست (اس نے پڑھا — he read it (m.))",
+      "هغې ولوسته (اس نے پڑھی — she read it (f.))",
+      "موږ ولوستل (ہم نے پڑھے — we read them (m.))",
+      "موږ ولوستې (ہم نے پڑھیں — we read them (f.))",
+      "تاسو ولوستل (آپ نے پڑھے — you read them (m.))",
+      "تاسو ولوستې (آپ نے پڑھیں — you read them (f.))",
+      "هغوی ولوستل (انہوں نے پڑھے — they read them (m.))",
+      "هغوی ولوستې (انہوں نے پڑھیں — they read them (f.))",
+      "دوی ولوستل (انہوں نے پڑھے — they read them (m.))",
+      "دوی ولوستې (انہوں نے پڑھیں — they read them (f.))"
+     ]
+    },
+    {
+     "title": "ماضی استمراری",
+     "ur_title": "پڑھ رہا تھا",
+     "en_title": "Past continuous",
+     "lines": [
+      "ما لوستو / ما لوستلو (میں پڑھتا تھا / میں پڑھ رہا تھا — I used to read / I was reading (m.))",
+      "ما لوسته / ما لوستله (میں پڑھتی تھی / میں پڑھ رہی تھی — I was reading (f.))",
+      "تا لوستو / تا لوستلو (تم پڑھتے تھے / تم پڑھ رہے تھے — you were reading (m.))",
+      "تا لوسته / تا لوستله (تم پڑھتی تھیں / تم پڑھ رہی تھیں — you were reading (f.))",
+      "دۀ لوستو / دۀ لوستلو (وہ پڑھتا تھا / وہ پڑھ رہا تھا — he was reading)",
+      "دې لوسته / دې لوستله (وہ پڑھتی تھی / وہ پڑھ رہی تھی — she was reading)",
+      "هغه لوستو / هغه لوستلو (وہ پڑھتا تھا / وہ پڑھ رہا تھا — he was reading)",
+      "هغې لوسته / هغې لوستله (وہ پڑھتی تھی / وہ پڑھ رہی تھی — she was reading)",
+      "موږ لوستل (ہم پڑھتے تھے — we were reading (m.))",
+      "موږ لوستې / موږ لوستلې (ہم پڑھتی تھیں / ہم پڑھ رہی تھیں — we were reading (f.))",
+      "تاسو لوستل (آپ پڑھتے تھے — you were reading (m.))",
+      "تاسو لوستې / تاسو لوستلې (آپ پڑھتی تھیں / آپ پڑھ رہی تھیں — you were reading (f.))",
+      "هغوی لوستل (وہ پڑھتے تھے — they were reading (m.))",
+      "هغوی لوستې / هغوی لوستلې (وہ پڑھتی تھیں / وہ پڑھ رہی تھیں — they were reading (f.))",
+      "دوی لوستل (وہ پڑھتے تھے — they were reading (m.))",
+      "دوی لوستې / دوی لوستلې (وہ پڑھتی تھیں / وہ پڑھ رہی تھیں — they were reading (f.))",
+      "نوٹ (صارف): ل کے ساتھ فعل استمراری لکھنے سے معنی لگاتار جاری بن جاتا ہے — پڑھ رہا تھا، پڑھتا تھا۔"
+     ]
+    },
+    {
+     "title": "حال مکمل / ماضی قریب",
+     "ur_title": "پڑھ لیا ہے",
+     "en_title": "Present perfect",
+     "lines": [
+      "ما لوستی دی (میں نے پڑھا ہے — I have read it (m.))",
+      "ما لوستې ده (میں نے پڑھی ہے — I have read it (f.))",
+      "تا لوستی دی (تم نے پڑھا ہے — you have read it (m.))",
+      "تا لوستې ده (تم نے پڑھی ہے — you have read it (f.))",
+      "دۀ لوستی دی (اس نے پڑھا ہے — he has read it (m.))",
+      "دې لوستې ده (اس نے پڑھی ہے — she has read it (f.))",
+      "هغه لوستی دی (اس نے پڑھا ہے — he has read it (m.))",
+      "هغې لوستې ده (اس نے پڑھی ہے — she has read it (f.))",
+      "موږ لوستي دي (ہم نے پڑھے ہیں — we have read them (m.))",
+      "موږ لوستې دي (ہم نے پڑھی ہیں — we have read them (f.))",
+      "تاسو لوستي دي (آپ نے پڑھے ہیں — you have read them (m.))",
+      "تاسو لوستې دي (آپ نے پڑھی ہیں — you have read them (f.))",
+      "هغوی لوستي دي (انہوں نے پڑھے ہیں — they have read them (m.))",
+      "هغوی لوستې دي (انہوں نے پڑھی ہیں — they have read them (f.))",
+      "دوی لوستي دي (انہوں نے پڑھے ہیں — they have read them (m.))",
+      "دوی لوستې دي (انہوں نے پڑھی ہیں — they have read them (f.))"
+     ]
+    },
+    {
+     "title": "ماضی بعيد",
+     "ur_title": "پڑھ لیا تھا",
+     "en_title": "Past perfect",
+     "lines": [
+      "ما لوستی و (میں نے پڑھا تھا — I had read it (m.))",
+      "ما لوستې وه (میں نے پڑھی تھی — I had read it (f.))",
+      "تا لوستی و (تم نے پڑھا تھا — you had read it (m.))",
+      "تا لوستې وه (تم نے پڑھی تھی — you had read it (f.))",
+      "دۀ لوستی و (اس نے پڑھا تھا — he had read it (m.))",
+      "دې لوستې وه (اس نے پڑھی تھی — she had read it (f.))",
+      "هغه لوستی و (اس نے پڑھا تھا — he had read it (m.))",
+      "هغې لوستې وه (اس نے پڑھی تھی — she had read it (f.))",
+      "موږ لوستي وو (ہم نے پڑھے تھے — we had read them (m.))",
+      "موږ لوستې وې (ہم نے پڑھی تھیں — we had read them (f.))",
+      "تاسو لوستي وو (آپ نے پڑھے تھے — you had read them (m.))",
+      "تاسو لوستې وې (آپ نے پڑھی تھیں — you had read them (f.))",
+      "هغوی لوستي وو (انہوں نے پڑھے تھے — they had read them (m.))",
+      "هغوی لوستې وې (انہوں نے پڑھی تھیں — they had read them (f.))",
+      "دوی لوستي وو (انہوں نے پڑھے تھے — they had read them (m.))",
+      "دوی لوستې وې (انہوں نے پڑھی تھیں — they had read them (f.))"
+     ]
+    },
+    {
+     "title": "ماضی احتمالی",
+     "ur_title": "پڑھ لیا ہوگا",
+     "en_title": "Presumptive past",
+     "lines": [
+      "ما به لوستی و (میں نے پڑھا ہو گا — I must have read it (m.))",
+      "ما به لوستې وه (میں نے پڑھی ہو گی — I must have read it (f.))",
+      "تا به لوستی و (تم نے پڑھا ہو گا — you must have read it (m.))",
+      "تا به لوستې وه (تم نے پڑھی ہو گی — you must have read it (f.))",
+      "دۀ به لوستی و (اس نے پڑھا ہو گا — he must have read it (m.))",
+      "دې به لوستې وه (اس نے پڑھی ہو گی — she must have read it (f.))",
+      "هغه به لوستی و (اس نے پڑھا ہو گا — he must have read it (m.))",
+      "هغې به لوستې وه (اس نے پڑھی ہو گی — she must have read it (f.))",
+      "موږ به لوستي وو (ہم نے پڑھے ہوں گے — we must have read them (m.))",
+      "موږ به لوستې وې (ہم نے پڑھی ہوں گی — we must have read them (f.))",
+      "تاسو به لوستي وو (آپ نے پڑھے ہوں گے — you must have read them (m.))",
+      "تاسو به لوستې وې (آپ نے پڑھی ہوں گی — you must have read them (f.))",
+      "هغوی به لوستي وو (انہوں نے پڑھے ہوں گے — they must have read them (m.))",
+      "هغوی به لوستې وې (انہوں نے پڑھی ہوں گی — they must have read them (f.))",
+      "دوی به لوستي وو (انہوں نے پڑھے ہوں گے — they must have read them (m.))",
+      "دوی به لوستې وې (انہوں نے پڑھی ہوں گی — they must have read them (f.))"
+     ]
+    },
+    {
+     "title": "مستقبل سادہ",
+     "ur_title": "پڑھے گا",
+     "en_title": "Simple future",
+     "lines": [
+      "زه به لولم (میں پڑھوں گا / پڑھوں گی — I will read)",
+      "ته به لولې (تم پڑھو گے / پڑھو گی — you will read)",
+      "هغه به لولي (وہ پڑھے گا / پڑھے گی — he/she will read)",
+      "موږ به لولو (ہم پڑھیں گے / پڑھیں گی — we will read)",
+      "تاسو به لولئ (آپ پڑھیں گے / پڑھیں گی — you will read)",
+      "هغوی به لولي (وہ پڑھیں گے / پڑھیں گی — they will read)",
+      "دوی به لولي (وہ پڑھیں گے / پڑھیں گی — they will read)"
+     ]
+    },
+    {
+     "title": "ارادی مستقبل",
+     "ur_title": "پڑھ لوں گا",
+     "en_title": "Resolutive future",
+     "lines": [
+      "زه به يې ولولم (میں پڑھوں گا / پڑھوں گی — I will read it)",
+      "ته به يې ولولې (تم پڑھو گے / پڑھو گی — you will read it)",
+      "هغه به يې ولولي (وہ پڑھے گا / پڑھے گی — he/she will read it)",
+      "موږ به يې ولولو (ہم پڑھیں گے / پڑھیں گی — we will read it)",
+      "تاسو به يې ولولئ (آپ پڑھیں گے / پڑھیں گی — you will read it)",
+      "هغوی به يې ولولي (وہ پڑھیں گے / پڑھیں گی — they will read it)",
+      "دوی به يې ولولي (وہ پڑھیں گے / پڑھیں گی — they will read it)"
+     ]
+    },
+    {
+     "title": "مضارع",
+     "ur_title": "پڑھوں",
+     "en_title": "Subjunctive",
+     "lines": [
+      "زه يې ولولم (میں پڑھوں / پڑھ لوں — that I read it)",
+      "ته يې ولولې (تم پڑھو — that you read it)",
+      "هغه يې ولولي (وہ پڑھے — that he/she reads it)",
+      "موږ يې ولولو (ہم پڑھیں / پڑھ لیں — that we read it)",
+      "تاسو يې ولولئ (آپ پڑھیں — that you read it)",
+      "هغوی يې ولولي (وہ پڑھیں — that they read it)",
+      "دوی يې ولولي (وہ پڑھیں — that they read it)"
+     ]
+    },
+    {
+     "title": "امر",
+     "ur_title": "حکم",
+     "en_title": "Imperative",
+     "lines": [
+      "ولوله (پڑھو — read!)",
+      "ولولئ (پڑھیں — read! (pl.))"
+     ]
+    },
+    {
+     "title": "نہی",
+     "ur_title": "منع",
+     "en_title": "Prohibitive",
+     "lines": [
+      "مه لوله (مت پڑھو — don't read!)",
+      "مه لولئ (مت پڑھیں — don't read! (pl.))"
      ]
     }
    ]
