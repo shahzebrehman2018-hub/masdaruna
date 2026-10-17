@@ -278,7 +278,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 44;
+const APP_VERSION_CODE = 45;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -1966,6 +1966,12 @@ function initMyWords() {
   if (mob) mob.onclick = () => {
     if (window._goNav) window._goNav('about');
     toast('🌐 ویب سائٹ سے ڈائریکٹ اپڈیٹ چیک ہو رہا ہے…');
+    setTimeout(() => { const b = $('updCheck'); if (b) { b.scrollIntoView({ behavior: 'smooth', block: 'center' }); b.click(); } }, 450);
+  };
+  const dub = $('drawerUpdBtn');
+  if (dub) dub.onclick = () => {
+    if (window._goNav) window._goNav('about');
+    toast('🌐 آنلائن اپڈیٹ چیک ہو رہا ہے…');
     setTimeout(() => { const b = $('updCheck'); if (b) { b.scrollIntoView({ behavior: 'smooth', block: 'center' }); b.click(); } }, 450);
   };
   $('importFile').onchange = e => { if (e.target.files[0]) importMyData(e.target.files[0]); e.target.value = ''; };
