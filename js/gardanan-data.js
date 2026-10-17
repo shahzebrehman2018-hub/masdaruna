@@ -1277,8 +1277,8 @@ window.GARDANAN_SEED = [
     "ur_title": "حکم",
     "en_title": "Imperative",
     "lines": [
-     "ووينه (دیکھو / دیکھ لو — see! look!)",
-     "ووينئ (دیکھیں / دیکھ لیں — see! look! (pl.))"
+     "ويې وينه (دیکھو / دیکھ لو — see it!)",
+     "ويې وينئ (دیکھیں / دیکھ لیں — see it! (pl.))"
     ]
    },
    {
