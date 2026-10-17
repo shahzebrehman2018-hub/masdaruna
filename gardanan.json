@@ -1,5 +1,5 @@
 {
- "rev": 16,
+ "rev": 17,
  "verbs": [
   {
    "ps": "خوړل",
@@ -1685,6 +1685,164 @@
      "lines": [
       "مه پوښته (مت پوچھو — don't ask!)",
       "مه پوښتئ (مت پوچھیں — don't ask! (pl.))"
+     ]
+    }
+   ]
+  },
+  {
+   "ps": "خندل",
+   "ur": "ہنسنا",
+   "en": "to laugh",
+   "kind": "لازم",
+   "sections": [
+    {
+     "title": "حال",
+     "ur_title": "ہنستا ہوں",
+     "en_title": "Present",
+     "lines": [
+      "زه خاندم (میں ہنستا ہوں / ہنستی ہوں — I laugh)",
+      "ته خاندې (تم ہنستے ہو / ہنستی ہو — you laugh)",
+      "هغه خاندي (وہ ہنستا ہے / ہنستی ہے — he/she laughs)",
+      "موږ خاندو (ہم ہنستے ہیں / ہنستی ہیں — we laugh)",
+      "تاسو خاندئ (آپ ہنستے ہیں / ہنستی ہیں — you laugh)",
+      "هغوی خاندي (وہ ہنستے ہیں / ہنستی ہیں — they laugh)",
+      "دوی خاندي (وہ ہنستے ہیں / ہنستی ہیں — they laugh)"
+     ]
+    },
+    {
+     "title": "ماضی مطلق",
+     "ur_title": "ہنسا",
+     "en_title": "Simple past",
+     "lines": [
+      "ما وخندل (میں ہنسا / میں ہنسی — I laughed)",
+      "تا وخندل (تم ہنسے / تم ہنسی — you laughed)",
+      "هغه وخندل (وہ ہنسا — he laughed)",
+      "هغې وخندل (وہ ہنسی — she laughed)",
+      "موږ وخندل (ہم ہنسے / ہم ہنسیں — we laughed)",
+      "تاسو وخندل (آپ ہنسے / آپ ہنسیں — you laughed)",
+      "هغوی وخندل (وہ ہنسے / وہ ہنسیں — they laughed)",
+      "دوی وخندل (وہ ہنسے / وہ ہنسیں — they laughed)"
+     ]
+    },
+    {
+     "title": "ماضی استمراری",
+     "ur_title": "ہنس رہا تھا",
+     "en_title": "Past continuous",
+     "lines": [
+      "ما خندل (میں ہنستا تھا / ہنستی تھی — I was laughing)",
+      "تا خندل (تم ہنستے تھے / ہنستی تھیں — you were laughing)",
+      "هغه خندل (وہ ہنستا تھا — he was laughing)",
+      "هغې خندل (وہ ہنستی تھی — she was laughing)",
+      "موږ خندل (ہم ہنستے تھے / ہنستی تھیں — we were laughing)",
+      "تاسو خندل (آپ ہنستے تھے / ہنستی تھیں — you were laughing)",
+      "هغوی خندل (وہ ہنستے تھے / ہنستی تھیں — they were laughing)",
+      "دوی خندل (وہ ہنستے تھے / ہنستی تھیں — they were laughing)"
+     ]
+    },
+    {
+     "title": "حال مکمل / ماضی قریب",
+     "ur_title": "ہنس چکا ہے",
+     "en_title": "Present perfect",
+     "lines": [
+      "ما خندلي دي (میں ہنسا ہُوں / میں ہنس چکا ہوں — I have laughed)",
+      "تا خندلي دي (تم ہنسے ہو / تم ہنس چکے ہو — you have laughed)",
+      "هغه خندلي دي (وہ ہنسا ہے / وہ ہنس چکا ہے — he has laughed)",
+      "هغې خندلي دي (وہ ہنسی ہے / وہ ہنس چکی ہے — she has laughed)",
+      "موږ خندلي دي (ہم ہنسے ہیں / ہم ہنس چکے ہیں — we have laughed)",
+      "تاسو خندلي دي (آپ ہنسے ہیں / آپ ہنس چکے ہیں — you have laughed)",
+      "هغوی خندلي دي (وہ ہنسے ہیں / وہ ہنس چکے ہیں — they have laughed)",
+      "دوی خندلي دي (وہ ہنسے ہیں / وہ ہنس چکے ہیں — they have laughed)"
+     ]
+    },
+    {
+     "title": "ماضی بعيد",
+     "ur_title": "ہنس چکا تھا",
+     "en_title": "Past perfect",
+     "lines": [
+      "ما خندلي وو (میں ہنس چکا تھا — I had laughed)",
+      "تا خندلي وو (تم ہنس چکے تھے — you had laughed)",
+      "هغه خندلي وو (وہ ہنس چکا تھا — he had laughed)",
+      "هغې خندلې وو (وہ ہنس چکی تھی — she had laughed)",
+      "موږ خندلي وو (ہم ہنس چکے تھے — we had laughed)",
+      "تاسو خندلي وو (آپ ہنس چکے تھے — you had laughed)",
+      "هغوی خندلي وو (وہ ہنس چکے تھے — they had laughed)",
+      "دوی خندلي وو (وہ ہنس چکے تھے — they had laughed)"
+     ]
+    },
+    {
+     "title": "ماضی احتمالی",
+     "ur_title": "ہنسا ہوگا",
+     "en_title": "Presumptive past",
+     "lines": [
+      "ما به خندلي وو (میں ہنسا ہوں گا — I must have laughed)",
+      "تا به خندلي وو (تم ہنسے ہو گے — you must have laughed)",
+      "هغه به خندلي وو (وہ ہنسا ہو گا — he must have laughed)",
+      "هغې به خندلي وو (وہ ہنسی ہو گی — she must have laughed)",
+      "موږ به خندلي وو (ہم ہنسے ہوں گے — we must have laughed)",
+      "تاسو به خندلي وو (آپ ہنسے ہوں گے — you must have laughed)",
+      "هغوی به خندلي وو (وہ ہنسے ہوں گے — they must have laughed)",
+      "دوی به خندلي وو (وہ ہنسے ہوں گے — they must have laughed)"
+     ]
+    },
+    {
+     "title": "مستقبل سادہ",
+     "ur_title": "ہنسے گا",
+     "en_title": "Simple future",
+     "lines": [
+      "زه به خاندم (میں ہنسوں گا / ہنسوں گی — I will laugh)",
+      "ته به خاندې (تم ہنسو گے / ہنسو گی — you will laugh)",
+      "هغه به خاندي (وہ ہنسے گا / ہنسے گی — he/she will laugh)",
+      "موږ به خاندو (ہم ہنسیں گے / ہنسیں گی — we will laugh)",
+      "تاسو به خاندئ (آپ ہنسیں گے / ہنسیں گی — you will laugh)",
+      "هغوی به خاندي (وہ ہنسیں گے / ہنسیں گی — they will laugh)",
+      "دوی به خاندي (وہ ہنسیں گے / ہنسیں گی — they will laugh)"
+     ]
+    },
+    {
+     "title": "ارادی مستقبل",
+     "ur_title": "ہنس لوں گا",
+     "en_title": "Resolutive future",
+     "lines": [
+      "زه به وخاندم (میں ہنسوں گا / ہنسوں گی — I will laugh)",
+      "ته به وخاندې (تم ہنسو گے / ہنسو گی — you will laugh)",
+      "هغه به وخاندي (وہ ہنسے گا / ہنسے گی — he/she will laugh)",
+      "موږ به وخاندو (ہم ہنسیں گے / ہنسیں گی — we will laugh)",
+      "تاسو به وخاندئ (آپ ہنسیں گے / ہنسیں گی — you will laugh)",
+      "هغوی به وخاندي (وہ ہنسیں گے / ہنسیں گی — they will laugh)",
+      "دوی به وخاندي (وہ ہنسیں گے / ہنسیں گی — they will laugh)"
+     ]
+    },
+    {
+     "title": "مضارع",
+     "ur_title": "ہنسوں",
+     "en_title": "Subjunctive",
+     "lines": [
+      "زه وخاندم (میں ہنسوں — that I laugh)",
+      "ته وخانده (تم ہنسو — that you laugh)",
+      "هغه وخاندي (وہ ہنسے — that he/she laughs)",
+      "موږ وخاندو (ہم ہنسیں — that we laugh)",
+      "تاسو وخاندئ (آپ ہنسیں — that you laugh)",
+      "هغوی وخاندي (وہ ہنسیں — that they laugh)",
+      "دوی وخاندي (وہ ہنسیں — that they laugh)"
+     ]
+    },
+    {
+     "title": "امر",
+     "ur_title": "حکم",
+     "en_title": "Imperative",
+     "lines": [
+      "وخانده (ہنس / ہنسو — laugh!)",
+      "وخاندئ (ہنسیں / ہنسئیے — laugh! (pl.))"
+     ]
+    },
+    {
+     "title": "نہی",
+     "ur_title": "منع",
+     "en_title": "Prohibitive",
+     "lines": [
+      "مه خانده (مت ہنس / مت ہنسو — don't laugh!)",
+      "مه خاندئ (مت ہنسیں / مت ہنسئیے — don't laugh! (pl.))",
+      "نوٹ (صارف): پشتو میں مصدر «خندل» بے اصول ہے — جیسے اہلِ زبان بولتے ہیں ویسے ہی لکھا جاتا ہے، گرامر سے مستثنیٰ ہے۔"
      ]
     }
    ]
