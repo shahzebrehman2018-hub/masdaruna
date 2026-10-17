@@ -1844,5 +1844,185 @@ window.GARDANAN_SEED = [
     ]
    }
   ]
+ },
+ {
+  "ps": "پوهېدل",
+  "ur": "سمجھنا",
+  "en": "to understand",
+  "kind": "لازم",
+  "sections": [
+   {
+    "title": "حال",
+    "ur_title": "سمجھتا ہوں",
+    "en_title": "Present",
+    "lines": [
+     "زه پوهېږم (میں سمجھتا ہوں / سمجھتی ہوں — I understand)",
+     "ته پوهېږې (تم سمجھتے ہو / سمجھتی ہو — you understand)",
+     "هغه پوهېږي (وہ سمجھتا ہے / سمجھتی ہے — he/she understands)",
+     "موږ پوهېږو (ہم سمجھتے ہیں / سمجھتی ہیں — we understand)",
+     "تاسو پوهېږئ (آپ سمجھتے ہیں / سمجھتی ہیں — you understand)",
+     "هغوی پوهېږي (وہ سمجھتے ہیں / سمجھتی ہیں — they understand)",
+     "دوی پوهېږي (وہ سمجھتے ہیں / سمجھتی ہیں — they understand)"
+    ]
+   },
+   {
+    "title": "ماضی مطلق",
+    "ur_title": "سمجھ گیا",
+    "en_title": "Simple past",
+    "lines": [
+     "زه پوه شوم (میں سمجھ گیا — I understood (m.))",
+     "زه پوهه شوم (میں سمجھ گئی — I understood (f.))",
+     "ته پوه شوې (تم سمجھ گئے — you understood (m.))",
+     "ته پوهه شوې (تم سمجھ گئیں — you understood (f.))",
+     "هغه پوه شو (وہ سمجھ گیا — he understood)",
+     "هغه پوهه شوه (وہ سمجھ گئی — she understood)",
+     "موږ پوه شوو (ہم سمجھ گئے — we understood (m.))",
+     "موږ پوهې شوو (ہم سمجھ گئیں — we understood (f.))",
+     "تاسو پوه شوئ (آپ سمجھ گئے / آپ سمجھ گئیں — you understood)",
+     "هغوی پوه شول (وہ سمجھ گئے — they understood (m.))",
+     "هغوی پوهې شوې (وہ سمجھ گئیں — they understood (f.))",
+     "دوی پوه شول (وہ سمجھ گئے — they understood (m.))",
+     "دوی پوهې شوې (وہ سمجھ گئیں — they understood (f.))"
+    ]
+   },
+   {
+    "title": "ماضی استمراری",
+    "ur_title": "سمجھتا تھا",
+    "en_title": "Past continuous",
+    "lines": [
+     "زه پوهېدلم (میں سمجھتا تھا / سمجھتی تھی — I used to understand)",
+     "ته پوهېدلې (تم سمجھتے تھے / سمجھتی تھیں — you used to understand)",
+     "هغه پوهېدلو (وہ سمجھتا تھا — he used to understand)",
+     "هغه پوهېدله (وہ سمجھتی تھی — she used to understand)",
+     "موږ پوهېدلو (ہم سمجھتے تھے / سمجھتی تھیں — we used to understand)",
+     "تاسو پوهېدلئ (آپ سمجھتے تھے / سمجھتی تھیں — you used to understand)",
+     "هغوی پوهېدل (وہ سمجھتے تھے / سمجھتی تھیں — they used to understand)",
+     "دوی پوهېدل (وہ سمجھتے تھے / سمجھتی تھیں — they used to understand)"
+    ]
+   },
+   {
+    "title": "حال مکمل / ماضی قریب",
+    "ur_title": "سمجھ چکا ہے",
+    "en_title": "Present perfect",
+    "lines": [
+     "زه پوه شوی يم (میں سمجھ چکا ہوں / میں سمجھ گیا ہُوں — I have understood (m.))",
+     "زه پوهه شوې يم (میں سمجھ چکی ہوں / میں سمجھ گئی ہُوں — I have understood (f.))",
+     "ته پوه شوی يې (تم سمجھ چکے ہو — you have understood (m.))",
+     "ته پوهه شوې يې (تم سمجھ چکی ہو — you have understood (f.))",
+     "هغه پوه شوی دی (وہ سمجھ چکا ہے — he has understood)",
+     "هغه پوهه شوې ده (وہ سمجھ چکی ہے — she has understood)",
+     "موږ پوه شوي يو (ہم سمجھ چکے ہیں — we have understood (m.))",
+     "موږ پوهې شوې يو (ہم سمجھ چکی ہیں — we have understood (f.))",
+     "تاسو پوه شوي يئ (آپ سمجھ چکے ہیں — you have understood (m.))",
+     "تاسو پوهې شوې يئ (آپ سمجھ چکی ہیں — you have understood (f.))",
+     "هغوی پوه شوي دي (وہ سمجھ چکے ہیں — they have understood (m.))",
+     "هغوی پوهې شوې دي (وہ سمجھ چکی ہیں — they have understood (f.))",
+     "دوی پوه شوي دي (وہ سمجھ چکے ہیں — they have understood (m.))",
+     "دوی پوهې شوې دي (وہ سمجھ چکی ہیں — they have understood (f.))"
+    ]
+   },
+   {
+    "title": "ماضی بعيد",
+    "ur_title": "سمجھ چکا تھا",
+    "en_title": "Past perfect",
+    "lines": [
+     "زه پوه شوی وم (میں سمجھ چکا تھا / میں سمجھ گیا تھا — I had understood (m.))",
+     "زه پوهه شوې وم (میں سمجھ چکی تھی / میں سمجھ گئی تھی — I had understood (f.))",
+     "ته پوه شوی وې (تم سمجھ چکے تھے — you had understood (m.))",
+     "ته پوهه شوې وې (تم سمجھ چکی تھیں — you had understood (f.))",
+     "هغه پوه شوی و (وہ سمجھ چکا تھا — he had understood)",
+     "هغه پوهه شوې وه (وہ سمجھ چکی تھی — she had understood)",
+     "موږ پوه شوي وو (ہم سمجھ چکے تھے — we had understood (m.))",
+     "موږ پوهې شوې وو (ہم سمجھ چکی تھیں — we had understood (f.))",
+     "تاسو پوه شوي وئ (آپ سمجھ چکے تھے — you had understood (m.))",
+     "تاسو پوهې شوې وئ (آپ سمجھ چکی تھیں — you had understood (f.))",
+     "هغوی پوه شوي وو (وہ سمجھ چکے تھے — they had understood (m.))",
+     "هغوی پوهې شوې وې (وہ سمجھ چکی تھیں — they had understood (f.))",
+     "دوی پوه شوي وو (وہ سمجھ چکے تھے — they had understood (m.))",
+     "دوی پوهې شوې وې (وہ سمجھ چکی تھیں — they had understood (f.))"
+    ]
+   },
+   {
+    "title": "ماضی احتمالی",
+    "ur_title": "سمجھا ہوگا",
+    "en_title": "Presumptive past",
+    "lines": [
+     "زه به پوه شوی وم (میں سمجھا ہوں گا / میں سمجھ گیا ہُوں گا — I must have understood (m.))",
+     "زه به پوهه شوې وم (میں سمجھی ہوں گی / میں سمجھ گئی ہُوں گی — I must have understood (f.))",
+     "ته به پوه شوی وې (تم سمجھے ہو گے — you must have understood (m.))",
+     "ته به پوهه شوې وې (تم سمجھی ہو گی — you must have understood (f.))",
+     "هغه به پوه شوی و (وہ سمجھا ہو گا — he must have understood)",
+     "هغه به پوهه شوې وه (وہ سمجھی ہو گی — she must have understood)",
+     "موږ به پوه شوي وو (ہم سمجھے ہوں گے — we must have understood (m.))",
+     "موږ به پوهې شوې وو (ہم سمجھی ہوں گی — we must have understood (f.))",
+     "تاسو به پوه شوي وئ (آپ سمجھے ہوں گے — you must have understood (m.))",
+     "تاسو به پوهې شوې وئ (آپ سمجھی ہوں گی — you must have understood (f.))",
+     "هغوی به پوه شوي وو (وہ سمجھے ہوں گے — they must have understood (m.))",
+     "هغوی به پوهې شوې وې (وہ سمجھی ہوں گی — they must have understood (f.))",
+     "دوی به پوه شوي وو (وہ سمجھے ہوں گے — they must have understood (m.))",
+     "دوی به پوهې شوې وې (وہ سمجھی ہوں گی — they must have understood (f.))"
+    ]
+   },
+   {
+    "title": "مستقبل سادہ",
+    "ur_title": "سمجھے گا",
+    "en_title": "Simple future",
+    "lines": [
+     "زه به پوهېږم (میں سمجھوں گا / سمجھوں گی — I will understand)",
+     "ته به پوهېږې (تم سمجھو گے / سمجھو گی — you will understand)",
+     "هغه به پوهېږي (وہ سمجھے گا / سمجھے گی — he/she will understand)",
+     "موږ به پوهېږو (ہم سمجھیں گے / سمجھیں گی — we will understand)",
+     "تاسو به پوهېږئ (آپ سمجھیں گے / سمجھیں گی — you will understand)",
+     "هغوی به پوهېږي (وہ سمجھیں گے / سمجھیں گی — they will understand)",
+     "دوی به پوهېږي (وہ سمجھیں گے / سمجھیں گی — they will understand)"
+    ]
+   },
+   {
+    "title": "ارادی مستقبل",
+    "ur_title": "سمجھ جاؤں گا",
+    "en_title": "Resolutive future",
+    "lines": [
+     "زه به پوه شم (میں سمجھ جاؤں گا / گی — I will understand)",
+     "ته به پوه شې (تم سمجھ جاؤ گے / گی — you will understand)",
+     "هغه به پوه شي (وہ سمجھ جائے گا / گی — he/she will understand)",
+     "موږ به پوه شو (ہم سمجھ جائیں گے / گی — we will understand)",
+     "تاسو به پوه شئ (آپ سمجھ جائیں گے / گی — you will understand)",
+     "هغوی به پوه شي (وہ سمجھ جائیں گے / گی — they will understand)",
+     "دوی به پوه شي (وہ سمجھ جائیں گے / گی — they will understand)"
+    ]
+   },
+   {
+    "title": "مضارع",
+    "ur_title": "سمجھ جاؤں",
+    "en_title": "Subjunctive",
+    "lines": [
+     "زه پوه شم (میں سمجھ جاؤں — that I understand)",
+     "ته پوه شې (تم سمجھ جاؤ — that you understand)",
+     "هغه پوه شي (وہ سمجھ جائے — that he/she understands)",
+     "موږ پوه شو (ہم سمجھ جائیں — that we understand)",
+     "تاسو پوه شئ (آپ سمجھ جائیں — that you understand)",
+     "هغوی پوه شي (وہ سمجھ جائیں — that they understand)",
+     "دوی پوه شي (وہ سمجھ جائیں — that they understand)"
+    ]
+   },
+   {
+    "title": "امر",
+    "ur_title": "حکم",
+    "en_title": "Imperative",
+    "lines": [
+     "پوه شه (سمجھ جا / سمجھ جاؤ — understand!)",
+     "پوه شئ (سمجھ جائیں — understand! (pl.))"
+    ]
+   },
+   {
+    "title": "نہی",
+    "ur_title": "منع",
+    "en_title": "Prohibitive",
+    "lines": [
+     "مه پوهېږه (مت سمجھ / مت سمجھو — don't understand!)",
+     "مه پوهېږئ (مت سمجھیں / مت سمجھئیے — don't understand! (pl.))"
+    ]
+   }
+  ]
  }
 ];
