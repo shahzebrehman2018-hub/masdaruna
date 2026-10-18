@@ -1,5 +1,5 @@
 {
- "rev": 20,
+ "rev": 21,
  "verbs": [
   {
    "ps": "خوړل",
@@ -2326,6 +2326,194 @@
      "en_title": "Prohibitive",
      "lines": [
       "نوٹ (صارف): اس فعل کی نہی نہیں ہوتی کیونکہ برسنا انسان کے اختیار میں نہیں ہے۔"
+     ]
+    }
+   ]
+  },
+  {
+   "ps": "څښل",
+   "ur": "پینا",
+   "en": "to drink",
+   "kind": "متعدی",
+   "sections": [
+    {
+     "title": "حال",
+     "ur_title": "پیتا ہوں",
+     "en_title": "Present",
+     "lines": [
+      "زه څښم (میں پیتا ہوں — I drink)",
+      "ته څښې (تم پیتے ہو — you drink)",
+      "هغه څښي (وہ پیتا ہے — he/she drinks)",
+      "موږ څښو (ہم پیتے ہیں — we drink)",
+      "تاسو څښئ (آپ پیتے ہیں — you drink)",
+      "هغوی څښي (وہ پیتے ہیں — they drink)",
+      "دوی څښي (وہ پیتے ہیں — they drink)"
+     ]
+    },
+    {
+     "title": "ماضی مطلق",
+     "ur_title": "نے پیا",
+     "en_title": "Simple past",
+     "lines": [
+      "ما وڅښلو (میں نے پیا — I drank it (m.))",
+      "ما وڅښله (میں نے پی — I drank it (f.))",
+      "تا وڅښلو (تم نے پیا — you drank it (m.))",
+      "تا وڅښله (تم نے پی — you drank it (f.))",
+      "هغه وڅښلو (اس نے پیا — he drank it (m.))",
+      "هغې وڅښله (اس نے پی — she drank it (f.))",
+      "موږ وڅښل (ہم نے پیے — we drank them (m.))",
+      "موږ وڅښلې (ہم نے پیں — we drank them (f.))",
+      "تاسو وڅښل (آپ نے پیے — you drank them (m.))",
+      "تاسو وڅښلې (آپ نے پیں — you drank them (f.))",
+      "هغوی وڅښل (انہوں نے پیے — they drank them (m.))",
+      "هغوی وڅښلې (انہوں نے پیں — they drank them (f.))",
+      "دوی وڅښل (انہوں نے پیے — they drank them (m.))",
+      "دوی وڅښلې (انہوں نے پیں — they drank them (f.))"
+     ]
+    },
+    {
+     "title": "ماضی استمراری",
+     "ur_title": "پیتا تھا",
+     "en_title": "Past continuous",
+     "lines": [
+      "ما څښلو (میں پیتا تھا — I was drinking (m.))",
+      "ما څښله (میں پیتی تھی — I was drinking (f.))",
+      "تا څښلو (تم پیتے تھے — you were drinking (m.))",
+      "تا څښله (تم پیتی تھیں — you were drinking (f.))",
+      "هغه څښلو (وہ پیتا تھا — he was drinking)",
+      "هغې څښله (وہ پیتی تھی — she was drinking)",
+      "موږ څښل (ہم پیتے تھے — we were drinking (m.))",
+      "موږ څښلې (ہم پیتی تھیں — we were drinking (f.))",
+      "تاسو څښل (آپ پیتے تھے — you were drinking (m.))",
+      "تاسو څښلې (آپ پیتی تھیں — you were drinking (f.))",
+      "هغوی څښل (وہ پیتے تھے — they were drinking (m.))",
+      "هغوی څښلې (وہ پیتی تھیں — they were drinking (f.))",
+      "دوی څښل (وہ پیتے تھے — they were drinking (m.))",
+      "دوی څښلې (وہ پیتی تھیں — they were drinking (f.))"
+     ]
+    },
+    {
+     "title": "حال مکمل / ماضی قریب",
+     "ur_title": "پیا ہے",
+     "en_title": "Present perfect",
+     "lines": [
+      "ما څښلی دی (میں نے پیا ہے — I have drunk it (m.))",
+      "ما څښلې ده (میں نے پی ہے — I have drunk it (f.))",
+      "تا څښلی دی (تم نے پیا ہے — you have drunk it (m.))",
+      "تا څښلې ده (تم نے پی ہے — you have drunk it (f.))",
+      "هغه څښلی دی (اس نے پیا ہے — he has drunk it (m.))",
+      "هغې څښلې ده (اس نے پی ہے — she has drunk it (f.))",
+      "موږ څښلي دي (ہم نے پیے ہیں — we have drunk them (m.))",
+      "موږ څښلې دي (ہم نے پی ہیں — we have drunk them (f.))",
+      "تاسو څښلي دي (آپ نے پیے ہیں — you have drunk them (m.))",
+      "تاسو څښلې دي (آپ نے پی ہیں — you have drunk them (f.))",
+      "هغوی څښلي دي (انہوں نے پیے ہیں — they have drunk them (m.))",
+      "هغوی څښلې دي (انہوں نے پی ہیں — they have drunk them (f.))",
+      "دوی څښلي دي (انہوں نے پیے ہیں — they have drunk them (m.))",
+      "دوی څښلې دي (انہوں نے پی ہیں — they have drunk them (f.))"
+     ]
+    },
+    {
+     "title": "ماضی بعيد",
+     "ur_title": "پیا تھا",
+     "en_title": "Past perfect",
+     "lines": [
+      "ما څښلی و (میں نے پیا تھا — I had drunk it (m.))",
+      "ما څښلې وه (میں نے پی تھی — I had drunk it (f.))",
+      "تا څښلی و (تم نے پیا تھا — you had drunk it (m.))",
+      "تا څښلې وه (تم نے پی تھی — you had drunk it (f.))",
+      "هغه څښلی و (اس نے پیا تھا — he had drunk it (m.))",
+      "هغې څښلې وه (اس نے پی تھی — she had drunk it (f.))",
+      "موږ څښلي وو (ہم نے پیے تھے — we had drunk them (m.))",
+      "موږ څښلې وې (ہم نے پی تھیں — we had drunk them (f.))",
+      "تاسو څښلي وو (آپ نے پیے تھے — you had drunk them (m.))",
+      "تاسو څښلې وې (آپ نے پی تھیں — you had drunk them (f.))",
+      "هغوی څښلي وو (انہوں نے پیے تھے — they had drunk them (m.))",
+      "هغوی څښلې وې (انہوں نے پی تھیں — they had drunk them (f.))",
+      "دوی څښلي وو (انہوں نے پیے تھے — they had drunk them (m.))",
+      "دوی څښلې وې (انہوں نے پی تھیں — they had drunk them (f.))"
+     ]
+    },
+    {
+     "title": "ماضی احتمالی",
+     "ur_title": "پیا ہوگا",
+     "en_title": "Presumptive past",
+     "lines": [
+      "ما به څښلی و (میں نے پیا ہو گا — I must have drunk it (m.))",
+      "ما به څښلې وه (میں نے پی ہو گی — I must have drunk it (f.))",
+      "تا به څښلی و (تم نے پیا ہو گا — you must have drunk it (m.))",
+      "تا به څښلې وه (تم نے پی ہو گی — you must have drunk it (f.))",
+      "هغه به څښلی و (اس نے پیا ہو گا — he must have drunk it (m.))",
+      "هغې به څښلې وه (اس نے پی ہو گی — she must have drunk it (f.))",
+      "موږ به څښلي وو (ہم نے پیے ہوں گے — we must have drunk them (m.))",
+      "موږ به څښلې وې (ہم نے پی ہوں گی — we must have drunk them (f.))",
+      "تاسو به څښلي وو (آپ نے پیے ہوں گے — you must have drunk them (m.))",
+      "تاسو به څښلې وې (آپ نے پی ہوں گی — you must have drunk them (f.))",
+      "هغوی به څښلي وو (انہوں نے پیے ہوں گے — they must have drunk them (m.))",
+      "هغوی به څښلې وې (انہوں نے پی ہوں گی — they must have drunk them (f.))",
+      "دوی به څښلي وو (انہوں نے پیے ہوں گے — they must have drunk them (m.))",
+      "دوی به څښلې وې (انہوں نے پی ہوں گی — they must have drunk them (f.))"
+     ]
+    },
+    {
+     "title": "مستقبل سادہ",
+     "ur_title": "پیے گا",
+     "en_title": "Simple future",
+     "lines": [
+      "زه به څښم (میں پیوں گا — I will drink)",
+      "ته به څښې (تم پیو گے — you will drink)",
+      "هغه به څښي (وہ پیے گا — he/she will drink)",
+      "موږ به څښو (ہم پئیں گے — we will drink)",
+      "تاسو به څښئ (آپ پئیں گے — you will drink)",
+      "هغوی به څښي (وہ پئیں گے — they will drink)",
+      "دوی به څښي (وہ پئیں گے — they will drink)"
+     ]
+    },
+    {
+     "title": "ارادی مستقبل",
+     "ur_title": "پی لوں گا",
+     "en_title": "Resolutive future",
+     "lines": [
+      "زه به وڅښم (میں پی لوں گا — I will drink it up)",
+      "ته به وڅښې (تم پی لو گے — you will drink it up)",
+      "هغه به وڅښي (وہ پی لے گا — he/she will drink it up)",
+      "موږ به وڅښو (ہم پی لیں گے — we will drink it up)",
+      "تاسو به وڅښئ (آپ پی لیں گے — you will drink it up)",
+      "هغوی به وڅښي (وہ پی لیں گے — they will drink it up)",
+      "دوی به وڅښي (وہ پی لیں گے — they will drink it up)"
+     ]
+    },
+    {
+     "title": "مضارع",
+     "ur_title": "پیوں",
+     "en_title": "Subjunctive",
+     "lines": [
+      "زه وڅښم (میں پیوں — that I drink)",
+      "ته وڅښې (تم پیو — that you drink)",
+      "هغه وڅښي (وہ پیے — that he/she drink)",
+      "موږ وڅښو (ہم پئیں — that we drink)",
+      "تاسو وڅښئ (آپ پئیں — that you drink)",
+      "هغوی وڅښي (وہ پئیں — that they drink)",
+      "دوی وڅښي (وہ پئیں — that they drink)"
+     ]
+    },
+    {
+     "title": "امر",
+     "ur_title": "حکم",
+     "en_title": "Imperative",
+     "lines": [
+      "وڅښه (پی لو — drink it up!)",
+      "وڅښئ (پی لیجیے / پی لیں — drink it up! (please / plural))"
+     ]
+    },
+    {
+     "title": "نہی",
+     "ur_title": "منع",
+     "en_title": "Prohibitive",
+     "lines": [
+      "مه څښه (مت پیو — don't drink!)",
+      "مه څښئ (مت پیجیے / مت پیئیں — don't drink! (please / plural))",
+      "نوٹ: څښل صرف پینے کے لیے آتا ہے (پانی، چائے، دودھ وغیرہ)۔ سگریٹ یا حقہ پینے کے لیے پشتو میں عموماً کښل / ایستل جیسے الفاظ استعمال ہوتے ہیں۔"
      ]
     }
    ]
