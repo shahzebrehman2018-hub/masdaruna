@@ -1,7 +1,10 @@
 /* مصادر — Masdar Dictionary App */
 'use strict';
 let PS = [], FA = [], LD = [];
-function initCommunity() { try { communityWords = COMMUNITY_DATA || []; } catch (e) { communityWords = []; } }
+function commSig(a) { return Array.isArray(a) ? (a.length + ':' + (a.length ? (a[a.length - 1].id || a[a.length - 1].word || '') : '')) : ''; }
+function loadCommunityStored() { try { const a = JSON.parse(localStorage.getItem('masdar_community_data') || 'null'); return (Array.isArray(a) && a.length) ? a : null; } catch (e) { return null; } }
+function applyCommunityData(a) { if (!Array.isArray(a) || !a.length) return false; try { localStorage.setItem('masdar_community_data', JSON.stringify(a)); } catch (e) {} communityWords = a; try { buildDictLetters(); } catch (e) {} return true; }
+function initCommunity() { try { communityWords = loadCommunityStored() || COMMUNITY_DATA || []; } catch (e) { communityWords = []; } }
 let dictFilter = 'all', letterDict = 'ps', activeLetter = null;
 let myWords = [], grammarNotes = [], communityWords = [];
 function visibleMyWords() {
@@ -89,7 +92,7 @@ window.initJsonMaker = initJsonMaker;
 /* ---------- 📊 تعداد و شمار (counts by language) ---------- */
 function renderStats() {
   const box = $('statsBody'); if (!box) return;
-  const comm = (typeof COMMUNITY_DATA !== 'undefined' && Array.isArray(COMMUNITY_DATA)) ? COMMUNITY_DATA : [];
+  const comm = (typeof communityWords !== 'undefined' && Array.isArray(communityWords) && communityWords.length) ? communityWords : ((typeof COMMUNITY_DATA !== 'undefined' && Array.isArray(COMMUNITY_DATA)) ? COMMUNITY_DATA : []);
   const commBy = l => comm.filter(w => w.lang === l).length;
   const sents = getSentences();
   const row = (label, n) => `<div class="kv"><b>${label}</b><span><strong>${Number(n).toLocaleString('ur')}</strong></span></div>`;
@@ -278,7 +281,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 47;
+const APP_VERSION_CODE = 48;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -415,6 +418,17 @@ function initUpdate() {
             localStorage.setItem('masdar_grammar_rev', String(gj.rev));
             if (typeof renderGrammarTopics === 'function') renderGrammarTopics();
             msgs.push('<p class="good">✅ گرامر کے نئے موضوعات شامل ہو گئے</p>');
+      /* (h) لغت (community words) content check — keeps the app dictionary in step with the website */
+      try {
+        const r8 = await fetchTimeout(base + '/data/community.json?_=' + Date.now());
+        if (r8.ok) {
+          const cj = await r8.json();
+          if (Array.isArray(cj) && cj.length && commSig(cj) !== commSig(communityWords)) {
+            applyCommunityData(cj);
+            msgs.push('<p class="good">✅ لغت کے نئے الفاظ شامل ہو گئے</p>');
+          }
+        }
+      } catch (e) { /* a missing community.json on the server is not an error */ }
           }
         }
       } catch (e) { /* a missing grammar.json on the server is not an error */ }
@@ -561,6 +575,13 @@ async function autoFetchPacks() {
           mergeMasdarPack();
           try { syncPsCount(); } catch (e2) {}
         }
+      }
+    } catch (e) {}
+    try {
+      const r = await fetchTimeout(base + '/data/community.json?_=' + Date.now(), 8000);
+      if (r.ok) {
+        const cj = await r.json();
+        if (Array.isArray(cj) && cj.length && commSig(cj) !== commSig(communityWords)) applyCommunityData(cj);
       }
     } catch (e) {}
     try {
