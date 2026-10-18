@@ -1,5 +1,5 @@
 {
- "rev": 21,
+ "rev": 22,
  "verbs": [
   {
    "ps": "خوړل",
@@ -2514,6 +2514,183 @@
       "مه څښه (مت پیو — don't drink!)",
       "مه څښئ (مت پیجیے / مت پیئیں — don't drink! (please / plural))",
       "نوٹ: څښل صرف پینے کے لیے آتا ہے (پانی، چائے، دودھ وغیرہ)۔ سگریٹ یا حقہ پینے کے لیے پشتو میں عموماً کښل / ایستل جیسے الفاظ استعمال ہوتے ہیں۔"
+     ]
+    }
+   ]
+  },
+  {
+   "ps": "کښېناستل",
+   "ur": "بیٹھنا",
+   "en": "to sit down",
+   "kind": "لازم",
+   "sections": [
+    {
+     "title": "حال",
+     "ur_title": "بیٹھتا ہوں",
+     "en_title": "Present",
+     "lines": [
+      "زه کښېنم (میں بیٹھتا / بیٹھتی ہوں — I sit down (m./f.))",
+      "ته کښېنې (تم بیٹھتے ہو — you sit down)",
+      "هغه کښېني (وہ بیٹھتا ہے — he sits down)",
+      "موږ کښېنو (ہم بیٹھتے ہیں — we sit down)",
+      "تاسو کښېنئ (آپ بیٹھتے ہیں — you sit down)",
+      "هغوی کښېني (وہ بیٹھتے ہیں — they sit down)",
+      "دوی کښېني (وہ بیٹھتے ہیں — they sit down)"
+     ]
+    },
+    {
+     "title": "ماضی مطلق",
+     "ur_title": "بیٹھا",
+     "en_title": "Simple past",
+     "lines": [
+      "زه کښېناستم (میں بیٹھا — I sat down)",
+      "ته کښېناستې (تم بیٹھے — you sat down (m.))",
+      "هغه کښېناست (وہ بیٹھا — he sat down)",
+      "هغه کښېناسته (وہ بیٹھی — she sat down)",
+      "موږ کښېناستو (ہم بیٹھے — we sat down (m.))",
+      "تاسو کښېناستئ (آپ بیٹھے — you sat down (m.))",
+      "هغوی کښېناستل (وہ بیٹھے — they sat down (m.))",
+      "هغوی کښېناستلې (وہ بیٹھیں — they sat down (f.))",
+      "دوی کښېناستل (وہ بیٹھے — they sat down (m.))",
+      "دوی کښېناستلې (وہ بیٹھیں — they sat down (f.))"
+     ]
+    },
+    {
+     "title": "ماضی استمراری",
+     "ur_title": "بیٹھتا تھا",
+     "en_title": "Past continuous",
+     "lines": [
+      "زه کښېناستلم (میں بیٹھتا تھا / بیٹھتی تھی — I used to sit down (m./f.))",
+      "ته کښېناستلې (تم بیٹھتے تھے — you used to sit down (m.))",
+      "هغه کښېناستلو (وہ بیٹھتا تھا — he used to sit down)",
+      "هغه کښېناستله (وہ بیٹھتی تھی — she used to sit down)",
+      "موږ کښېناستلو (ہم بیٹھتے تھے — we used to sit down)",
+      "تاسو کښېناستلئ (آپ بیٹھتے تھے — you used to sit down)",
+      "هغوی کښېناستل (وہ بیٹھتے تھے — they used to sit down)",
+      "دوی کښېناستل (وہ بیٹھتے تھے — they used to sit down)"
+     ]
+    },
+    {
+     "title": "حال مکمل / ماضی قریب",
+     "ur_title": "بیٹھ چکا ہے",
+     "en_title": "Present perfect",
+     "lines": [
+      "زه کښېناستلی یم (میں بیٹھ چکا ہوں — I have sat down (m.))",
+      "زه کښېناستلې یم (میں بیٹھ چکی ہوں — I have sat down (f.))",
+      "ته کښېناستلی یې (تم بیٹھ چکے ہو — you have sat down (m.))",
+      "ته کښېناستلې یې (تم بیٹھ چکی ہو — you have sat down (f.))",
+      "هغه کښېناستلی دی (وہ بیٹھ چکا ہے — he has sat down)",
+      "هغه کښېناستلې ده (وہ بیٹھ چکی ہے — she has sat down)",
+      "موږ کښېناستلي یو (ہم بیٹھ چکے ہیں — we have sat down (m.))",
+      "موږ کښېناستلې یو (ہم بیٹھ چکی ہیں — we have sat down (f.))",
+      "تاسو کښېناستلي یئ (آپ بیٹھ چکے ہیں — you have sat down (m.))",
+      "تاسو کښېناستلې یئ (آپ بیٹھ چکی ہیں — you have sat down (f.))",
+      "هغوی کښېناستلي دي (وہ بیٹھ چکے ہیں — they have sat down (m.))",
+      "هغوی کښېناستلې دي (وہ بیٹھ چکی ہیں — they have sat down (f.))",
+      "دوی کښېناستلي دي (وہ بیٹھ چکے ہیں — they have sat down (m.))",
+      "دوی کښېناستلې دي (وہ بیٹھ چکی ہیں — they have sat down (f.))"
+     ]
+    },
+    {
+     "title": "ماضی بعيد",
+     "ur_title": "بیٹھ چکا تھا",
+     "en_title": "Past perfect",
+     "lines": [
+      "زه کښېناستلی وم (میں بیٹھ چکا تھا — I had sat down (m.))",
+      "زه کښېناستلې وم (میں بیٹھ چکی تھی — I had sat down (f.))",
+      "ته کښېناستلی وې (تم بیٹھ چکے تھے — you had sat down (m.))",
+      "ته کښېناستلې وې (تم بیٹھ چکی تھیں — you had sat down (f.))",
+      "هغه کښېناستلی و (وہ بیٹھ چکا تھا — he had sat down)",
+      "هغه کښېناستلې وه (وہ بیٹھ چکی تھی — she had sat down)",
+      "موږ کښېناستلي وو (ہم بیٹھ چکے تھے — we had sat down (m.))",
+      "موږ کښېناستلې وې (ہم بیٹھ چکی تھیں — we had sat down (f.))",
+      "تاسو کښېناستلي وئ (آپ بیٹھ چکے تھے — you had sat down (m.))",
+      "تاسو کښېناستلې وئ (آپ بیٹھ چکی تھیں — you had sat down (f.))",
+      "هغوی کښېناستلي وو (وہ بیٹھ چکے تھے — they had sat down (m.))",
+      "هغوی کښېناستلې وې (وہ بیٹھ چکی تھیں — they had sat down (f.))",
+      "دوی کښېناستلي وو (وہ بیٹھ چکے تھے — they had sat down (m.))",
+      "دوی کښېناستلې وې (وہ بیٹھ چکی تھیں — they had sat down (f.))"
+     ]
+    },
+    {
+     "title": "ماضی احتمالی",
+     "ur_title": "بیٹھا ہوگا",
+     "en_title": "Presumptive past",
+     "lines": [
+      "زه به کښېناستلی وم (میں بیٹھا ہوں گا — I must have sat down (m.))",
+      "زه به کښېناستلې وم (میں بیٹھی ہوں گی — I must have sat down (f.))",
+      "ته به کښېناستلی وې (تم بیٹھے ہو گے — you must have sat down (m.))",
+      "ته به کښېناستلې وې (تم بیٹھی ہو گی — you must have sat down (f.))",
+      "هغه به کښېناستلی و (وہ بیٹھا ہو گا — he must have sat down)",
+      "هغه به کښېناستلې وه (وہ بیٹھی ہو گی — she must have sat down)",
+      "موږ به کښېناستلي وو (ہم بیٹھے ہوں گے — we must have sat down (m.))",
+      "موږ به کښېناستلې وې (ہم بیٹھی ہوں گی — we must have sat down (f.))",
+      "تاسو به کښېناستلي وئ (آپ بیٹھے ہوں گے — you must have sat down (m.))",
+      "تاسو به کښېناستلې وئ (آپ بیٹھی ہوں گی — you must have sat down (f.))",
+      "هغوی به کښېناستلي وو (وہ بیٹھے ہوں گے — they must have sat down (m.))",
+      "هغوی به کښېناستلې وې (وہ بیٹھی ہوں گی — they must have sat down (f.))",
+      "دوی به کښېناستلي وو (وہ بیٹھے ہوں گے — they must have sat down (m.))",
+      "دوی به کښېناستلې وې (وہ بیٹھی ہوں گی — they must have sat down (f.))"
+     ]
+    },
+    {
+     "title": "مستقبل سادہ",
+     "ur_title": "بیٹھے گا",
+     "en_title": "Simple future",
+     "lines": [
+      "زه به کښېنم (میں بیٹھوں گا / بیٹھوں گی — I will sit down (m./f.))",
+      "ته به کښېنې (تم بیٹھو گے — you will sit down)",
+      "هغه به کښېني (وہ بیٹھے گا — he will sit down)",
+      "موږ به کښېنو (ہم بیٹھیں گے — we will sit down)",
+      "تاسو به کښېنئ (آپ بیٹھیں گے — you will sit down)",
+      "هغوی به کښېني (وہ بیٹھیں گے — they will sit down)",
+      "دوی به کښېني (وہ بیٹھیں گے — they will sit down)"
+     ]
+    },
+    {
+     "title": "ارادی مستقبل",
+     "ur_title": "بیٹھوں گا",
+     "en_title": "Resolutive future",
+     "lines": [
+      "زه به کښېنم (میں بیٹھوں گا / بیٹھوں گی — I will sit down (m./f.))",
+      "ته به کښېنې (تم بیٹھو گے — you will sit down)",
+      "هغه به کښېني (وہ بیٹھے گا — he will sit down)",
+      "موږ به کښېنو (ہم بیٹھیں گے — we will sit down)",
+      "تاسو به کښېنئ (آپ بیٹھیں گے — you will sit down)",
+      "هغوی به کښېني (وہ بیٹھیں گے — they will sit down)",
+      "دوی به کښېني (وہ بیٹھیں گے — they will sit down)"
+     ]
+    },
+    {
+     "title": "مضارع",
+     "ur_title": "بیٹھوں",
+     "en_title": "Subjunctive",
+     "lines": [
+      "زه کښېنم (میں بیٹھوں — that I sit down)",
+      "ته کښېنې (تم بیٹھو — that you sit down)",
+      "هغه کښېني (وہ بیٹھے — that he/she sit down)",
+      "موږ کښېنو (ہم بیٹھیں — that we sit down)",
+      "تاسو کښېنئ (آپ بیٹھیں — that you sit down)",
+      "هغوی کښېني (وہ بیٹھیں — that they sit down)",
+      "دوی کښېني (وہ بیٹھیں — that they sit down)"
+     ]
+    },
+    {
+     "title": "امر",
+     "ur_title": "حکم",
+     "en_title": "Imperative",
+     "lines": [
+      "کښېنه (بیٹھو — sit down!)",
+      "کښېنئ (بیٹھیں / تشریف رکھیے — sit down! (please / plural))"
+     ]
+    },
+    {
+     "title": "نہی",
+     "ur_title": "منع",
+     "en_title": "Prohibitive",
+     "lines": [
+      "مه کښېنه (مت بیٹھو — don't sit down!)",
+      "مه کښېنئ (مت بیٹھیں — don't sit down! (please / plural))"
      ]
     }
    ]
