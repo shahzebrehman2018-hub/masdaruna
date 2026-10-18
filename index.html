@@ -83,7 +83,7 @@
         </div>
         <button id="quickAddBtn" class="btn-primary" style="margin:10px 0 2px">＋ نیا مصدر / لفظ شامل کریں</button>
         <div class="stats-row">
-          <div class="stat"><strong id="statPs">3401</strong><span>پشتو مصادر</span></div>
+          <div class="stat"><strong id="statPs">3384</strong><span>پشتو مصادر</span></div>
           <div class="stat"><strong id="statFa">340</strong><span>فارسی مصادر</span></div>
           <div class="stat"><strong id="statLd">97K</strong><span>لغت الفاظ</span></div>
           <div class="stat"><strong id="statMine">0</strong><span>میرے الفاظ</span></div>
@@ -323,11 +323,11 @@
       <div class="card about-card">
         <div class="about-logo">م</div>
         <h3>د پښتو مصدرونه</h3>
-        <p class="version">ورژن 2.46 — آف لائن</p>
+        <p class="version">ورژن 2.43 — آف لائن</p>
         <div class="card" style="margin:10px 0"><h4>🔄 ایپ اپ ڈیٹ</h4><p class="hint" id="siteLine" style="display:none">🌐 ویب سائٹ: <a id="siteLink" href="#" target="_blank" rel="noopener" dir="ltr"></a></p><p class="hint">نیا ورژن اور نئی گردانیں چیک کریں:</p><button id="updCheck" class="btn-primary">🌐 آنلائن اپڈیٹ چیک کریں</button><button id="updFileBtn" class="btn-ghost" style="margin:6px 0 0">📁 فائل سے اپڈیٹ</button><input type="file" id="updFile" accept=".json,.apk,application/json" hidden><p class="hint" style="margin-top:10px">فائل سے اپڈیٹ میں موصول شدہ گردانوں کی فائل (JSON) یا نئی ایپ کی فائل (APK) منتخب کریں۔</p><p class="hint" style="margin-top:10px">یا اپڈیٹ فائل کا پورا مواد نیچے پیسٹ کریں:</p><textarea id="updPaste" dir="ltr" rows="4" placeholder="اپڈیٹ فائل کا پورا مواد (JSON) یہاں پیسٹ کریں"></textarea><button id="updPasteBtn" class="btn-ghost" style="margin:6px 0 0">📋 پیسٹ سے اپڈیٹ کریں</button><button id="updClipBtn" class="btn-ghost" style="margin:6px 0 0">📥 کلپ بورڈ سے لائیں</button><label>ویب سائٹ کا پتہ (اگر خود لکھنا ہو)<input id="updServer" placeholder="https://example.com" dir="ltr"></label><div id="updResult"></div></div>
         <div class="about-body">
           <h4>🌟 تعارف</h4>
-          <p id="introPara">«مصادر» پشتو اور فارسی زبان سیکھنے والوں کے لیے ایک مکمل، خوبصورت اور آف لائن ڈکشنری ایپ ہے۔ اس میں <span id="introPsCount">3,401</span> پشتو مصادر اور 340 فارسی مصادر ان کے اردو، انگریزی اور فارسی معانی، تلفظ (رومن) اور مکمل گردانوں کے ساتھ شامل ہیں۔</p>
+          <p id="introPara">«مصادر» پشتو اور فارسی زبان سیکھنے والوں کے لیے ایک مکمل، خوبصورت اور آف لائن ڈکشنری ایپ ہے۔ اس میں 3,384 پشتو مصادر اور 340 فارسی مصادر ان کے اردو، انگریزی اور فارسی معانی، تلفظ (رومن) اور مکمل گردانوں کے ساتھ شامل ہیں۔</p>
           <button id="introEditBtn" class="btn-ghost" style="margin:4px 0 10px">✏️ تعارف درست کریں</button>
           <div id="introEditBox" class="card" hidden>
             <label>تعارف کا متن <textarea id="ieBody" rows="6" placeholder="اپنا تعارف یہاں لکھیں…"></textarea></label>
@@ -339,7 +339,7 @@
           <h4>📚 مواد</h4>
           <ul>
             <li><strong>پشتو لغت:</strong> 97,000+ الفاظ — ہر لفظ کے ساتھ رومن تلفظ۔</li>
-            <li><strong>پشتو مصادر:</strong> <span id="aboutPsCount">3,401</span> مصادر — ہر مصدر کے ساتھ رومن تلفظ، انگریزی، اردو اور فارسی معنی</li>
+            <li><strong>پشتو مصادر:</strong> 3,384 مصادر — ہر مصدر کے ساتھ رومن تلفظ، انگریزی، اردو اور فارسی معنی</li>
             <li><strong>پشتو گرامر:</strong> حروف تہجی، جنس، جمع، ضمیریں، زمانے، صفت، حروف جار، جملے کی بناوٹ — سب اردو میں</li>
             <li><strong>فارسی حصہ:</strong> 340 مصادر — بن ماضی، بن مضارع، اسم مصدر، حاصل مصدر، صفت فاعلی، صفت مفعولی، اسم لیاقت، پانچ زمانوں کی مکمل گردانیں (ماضی سادہ، مضارع سادہ، مستقبل، امر، نہی) اردو و انگریزی ترجمے کے ساتھ، مثالی جملے اور اشعار</li>
           </ul>
@@ -391,7 +391,6 @@
 <script src="js/forms-data.js"></script>
 <script src="js/psps-data.js"></script>
 <script src="js/grammar-data.js"></script>
-<script src="js/masdars-seed.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
