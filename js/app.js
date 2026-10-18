@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       mergeMasdarPack();
       applyAllEntryFixes();
     }
-    $('statPs').textContent = PS.length.toLocaleString('ur');
+    syncPsCount();
     $('statFa').textContent = FA.length.toLocaleString('ur');
     try { $('statLd').textContent = LD.length.toLocaleString('ur'); } catch (e) {}
     loadStore(); initCommunity(); renderMyWords(); renderGrammar(); buildLetterGrid(); buildDictLetters(); newSpellWord(); newSentPrompt(); showRandom();
@@ -278,7 +278,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 46;
+const APP_VERSION_CODE = 47;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -371,7 +371,7 @@ function initUpdate() {
             localStorage.setItem('masdar_masdars_data', JSON.stringify(mj));
             localStorage.setItem('masdar_masdars_rev', String(mj.rev));
             mergeMasdarPack();
-            try { $('statPs').textContent = PS.length.toLocaleString('ur'); } catch (e2) {}
+            try { syncPsCount(); } catch (e2) {}
             msgs.push('<p class="good">✅ نئے مصادر شامل ہو گئے</p>');
           }
         }
@@ -559,7 +559,7 @@ async function autoFetchPacks() {
           localStorage.setItem('masdar_masdars_data', JSON.stringify(mj));
           localStorage.setItem('masdar_masdars_rev', String(mj.rev));
           mergeMasdarPack();
-          try { $('statPs').textContent = PS.length.toLocaleString('ur'); } catch (e2) {}
+          try { syncPsCount(); } catch (e2) {}
         }
       }
     } catch (e) {}
@@ -695,7 +695,7 @@ window.MasdarUpdateFile = function (text) {
     localStorage.setItem('masdar_masdars_data', JSON.stringify({ rev, entries }));
     localStorage.setItem('masdar_masdars_rev', String(rev));
     mergeMasdarPack();
-    try { $('statPs').textContent = PS.length.toLocaleString('ur'); } catch (e) {}
+    try { syncPsCount(); } catch (e) {}
     toast('✅ نئے مصادر شامل ہو گئے');
     return;
   }
@@ -705,9 +705,15 @@ window.MasdarUpdateFile = function (text) {
 /* ---------- نئے مصادر pack (online masdars.json) ----------
    Masdars that are not in the built-in data yet arrive as a pack
    ({rev, entries:[{w, r, en, ur, fa}]}) and merge into PS at load. */
+function syncPsCount() {
+  try { syncPsCount(); } catch (e) {}
+  try { const a = $('introPsCount'); if (a) a.textContent = PS.length.toLocaleString('ur'); } catch (e) {}
+  try { const b = $('aboutPsCount'); if (b) b.textContent = PS.length.toLocaleString('ur'); } catch (e) {}
+}
 function mergeMasdarPack() {
   try {
-    const stored = JSON.parse(localStorage.getItem('masdar_masdars_data') || 'null');
+    let stored = JSON.parse(localStorage.getItem('masdar_masdars_data') || 'null');
+    if ((!stored || !Array.isArray(stored.entries)) && window.MASDAR_PACK_SEED) stored = window.MASDAR_PACK_SEED;
     const list = stored && Array.isArray(stored.entries) ? stored.entries : [];
     if (!list.length || !PS) return;
     const have = new Set(PS.map(e => norm(e[2])));
