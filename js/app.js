@@ -283,7 +283,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 50;
+const APP_VERSION_CODE = 51;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -1557,24 +1557,30 @@ function doSearch() {
   const q = norm($('searchInput').value);
   const box = $('searchResults');
   if (q.length < 1) { box.innerHTML = ''; return; }
-  const out = [];
+  const psHits = [], faHits = [], myHits = [];
   if (dictFilter !== 'fa') for (const e of PS) {
-    if (norm(e[2]).includes(q) || latin(e[3]).includes(latin(q)) || norm(e[4]).toLowerCase().includes(q.toLowerCase()) || norm(e[5]).includes(q) || norm(e[6]).includes(q)) {
-      out.push(psCard(e)); if (out.length >= 60) break;
-    }
+    if (norm(e[2]).includes(q) || latin(e[3]).includes(latin(q)) || norm(e[4]).toLowerCase().includes(q.toLowerCase()) || norm(e[5]).includes(q) || norm(e[6]).includes(q)) psHits.push(e);
   }
-  if (dictFilter !== 'ps' && out.length < 60) for (const e of FA) {
-    if (norm(e[1]).includes(q) || latin(e[2]).includes(latin(q)) || norm(e[3]).toLowerCase().includes(q.toLowerCase()) || norm(e[4]).includes(q)) {
-      out.push(faCard(e)); if (out.length >= 60) break;
-    }
+  if (dictFilter !== 'ps') for (const e of FA) {
+    if (norm(e[1]).includes(q) || latin(e[2]).includes(latin(q)) || norm(e[3]).toLowerCase().includes(q.toLowerCase()) || norm(e[4]).includes(q)) faHits.push(e);
   }
+  /* exact masdar first, then ones starting with the query, then the rest */
+  const rank = (arr, key) => arr.sort((a, b) => {
+    const ka = norm(key(a)), kb = norm(key(b));
+    const ra = ka === q ? 0 : (ka.startsWith(q) ? 1 : 2);
+    const rb = kb === q ? 0 : (kb.startsWith(q) ? 1 : 2);
+    return ra - rb;
+  });
+  rank(psHits, e => e[2]); rank(faHits, e => e[1]);
+  const exactPs = psHits.filter(e => norm(e[2]) === q), restPs = psHits.filter(e => norm(e[2]) !== q);
+  const exactFa = faHits.filter(e => norm(e[1]) === q), restFa = faHits.filter(e => norm(e[1]) !== q);
   for (const w of visibleMyWords()) {
-    if (norm(w.word).includes(q) || norm(w.urdu).includes(q) || latin(w.english || '').includes(latin(q)))
-      out.unshift(myCard(w));
+    if (norm(w.word).includes(q) || norm(w.urdu).includes(q) || latin(w.english || '').includes(latin(q))) myHits.push(myCard(w));
   }
   for (const w of communityWords) {
-    if (q && (norm(w.word).includes(q) || norm(w.urdu||'').includes(q) || norm(w.english||'').includes(q) || norm(w.roman||'').includes(q))) out.unshift(myCard(w));
+    if (q && (norm(w.word).includes(q) || norm(w.urdu||'').includes(q) || norm(w.english||'').includes(q) || norm(w.roman||'').includes(q))) myHits.push(myCard(w));
   }
+  const out = exactPs.map(psCard).concat(exactFa.map(faCard), restPs.slice(0, 60).map(psCard), restFa.slice(0, 60).map(faCard), myHits.slice(0, 30));
   box.innerHTML = out.length ? out.join('') : '<div class="empty">کوئی نتیجہ نہیں ملا 😕</div>';
   bindCards(box);
 }
