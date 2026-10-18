@@ -248,7 +248,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   safeInit('clockdates', initClockDates);
   safeInit('applink', () => { if (window.MasdarBridge) { const dc = $('apkDlCard'); if (dc) dc.hidden = true; const dl = $('dlDrawerLink'); if (dl) dl.hidden = true; } });
   try {
-    if (typeof PS_DATA !== 'undefined' && typeof FA_DATA !== 'undefined') {
+    if (typeof window.PS_SEED !== 'undefined' && typeof window.FA_SEED !== 'undefined') {
+      PS = window.PS_SEED; FA = window.FA_SEED;
+      if (typeof window.LD_SEED !== 'undefined') LD = window.LD_SEED;
+      mergeMasdarPack();
+      applyAllEntryFixes();
+    } else if (typeof PS_DATA !== 'undefined' && typeof FA_DATA !== 'undefined') {
       PS = PS_DATA; FA = FA_DATA;
       if (typeof LD_DATA !== 'undefined') LD = LD_DATA;
       mergeMasdarPack();
@@ -278,7 +283,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 49;
+const APP_VERSION_CODE = 50;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
