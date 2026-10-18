@@ -283,7 +283,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 51;
+const APP_VERSION_CODE = 52;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -1354,6 +1354,7 @@ function dictDetailCard(e) {
        genuinely no meanings gets the friendly note. Related masdars and the
        ✏️ تصحیح button below always stay. */
     detail = ldMeanHtml(e);
+    if (!detail) detail = dictFallbackMeanings(e[0]);
     if (!detail) detail = `<div class="sheet-sec"><h4>📚 ترجمہ</h4><p class="hint">اس لفظ کا ترجمہ فی الحال دستیاب نہیں — نیچے ✏️ بٹن سے خود لکھ دیں ✍️</p></div>`;
     const rel = relatedInf(e[0]);
     if (rel.length) detail += `<div class="sheet-sec"><h4>متعلقہ مصادر</h4>` + rel.map(r =>
@@ -1375,7 +1376,25 @@ function myDictCard(w) {
 }
 function findMyWord(q) {
   const all = visibleMyWords().concat(communityWords);
-  return all.find(w => norm(w.word) === q || norm(w.urdu || '') === q || norm(w.farsi || '') === q || latin(w.english || '') === latin(q));
+  return all.find(w => norm(w.word) === q || latin(w.word) === latin(q) || norm(w.urdu || '') === q || norm(w.farsi || '') === q || latin(w.english || '') === latin(q));
+}
+/* Meanings for a bare dictionary word from our other stores: the لغت
+   (community) entry of the same word, and Urdu-to-Pashto headwords whose
+   Pashto equivalents include this word. */
+function dictFallbackMeanings(word) {
+  const q = norm(word);
+  let rows = '';
+  const c = communityWords.find(w => norm(w.word) === q && (w.urdu || w.english || w.farsi));
+  if (c) {
+    if (c.urdu) rows += `<div class="kv"><b>🇵🇰 اردو</b><span>${esc(c.urdu)}</span></div>`;
+    if (c.english) rows += `<div class="kv"><b>🇬🇧 English</b><span dir="ltr">${esc(c.english)}</span></div>`;
+    if (c.farsi) rows += `<div class="kv"><b>🇮🇷 فارسی</b><span>${esc(c.farsi)}</span></div>`;
+  }
+  try {
+    const hits = getPsPsEntries().filter(en => (en.def || '').split(/[،,؛\s]+/).map(norm).includes(q)).slice(0, 3);
+    if (hits.length) rows += `<div class="kv"><b>🇵🇰 اردو لفظ</b><span>${hits.map(h => esc(h.w)).join('، ')}</span></div>`;
+  } catch (e) {}
+  return rows ? `<div class="sheet-sec"><h4>📚 ترجمہ</h4>${rows}</div>` : '';
 }
 /* ---- dictionary corrections & meanings written by the user ---- */
 let dictEdits = {};
@@ -1493,7 +1512,7 @@ function doDictSearch() {
         <div class="kv"><b>🇵🇰 اردو</b><span>${esc(inf[5])}</span></div>
         <div class="kv"><b>🇮🇷 فارسی</b><span>${esc(inf[6])}</span></div>
         <button class="btn-ghost" onclick="showDetail('ps',${inf[0]})">مکمل تفصیل ⏎</button>${editBtn}</div>` : ''; })()
-        : (() => { const rel = relatedInf(exact[0]); const has = v.ur || v.en || v.fa; return (has ? `<div class="sheet-sec"><h4>📚 ترجمہ${v.edited ? ' <span class="tag">آپ کی تصحیح</span>' : ''}</h4>${v.ur ? `<div class="kv"><b>🇵🇰 اردو</b><span>${esc(v.ur)}</span></div>` : ''}${v.en ? `<div class="kv"><b>🇬🇧 English</b><span dir="ltr">${esc(v.en)}</span></div>` : ''}${v.fa ? `<div class="kv"><b>🇮🇷 فارسی</b><span>${esc(v.fa)}</span></div>` : ''}</div>` : `<p class="hint">اس لفظ کا معنی فی الحال دستیاب نہیں — نیچے والے بٹن سے خود لکھ دیں ✍️</p>`) + editBtn + (rel.length ? `<h4>متعلقہ مصادر</h4>` + rel.map(r => `<div class="result-card" data-type="ps" data-id="${r[0]}"><div class="w">${esc(r[2])}</div><div class="m">🇵🇰 ${esc(r[5])}</div></div>`).join('') : ''); })())
+        : (() => { const rel = relatedInf(exact[0]); const has = v.ur || v.en || v.fa; const fb = has ? '' : dictFallbackMeanings(exact[0]); return (fb ? fb : (has ? `<div class="sheet-sec"><h4>📚 ترجمہ${v.edited ? ' <span class="tag">آپ کی تصحیح</span>' : ''}</h4>${v.ur ? `<div class="kv"><b>🇵🇰 اردو</b><span>${esc(v.ur)}</span></div>` : ''}${v.en ? `<div class="kv"><b>🇬🇧 English</b><span dir="ltr">${esc(v.en)}</span></div>` : ''}${v.fa ? `<div class="kv"><b>🇮🇷 فارسی</b><span>${esc(v.fa)}</span></div>` : ''}</div>` : `<p class="hint">اس لفظ کا معنی فی الحال دستیاب نہیں — نیچے والے بٹن سے خود لکھ دیں ✍️</p>`)) + editBtn + (rel.length ? `<h4>متعلقہ مصادر</h4>` + rel.map(r => `<div class="result-card" data-type="ps" data-id="${r[0]}"><div class="w">${esc(r[2])}</div><div class="m">🇵🇰 ${esc(r[5])}</div></div>`).join('') : ''); })())
       + `</div>`;
     bindCards(box);
     return;
@@ -1518,9 +1537,17 @@ function doDictSearch() {
       else if (wordRe.test(m)) t2.push(e);
       else t3.push(e);
     }
+    const cen = [];
+    for (const w of communityWords) {
+      const ew = (w.word || '').toLowerCase(), ee = (w.english || '').toLowerCase();
+      if (ew === ql || ee === ql) cen.unshift(w);
+      else if ((w.lang === 'en' && ew.includes(ql)) || (ee && wordRe.test(ee))) cen.push(w);
+    }
     const en = t1.concat(t2, t3).slice(0, 25);
-    if (en.length) {
-      box.innerHTML = `<p class="hint">«${esc(raw)}» — انگریزی معنی سے ملے الفاظ:</p>` + en.map(e =>
+    if (en.length || cen.length) {
+      box.innerHTML = `<p class="hint">«${esc(raw)}» — انگریزی سے ملے الفاظ:</p>`
+        + cen.slice(0, 10).map(w => `<div class="result-card" data-dictword="${esc(w.word)}"><div class="w">${esc(w.word)}</div><div class="m">🇵🇰 ${esc((w.urdu || '').slice(0, 90))}${w.english ? '<br>🇬🇧 ' + esc(w.english) : ''}</div></div>`).join('')
+        + en.map(e =>
         `<div class="result-card" data-dictword="${esc(ldView(e).w)}"><div class="w">${esc(ldView(e).w)}</div><div class="r">${esc(ldView(e).r)}</div><div class="m">🇬🇧 ${esc((((dictEdits[e[0]] || {}).english) || e[3] || '').slice(0, 90))}</div></div>`).join('');
       box.querySelectorAll('[data-dictword]').forEach(c => c.onclick = () => openDictWord(c.dataset.dictword));
       bindCards(box);
@@ -1533,7 +1560,7 @@ function doDictSearch() {
   for (const e of LD) {
     if (norm(e[0]).includes(q) || latin(e[1]).includes(lq)) { sug.push(e); if (sug.length >= 12) break; }
   }
-  const mySug = visibleMyWords().concat(communityWords).filter(w => norm(w.word).includes(q) || norm(w.urdu || '').includes(q) || norm(w.farsi || '').includes(q));
+  const mySug = visibleMyWords().concat(communityWords).filter(w => norm(w.word).includes(q) || norm(w.urdu || '').includes(q) || norm(w.farsi || '').includes(q) || (w.word || '').toLowerCase().includes(ql) || (w.english || '').toLowerCase().includes(ql));
   box.innerHTML = `<div class="empty">«${esc(raw)}» نہیں ملا 😕</div>` +
     (mySug.length ? `<p class="hint">آپ کے شامل کردہ الفاظ میں:</p>` + mySug.map(w =>
       `<div class="result-card" data-dictword="${esc(w.word)}"><div class="w">${esc(w.word)}</div><div class="r">${esc(w.urdu || '')}</div></div>`).join('') : '') +
