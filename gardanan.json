@@ -1,5 +1,5 @@
 {
- "rev": 24,
+ "rev": 25,
  "verbs": [
   {
    "ps": "خوړل",
@@ -3065,6 +3065,193 @@
      "lines": [
       "مه يې پرې کوه (مت کاٹو — don't cut it)",
       "مه يې پرې کوئ (مت کاٹیں / مت کاٹیے — don't cut it (pl./respectful))"
+     ]
+    }
+   ]
+  },
+  {
+   "ps": "اورېدل",
+   "ur": "سُننا",
+   "en": "to hear",
+   "kind": "متعدی",
+   "sections": [
+    {
+     "title": "حال",
+     "ur_title": "سنتا ہوں",
+     "en_title": "Present",
+     "lines": [
+      "زه اورم (میں سنتا / سنتی ہوں — I hear (m./f.))",
+      "ته اورې (تم سنتے ہو — you hear)",
+      "هغه اوري (وہ سنتا ہے — he hears)",
+      "موږ اورو (ہم سنتے ہیں — we hear)",
+      "تاسو اورئ (آپ سنتے ہیں — you hear)",
+      "هغوی اوري (وہ سنتے ہیں — they hear)",
+      "دوی اوري (وہ سنتے ہیں — they hear)"
+     ]
+    },
+    {
+     "title": "ماضی مطلق",
+     "ur_title": "سنا",
+     "en_title": "Simple past",
+     "lines": [
+      "ما واورېد / واورېدلو (میں نے سنا/ سُن لیا — I heard (m.))",
+      "ما واورېده/ واورېدله (میں نے سنی/ سُن لی — I heard (f.))",
+      "تا واورېد/ واورېدلو (تم نے سنا / سن لیا — you heard (m.))",
+      "تا واورېده / واورېدله (تم نے سنی/ سن لی — you heard (f.))",
+      "هغه واورېد / واورېدلو (اس نے سنا/ سُن لیا — he heard (m.))",
+      "هغې واورېده / واورېدله (اس نے سنی/ سن لی — she heard (f.))",
+      "موږ واورېدل (ہم نے سنے — we heard (pl. m.))",
+      "موږ واورېدې / واورېدلې (ہم نے سنیں — we heard (pl. f.))",
+      "تاسو واورېدل (آپ نے سنے — you heard (pl. m.))",
+      "تاسو واورېدې / واورېدلې (آپ نے سنیں — you heard (pl. f.))",
+      "هغوی واورېدل (انہوں نے سنے — they heard (pl. m.))",
+      "هغوی واورېدې / واورېدلې (انہوں نے سنیں — they heard (pl. f.))",
+      "دوی واورېدل (انہوں نے سنے — they heard (pl. m.))",
+      "دوی واورېدې/ واورېدلې (انہوں نے سنیں — they heard (pl. f.))"
+     ]
+    },
+    {
+     "title": "ماضی استمراری",
+     "ur_title": "سنتا تھا",
+     "en_title": "Past continuous",
+     "lines": [
+      "ما اورېدلو (میں سنتا تھا — I used to hear (m.))",
+      "ما اورېدله (میں سنتی تھی — I used to hear (f.))",
+      "تا اورېدلو (تم سنتے تھے — you used to hear (m.))",
+      "تا اورېدله (تم سنتی تھیں — you used to hear (f.))",
+      "هغه اورېدلو (وہ سنتا تھا — he used to hear (m.))",
+      "هغې اورېدله (وہ سنتی تھی — she used to hear (f.))",
+      "موږ اورېدل (ہم سنتے تھے — we used to hear (pl. m.))",
+      "موږ اورېدلې (ہم سنتی تھیں — we used to hear (pl. f.))",
+      "تاسو اورېدل (آپ سنتے تھے — you used to hear (pl. m.))",
+      "تاسو اورېدلې (آپ سنتی تھیں — you used to hear (pl. f.))",
+      "هغوی اورېدل (وہ سنتے تھے — they used to hear (pl. m.))",
+      "هغوی اورېدلې (وہ سنتی تھیں — they used to hear (pl. f.))",
+      "دوی اورېدل (وہ سنتے تھے — they used to hear (pl. m.))",
+      "دوی اورېدلې (وہ سنتی تھیں — they used to hear (pl. f.))"
+     ]
+    },
+    {
+     "title": "حال مکمل / ماضی قریب",
+     "ur_title": "سنا ہے",
+     "en_title": "Present perfect",
+     "lines": [
+      "ما اورېدلی دی (میں نے سنا ہے — I have heard (m.))",
+      "ما اورېدلې ده (میں نے سنی ہے — I have heard (f.))",
+      "تا اورېدلی دی (تم نے سنا ہے — you have heard (m.))",
+      "تا اورېدلې ده (تم نے سنی ہے — you have heard (f.))",
+      "هغه اورېدلی دی (اس نے سنا ہے — he has heard (m.))",
+      "هغې اورېدلې ده (اس نے سنی ہے — she has heard (f.))",
+      "موږ اورېدلي دي (ہم نے سنے ہیں — we have heard (pl. m.))",
+      "موږ اورېدلې دي (ہم نے سنی ہیں — we have heard (pl. f.))",
+      "تاسو اورېدلي دي (آپ نے سنے ہیں — you have heard (pl. m.))",
+      "تاسو اورېدلې دي (آپ نے سنی ہیں — you have heard (pl. f.))",
+      "هغوی اورېدلي دي (انہوں نے سنے ہیں — they have heard (pl. m.))",
+      "هغوی اورېدلې دي (انہوں نے سنی ہیں — they have heard (pl. f.))",
+      "دوی اورېدلي دي (انہوں نے سنے ہیں — they have heard (pl. m.))",
+      "دوی اورېدلې دي (انہوں نے سنی ہیں — they have heard (pl. f.))"
+     ]
+    },
+    {
+     "title": "ماضی بعيد",
+     "ur_title": "سنا تھا",
+     "en_title": "Past perfect",
+     "lines": [
+      "ما اورېدلی و (میں نے سنا تھا — I had heard (m.))",
+      "ما اورېدلې وه (میں نے سنی تھی — I had heard (f.))",
+      "تا اورېدلی و (تم نے سنا تھا — you had heard (m.))",
+      "تا اورېدلې وه (تم نے سنی تھی — you had heard (f.))",
+      "هغه اورېدلی و (اس نے سنا تھا — he had heard (m.))",
+      "هغې اورېدلې وه (اس نے سنی تھی — she had heard (f.))",
+      "موږ اورېدلي وو (ہم نے سنے تھے — we had heard (pl. m.))",
+      "موږ اورېدلې وې (ہم نے سنی تھیں — we had heard (pl. f.))",
+      "تاسو اورېدلي وو (آپ نے سنے تھے — you had heard (pl. m.))",
+      "تاسو اورېدلې وې (آپ نے سنی تھیں — you had heard (pl. f.))",
+      "هغوی اورېدلي وو (انہوں نے سنے تھے — they had heard (pl. m.))",
+      "هغوی اورېدلې وې (انہوں نے سنی تھیں — they had heard (pl. f.))",
+      "دوی اورېدلي وو (انہوں نے سنے تھے — they had heard (pl. m.))",
+      "دوی اورېدلې وې (انہوں نے سنی تھیں — they had heard (pl. f.))"
+     ]
+    },
+    {
+     "title": "ماضی احتمالی",
+     "ur_title": "سنا ہوگا",
+     "en_title": "Presumptive past",
+     "lines": [
+      "ما به اورېدلی و (میں نے سنا ہو گا — I must have heard (m.))",
+      "ما به اورېدلې وه (میں نے سنی ہو گی — I must have heard (f.))",
+      "تا به اورېدلی و (تم نے سنا ہو گا — you must have heard (m.))",
+      "تا به اورېدلې وه (تم نے سنی ہو گی — you must have heard (f.))",
+      "هغه به اورېدلی و (اس نے سنا ہو گا — he must have heard (m.))",
+      "هغې به اورېدلې وه (اس نے سنی ہو گی — she must have heard (f.))",
+      "موږ به اورېدلي وو (ہم نے سنے ہوں گے — we must have heard (pl. m.))",
+      "موږ به اورېدلې وې (ہم نے سنی ہوں گی — we must have heard (pl. f.))",
+      "تاسو به اورېدلي وو (آپ نے سنے ہوں گے — you must have heard (pl. m.))",
+      "تاسو به اورېدلې وې (آپ نے سنی ہوں گی — you must have heard (pl. f.))",
+      "هغوی به اورېدلي وو (انہوں نے سنے ہوں گے — they must have heard (pl. m.))",
+      "هغوی به اورېدلې وې (انہوں نے سنی ہوں گی — they must have heard (pl. f.))",
+      "دوی به اورېدلي وو (انہوں نے سنے ہوں گے — they must have heard (pl. m.))",
+      "دوی به اورېدلې وې (انہوں نے سنی ہوں گی — they must have heard (pl. f.))"
+     ]
+    },
+    {
+     "title": "مستقبل سادہ",
+     "ur_title": "سنے گا",
+     "en_title": "Simple future",
+     "lines": [
+      "زه به اورم (میں سنوں گا / سنوں گی — I will hear (m./f.))",
+      "ته به اورې (تم سنو گے — you will hear)",
+      "هغه به اوري (وہ سنے گا — he will hear)",
+      "موږ به اورو (ہم سنیں گے — we will hear)",
+      "تاسو به اورئ (آپ سنیں گے — you will hear)",
+      "هغوی به اوري (وہ سنیں گے — they will hear)",
+      "دوی به اوري (وہ سنیں گے — they will hear)"
+     ]
+    },
+    {
+     "title": "ارادی مستقبل",
+     "ur_title": "سن لوں گا",
+     "en_title": "Resolutive future",
+     "lines": [
+      "زه به واورم (میں سن لوں گا / سن لوں گی — I will hear (for sure) (m./f.))",
+      "ته به واورې (تم سن لو گے — you will hear (for sure))",
+      "هغه به واوري (وہ سن لے گا — he will hear (for sure))",
+      "موږ به واورو (ہم سن لیں گے — we will hear (for sure))",
+      "تاسو به واورئ (آپ سن لیں گے — you will hear (for sure))",
+      "هغوی به واوري (وہ سن لیں گے — they will hear (for sure))",
+      "دوی به واوري (وہ سن لیں گے — they will hear (for sure))"
+     ]
+    },
+    {
+     "title": "مضارع",
+     "ur_title": "سن لوں",
+     "en_title": "Subjunctive",
+     "lines": [
+      "زه واورم (میں سن لوں — (that) I hear)",
+      "ته واورې (تم سن لو — (that) you hear)",
+      "هغه واوري (وہ سن لے — (that) he hear)",
+      "موږ واورو (ہم سن لیں — (that) we hear)",
+      "تاسو واورئ (آپ سن لیں — (that) you hear)",
+      "هغوی واوري (وہ سن لیں — (that) they hear)",
+      "دوی واوري (وہ سن لیں — (that) they hear)"
+     ]
+    },
+    {
+     "title": "امر",
+     "ur_title": "حکم",
+     "en_title": "Imperative",
+     "lines": [
+      "واوره (سن لو — hear!)",
+      "واورئ (سن لیں / سن لیجیے — hear! (pl./respectful))"
+     ]
+    },
+    {
+     "title": "نہی",
+     "ur_title": "منع",
+     "en_title": "Prohibitive",
+     "lines": [
+      "مه واوره (مت سنو — don't hear)",
+      "مه واورئ (مت سنیں / مت سنیے — don't hear (pl./respectful))"
      ]
     }
    ]
