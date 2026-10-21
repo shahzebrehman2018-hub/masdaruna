@@ -283,7 +283,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 52;
+const APP_VERSION_CODE = 53;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -1354,6 +1354,7 @@ function dictDetailCard(e) {
        genuinely no meanings gets the friendly note. Related masdars and the
        ✏️ تصحیح button below always stay. */
     detail = ldMeanHtml(e);
+    if (detail && e[3]) detail += dictCommunityUrFa(e[0]);
     if (!detail) detail = dictFallbackMeanings(e[0]);
     if (!detail) detail = `<div class="sheet-sec"><h4>📚 ترجمہ</h4><p class="hint">اس لفظ کا ترجمہ فی الحال دستیاب نہیں — نیچے ✏️ بٹن سے خود لکھ دیں ✍️</p></div>`;
     const rel = relatedInf(e[0]);
@@ -1395,6 +1396,18 @@ function dictFallbackMeanings(word) {
     if (hits.length) rows += `<div class="kv"><b>🇵🇰 اردو لفظ</b><span>${hits.map(h => esc(h.w)).join('، ')}</span></div>`;
   } catch (e) {}
   return rows ? `<div class="sheet-sec"><h4>📚 ترجمہ</h4>${rows}</div>` : '';
+}
+/* Our own لغت's Urdu/Farsi for a word that already carries its true English
+   meaning (e[3]): shown alongside it. Never the community entry's drafted
+   English (the true meaning wins) and never the inversion guesses above. */
+function dictCommunityUrFa(word) {
+  const q = norm(word);
+  const c = communityWords.find(w => norm(w.word) === q && (w.urdu || w.farsi));
+  if (!c) return '';
+  let rows = '';
+  if (c.urdu) rows += `<div class="kv"><b>🇵🇰 اردو</b><span>${esc(c.urdu)}</span></div>`;
+  if (c.farsi) rows += `<div class="kv"><b>🇮🇷 فارسی</b><span>${esc(c.farsi)}</span></div>`;
+  return rows ? `<div class="sheet-sec"><h4>اردو / فارسی</h4>${rows}</div>` : '';
 }
 /* ---- dictionary corrections & meanings written by the user ---- */
 let dictEdits = {};
@@ -1512,7 +1525,7 @@ function doDictSearch() {
         <div class="kv"><b>🇵🇰 اردو</b><span>${esc(inf[5])}</span></div>
         <div class="kv"><b>🇮🇷 فارسی</b><span>${esc(inf[6])}</span></div>
         <button class="btn-ghost" onclick="showDetail('ps',${inf[0]})">مکمل تفصیل ⏎</button>${editBtn}</div>` : ''; })()
-        : (() => { const rel = relatedInf(exact[0]); const has = v.ur || v.en || v.fa; const fb = has ? '' : dictFallbackMeanings(exact[0]); return (fb ? fb : (has ? `<div class="sheet-sec"><h4>📚 ترجمہ${v.edited ? ' <span class="tag">آپ کی تصحیح</span>' : ''}</h4>${v.ur ? `<div class="kv"><b>🇵🇰 اردو</b><span>${esc(v.ur)}</span></div>` : ''}${v.en ? `<div class="kv"><b>🇬🇧 English</b><span dir="ltr">${esc(v.en)}</span></div>` : ''}${v.fa ? `<div class="kv"><b>🇮🇷 فارسی</b><span>${esc(v.fa)}</span></div>` : ''}</div>` : `<p class="hint">اس لفظ کا معنی فی الحال دستیاب نہیں — نیچے والے بٹن سے خود لکھ دیں ✍️</p>`)) + editBtn + (rel.length ? `<h4>متعلقہ مصادر</h4>` + rel.map(r => `<div class="result-card" data-type="ps" data-id="${r[0]}"><div class="w">${esc(r[2])}</div><div class="m">🇵🇰 ${esc(r[5])}</div></div>`).join('') : ''); })())
+        : (() => { const rel = relatedInf(exact[0]); const has = v.ur || v.en || v.fa; const fb = has ? '' : dictFallbackMeanings(exact[0]); const supp = (has && exact[3]) ? dictCommunityUrFa(exact[0]) : ''; return (fb ? fb : (has ? `<div class="sheet-sec"><h4>📚 ترجمہ${v.edited ? ' <span class="tag">آپ کی تصحیح</span>' : ''}</h4>${v.ur ? `<div class="kv"><b>🇵🇰 اردو</b><span>${esc(v.ur)}</span></div>` : ''}${v.en ? `<div class="kv"><b>🇬🇧 English</b><span dir="ltr">${esc(v.en)}</span></div>` : ''}${v.fa ? `<div class="kv"><b>🇮🇷 فارسی</b><span>${esc(v.fa)}</span></div>` : ''}</div>` : `<p class="hint">اس لفظ کا معنی فی الحال دستیاب نہیں — نیچے والے بٹن سے خود لکھ دیں ✍️</p>`)) + supp + editBtn + (rel.length ? `<h4>متعلقہ مصادر</h4>` + rel.map(r => `<div class="result-card" data-type="ps" data-id="${r[0]}"><div class="w">${esc(r[2])}</div><div class="m">🇵🇰 ${esc(r[5])}</div></div>`).join('') : ''); })())
       + `</div>`;
     bindCards(box);
     return;
@@ -1673,7 +1686,7 @@ function tapWordMeaning(word) {
     const e = r.w;
     const inf = e[2] ? PS.find(x => x[0] === e[2]) : null;
     openSheet(`<div class="sheet-word">${esc(e[0])}</div><div class="sheet-roman">${esc(e[1])}</div>` +
-      (inf ? `<div class="sheet-sec"><h4>📚 ترجمہ</h4><div class="kv"><b>🇬🇧</b><span>${esc(inf[4])}</span></div><div class="kv"><b>🇵🇰</b><span>${esc(inf[5])}</span></div></div>` : (e[3] ? ldMeanHtml(e) : `<p class="hint" style="text-align:center">ترجمہ دستیاب نہیں</p>`)));
+      (inf ? `<div class="sheet-sec"><h4>📚 ترجمہ</h4><div class="kv"><b>🇬🇧</b><span>${esc(inf[4])}</span></div><div class="kv"><b>🇵🇰</b><span>${esc(inf[5])}</span></div></div>` : (e[3] ? ldMeanHtml(e) + dictCommunityUrFa(e[0]) : `<p class="hint" style="text-align:center">ترجمہ دستیاب نہیں</p>`)));
   } else showDetail(r.type, r.id);
 }
 document.addEventListener('click', e => {
