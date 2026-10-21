@@ -268,6 +268,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       mergeMasdarPack();
       applyAllEntryFixes();
     }
+    /* a cached online copy of the two big datasets (community لغت /
+       lingdocs) overrides the baked seeds — see refreshBigData below */
+    applyCachedBigData();
     $('statPs').textContent = PS.length.toLocaleString('ur');
     $('statFa').textContent = FA.length.toLocaleString('ur');
     try { $('statLd').textContent = LD.length.toLocaleString('ur'); } catch (e) {}
@@ -283,7 +286,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 54;
+const APP_VERSION_CODE = 55;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -423,6 +426,14 @@ function initUpdate() {
           }
         }
       } catch (e) { /* a missing grammar.json on the server is not an error */ }
+      /* (h) big data: community لغت + lingdocs بڑی لغت (gated by
+         data-manifest.json — unchanged data is not re-downloaded) */
+      try {
+        const bd = await refreshBigData(base, 60000);
+        if (bd.community === 'updated') msgs.push('<p class="good">✅ لغت کے نئے الفاظ شامل ہو گئے</p>');
+        if (bd.lingdocs === 'updated') msgs.push('<p class="good">✅ بڑی لغت تازہ ہو گئی</p>');
+        if (bd.community === 'current' && bd.lingdocs === 'current') msgs.push('<p class="good">✅ لغت اور بڑی لغت پہلے سے تازہ ترین ہیں</p>');
+      } catch (e) { /* a failed big-data check is not an error */ }
     } finally {
       res.innerHTML = msgs.join('') || '<p class="bad">سرور سے رابطہ نہیں ہو سکا۔ پتہ درست لکھیں (مثلاً https://example.com)</p>';
       /* in the app, the download link goes through the one-tap installer */
@@ -617,8 +628,163 @@ async function autoFetchPacks() {
         }
       }
     } catch (e) {}
+    /* the two big datasets (community لغت / lingdocs) refresh the same
+       way, gated by data-manifest.json — see refreshBigData below */
+    try { await refreshBigData(base, 60000); } catch (e) {}
   } catch (e) {}
 }
+/* ---------- بڑا ڈیٹا: کمیونٹی لغت + بڑی لغت (lingdocs) ----------
+   These two datasets are too big for the pack localStorage mechanism
+   (community ≈ 2.5 MB, lingdocs ≈ 3.6 MB of JSON), so they refresh on
+   their own track, exactly like the packs (at start + on the manual
+   check), gated by data-manifest.json at the site root: the manifest
+   carries a sha256 per file and unchanged data is NEVER re-downloaded.
+   The downloaded JSON is cached persistently — in the app through
+   MasdarBridge file storage (internal files), on the web in
+   localStorage — and a cached copy overrides the baked seeds at load.
+   With no cache or no network the app behaves exactly as before: the
+   baked seeds carry the data. If storing fails, the fresh copy still
+   applies for this session ('mem') and is fetched again next time. */
+const BIGDATA_KEYS = ['community', 'lingdocs'];
+const BIGDATA_FILES = { community: 'data/community.json', lingdocs: 'data/lingdocs.json' };
+const BIGDATA_META_KEY = 'masdar_bigdata_meta';
+const BIGDATA_LS_KEYS = { community: 'masdar_community_data', lingdocs: 'masdar_lingdocs_data' };
+const BIGDATA_CHUNK = 200000; /* bytes per bridge transfer */
+const _bigMemSha = {}; /* sha of a copy applied this session but not persisted */
+
+function bigMeta() { try { return JSON.parse(localStorage.getItem(BIGDATA_META_KEY) || '{}') || {}; } catch (e) { return {}; } }
+function saveBigMeta(m) { try { localStorage.setItem(BIGDATA_META_KEY, JSON.stringify(m)); } catch (e) {} }
+function bigBridge() { return (window.MasdarBridge && MasdarBridge.onlineLoadSize) ? MasdarBridge : null; }
+
+function bytesToB64(bytes) {
+  let s = '';
+  for (let i = 0; i < bytes.length; i += 32768) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 32768));
+  return btoa(s);
+}
+function b64ToBytes(b64) {
+  const s = atob(b64);
+  const out = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) out[i] = s.charCodeAt(i);
+  return out;
+}
+
+/* Persist one dataset's JSON text. Returns 'file' | 'ls' | 'mem'. */
+function bigStore(name, text) {
+  const b = bigBridge();
+  if (b) {
+    try {
+      const bytes = new TextEncoder().encode(text);
+      if (b.onlineSaveStart(name)) {
+        let ok = true;
+        for (let off = 0; off < bytes.length && ok; off += BIGDATA_CHUNK) {
+          ok = !!b.onlineSaveChunk(name, bytesToB64(bytes.subarray(off, Math.min(off + BIGDATA_CHUNK, bytes.length))));
+        }
+        if (ok && b.onlineSaveFinish(name)) return 'file';
+      }
+    } catch (e) { /* fall through to localStorage */ }
+  }
+  try { localStorage.setItem(BIGDATA_LS_KEYS[name], text); return 'ls'; } catch (e) {}
+  return 'mem';
+}
+
+/* Read back a persisted dataset's JSON text (null when none/unreadable). */
+function bigLoad(name) {
+  const b = bigBridge();
+  if (b) {
+    try {
+      const size = Number(b.onlineLoadSize(name));
+      if (size > 0) {
+        const all = new Uint8Array(size);
+        let p = 0;
+        for (let off = 0; off < size; off += BIGDATA_CHUNK) {
+          const c = b.onlineLoadChunk(name, off, Math.min(BIGDATA_CHUNK, size - off));
+          if (!c) return null;
+          const part = b64ToBytes(c);
+          all.set(part, p); p += part.length;
+          if (!part.length) return null;
+        }
+        return new TextDecoder('utf-8').decode(all.subarray(0, p));
+      }
+    } catch (e) { /* fall through to localStorage */ }
+  }
+  try { return localStorage.getItem(BIGDATA_LS_KEYS[name]); } catch (e) { return null; }
+}
+
+/* Cheap existence check for a persisted copy (no full read). */
+function bigExists(name) {
+  const b = bigBridge();
+  if (b) { try { if (Number(b.onlineLoadSize(name)) > 0) return true; } catch (e) {} }
+  try { return !!localStorage.getItem(BIGDATA_LS_KEYS[name]); } catch (e) { return false; }
+}
+
+function bigValid(name, arr) {
+  if (!Array.isArray(arr)) return false;
+  if (name === 'community') return arr.length > 0 && !!arr[0] && typeof arr[0].word === 'string';
+  return arr.length > 90000 && Array.isArray(arr[0]);
+}
+
+function applyBigData(name, arr) {
+  if (name === 'community') {
+    COMMUNITY_DATA = arr;
+    initCommunity();
+    try { buildDictLetters(); } catch (e) {}
+    try { renderStats(); } catch (e) {}
+  } else {
+    LD = arr;
+    try { $('statLd').textContent = LD.length.toLocaleString('ur'); } catch (e) {}
+  }
+  try { const i = $('dictInput'); if (i && i.value && typeof doDictSearch === 'function') doDictSearch(); } catch (e) {}
+}
+
+/* At load: a cached online copy overrides the baked seed. Synchronous,
+   so the first render already uses the freshest data the phone holds. */
+function applyCachedBigData() {
+  const meta = bigMeta();
+  BIGDATA_KEYS.forEach(name => {
+    try {
+      if (!meta[name] || !meta[name].sha) return;
+      const text = bigLoad(name);
+      if (!text) return;
+      const arr = JSON.parse(text);
+      if (bigValid(name, arr)) { _bigMemSha[name] = meta[name].sha; applyBigData(name, arr); }
+    } catch (e) { /* a broken cache must never break the app: seeds stay */ }
+  });
+}
+
+/* Refresh both datasets from the site, gated by data-manifest.json.
+   Returns {community: 'updated'|'current'|'error', lingdocs: …}. */
+async function refreshBigData(base, dlTimeout) {
+  const out = { community: 'error', lingdocs: 'error' };
+  let man = null;
+  try {
+    const r = await fetchTimeout(base + '/data-manifest.json?_=' + Date.now(), 12000);
+    if (!r.ok) return out;
+    man = await r.json();
+  } catch (e) { return out; }
+  const meta = bigMeta();
+  for (const name of BIGDATA_KEYS) {
+    try {
+      const info = man && man[name];
+      if (!info || !info.sha256) { out[name] = 'error'; continue; }
+      const stored = meta[name];
+      if (stored && stored.sha === info.sha256 &&
+          (_bigMemSha[name] === info.sha256 || bigExists(name))) { out[name] = 'current'; continue; }
+      const r = await fetchTimeout(base + '/' + (info.file || BIGDATA_FILES[name]) + '?_=' + Date.now(), dlTimeout || 60000);
+      if (!r.ok) { out[name] = 'error'; continue; }
+      const text = await r.text();
+      const arr = JSON.parse(text);
+      if (!bigValid(name, arr)) { out[name] = 'error'; continue; }
+      const storedAs = bigStore(name, text);
+      meta[name] = { sha: info.sha256, bytes: info.bytes || text.length, count: arr.length, stored: storedAs };
+      saveBigMeta(meta);
+      _bigMemSha[name] = info.sha256;
+      applyBigData(name, arr);
+      out[name] = 'updated';
+    } catch (e) { out[name] = 'error'; }
+  }
+  return out;
+}
+
 /* Called by the Android bridge (and the web file fallback) with the text of a
    chosen update file: a gardanan pack ({rev, verbs} or {gardanan:{...}}) or a
    میرے الفاظ export file ({words:[...]}). */

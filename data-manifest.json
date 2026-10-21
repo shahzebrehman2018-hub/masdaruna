@@ -1,0 +1,16 @@
+{
+ "rev": 1,
+ "community": {
+  "file": "data/community.json",
+  "sha256": "0ff55a327f194327bfc6051d8a3569e6b9569a090c24c1b4c0b7f2413346bf9b",
+  "bytes": 2543393,
+  "count": 11642
+ },
+ "lingdocs": {
+  "file": "data/lingdocs.json",
+  "sha256": "f8f7dcfbf7cdf4456ba33c5065ace183c51fbb50ac9c15b78ea773e76360575c",
+  "bytes": 3632617,
+  "count": 97229,
+  "withEn": 13531
+ }
+}
