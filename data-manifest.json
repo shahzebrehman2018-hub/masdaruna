@@ -8,9 +8,9 @@
  },
  "lingdocs": {
   "file": "data/lingdocs.json",
-  "sha256": "bbe75a3b6ae17aa0839c0029e03a09bbf8e9a33e2eb3c49af4be8f630bf70ce1",
-  "bytes": 3636769,
+  "sha256": "4c0d3153d43a5df3447b08471771660d615e2cc9d5df41d651bb8f626a81df79",
+  "bytes": 3643389,
   "count": 97229,
-  "withEn": 13703
+  "withEn": 13903
  }
 }
