@@ -112,6 +112,7 @@ function renderStats() {
     + row('صورتیں والے الفاظ', Object.keys(getFormsMap()).length)
     + `<div class="kv"><b>گرامر موضوعات (پشتو / فارسی)</b><span><strong>${getGrammarTopics('ps').length} / ${getGrammarTopics('fa').length}</strong></span></div>`
     + (typeof getPsPsEntries === 'function' ? row('Urdu to Pashto لغت کے الفاظ', getPsPsEntries().length) : '')
+    + (typeof getEnUrEntries === 'function' ? row('انگریزی–اردو لغت کے الفاظ', getEnUrEntries().length) : '')
     + `</div>`;
 }
 window.renderStats = renderStats;
@@ -286,7 +287,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 55;
+const APP_VERSION_CODE = 56;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -412,6 +413,20 @@ function initUpdate() {
           }
         }
       } catch (e) { /* a missing psps.json on the server is not an error */ }
+      /* (f2) English–Urdu dictionary content check */
+      try {
+        const r6b = await fetchTimeout(base + '/enur.json');
+        if (r6b.ok) {
+          const ej = await r6b.json();
+          const curE = Number(localStorage.getItem('masdar_enur_rev') || 0);
+          if (ej && typeof ej.rev === 'number' && ej.rev > curE && Array.isArray(ej.entries)) {
+            localStorage.setItem('masdar_enur_data', JSON.stringify(ej));
+            localStorage.setItem('masdar_enur_rev', String(ej.rev));
+            if (typeof renderEnUr === 'function') renderEnUr();
+            msgs.push('<p class="good">✅ انگریزی–اردو لغت شامل ہو گئی</p>');
+          }
+        }
+      } catch (e) { /* a missing enur.json on the server is not an error */ }
       /* (g) grammar topics content check */
       try {
         const r7 = await fetchTimeout(base + '/grammar.json');
@@ -613,6 +628,18 @@ async function autoFetchPacks() {
           localStorage.setItem('masdar_psps_data', JSON.stringify(pj));
           localStorage.setItem('masdar_psps_rev', String(pj.rev));
           if (typeof renderPsPs === 'function') renderPsPs();
+        }
+      }
+    } catch (e) {}
+    try {
+      const r = await fetchTimeout(base + '/enur.json?_=' + Date.now(), 8000);
+      if (r.ok) {
+        const ej = await r.json();
+        const cur = Number(localStorage.getItem('masdar_enur_rev') || 0);
+        if (ej && typeof ej.rev === 'number' && ej.rev > cur && Array.isArray(ej.entries)) {
+          localStorage.setItem('masdar_enur_data', JSON.stringify(ej));
+          localStorage.setItem('masdar_enur_rev', String(ej.rev));
+          if (typeof renderEnUr === 'function') renderEnUr();
         }
       }
     } catch (e) {}
@@ -1222,6 +1249,7 @@ function initNav() {
     }
     if (name === 'stats' && typeof renderStats === 'function') renderStats();
     if (name === 'psps') initPsPs();
+    if (name === 'enur') initEnUr();
     if (name === 'grammar') initGrammarTopics();
   };
   window._goNav = go;
@@ -1318,6 +1346,68 @@ function initPsPs() {
     if (btn) btn.onclick = () => renderPsPs();
   }
   renderPsPs();
+}
+
+/* ---------- انگریزی–اردو لغت (offline seed + online enur.json pack) ----------
+   Entries are {w, pron, pos, def, ur, ex}: an English headword, its
+   pronunciation, part of speech, English definition, Urdu meanings and
+   example pairs [en, ur]. Built-in seed (js/enur-data.js) + online pack
+   (enur.json, localStorage masdar_enur_data) merged by word+pos — the
+   pack wins. Search covers both languages: English headword/definition
+   and the Urdu meaning text. */
+function getEnUrEntries() {
+  const map = new Map();
+  const add = e => { if (e && e.w) map.set(norm(e.w) + '|' + (e.pos || ''), { w: e.w, pron: e.pron || '', pos: e.pos || '', def: e.def || '', ur: e.ur || '', ex: Array.isArray(e.ex) ? e.ex : [] }); };
+  (window.ENUR_SEED || []).forEach(add);
+  try {
+    const stored = JSON.parse(localStorage.getItem('masdar_enur_data') || 'null');
+    const list = stored && Array.isArray(stored.entries) ? stored.entries : (Array.isArray(stored) ? stored : []);
+    list.forEach(add);
+  } catch (e) {}
+  return Array.from(map.values());
+}
+window.getEnUrEntries = getEnUrEntries;
+function renderEnUr() {
+  const box = $('enurResults');
+  if (!box) return;
+  const all = getEnUrEntries();
+  if (!all.length) { box.innerHTML = '<div class="empty">ابھی کوئی لفظ شامل نہیں — جلد آئے گا۔</div>'; return; }
+  const raw = (($('enurInput') || {}).value || '').trim();
+  const ql = raw.toLowerCase();
+  const qu = norm(raw);
+  const list = raw
+    ? all.filter(e => (e.w || '').toLowerCase().includes(ql) || (e.def || '').toLowerCase().includes(ql) || norm(e.ur || '').includes(qu))
+    : all;
+  window._enurList = list;
+  if (!list.length) { box.innerHTML = '<div class="empty">لفظ نہیں ملا — کوئی اور لفظ لکھ کر پھر تلاش کریں۔</div>'; return; }
+  box.innerHTML = list.slice(0, 60).map((e, i) => `<div class="result-card" data-enur="${i}"><div class="w" dir="ltr" style="text-align:left">${esc(e.w)}</div>`
+    + (e.ur ? `<div class="m">${esc(e.ur)}</div>` : '')
+    + `</div>`).join('');
+  box.querySelectorAll('[data-enur]').forEach(el => el.addEventListener('click', () => openEnUrDetail(window._enurList[+el.dataset.enur])));
+}
+function openEnUrDetail(e) {
+  if (!e) return;
+  const meta = [e.pron ? '(' + e.pron + ')' : '', e.pos || ''].filter(Boolean).join(' ');
+  const defSec = e.def ? `<div class="sheet-sec"><h4>English</h4><div class="ex" dir="ltr" style="text-align:left">${esc(e.def)}</div></div>` : '';
+  const urSec = e.ur ? `<div class="sheet-sec"><h4>اردو معنی</h4><div class="ex">${esc(e.ur)}</div></div>` : '';
+  const exSec = (e.ex && e.ex.length) ? `<div class="sheet-sec"><h4>مثالیں</h4>` + e.ex.map(p => `<p style="margin:6px 0"><span dir="ltr" style="display:inline-block;text-align:left">${esc(p[0] || '')}</span><br>${esc(p[1] || '')}</p>`).join('') + `</div>` : '';
+  openSheet(`<h3 style="margin:6px 0 2px;text-align:left" dir="ltr">${esc(e.w)}</h3>`
+    + (meta ? `<div class="m" dir="ltr" style="text-align:left;margin-bottom:6px">${esc(meta)}</div>` : '')
+    + defSec + urSec + exSec);
+}
+window.openEnUrDetail = openEnUrDetail;
+window.renderEnUr = renderEnUr;
+
+/* ---------- English to Urdu dictionary page ---------- */
+let _enurWired = false;
+function initEnUr() {
+  if (!_enurWired) {
+    _enurWired = true;
+    const inp = $('enurInput'), btn = $('enurBtn');
+    if (inp) inp.addEventListener('input', () => { clearTimeout(window._enurT); window._enurT = setTimeout(renderEnUr, 250); });
+    if (btn) btn.onclick = () => renderEnUr();
+  }
+  renderEnUr();
 }
 
 /* ---------- 📚 گرامر topics (offline seed + online grammar.json pack) ----------
