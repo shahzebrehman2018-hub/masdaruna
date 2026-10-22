@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "sections": [
   {
    "id": "grammar",
@@ -11,24 +11,30 @@
      "id": "g1",
      "title_ps": "شخصي ضمیرونه",
      "title_ur": "ذاتی ضمیریں",
+     "title_roman": "šaxsī zamīrūna",
      "body_ps": "په پښتو کې شخصي ضمیرونه:\nزه، ته، هغه، موږ، تاسو، هغوی\n\nمثال:\nزه زده کوونکی یم.\nته چېرته ځې؟",
+     "body_roman": "pa pəṣto ke šaxsī zamīrūna:\nza, ta, hagha, moẓ, tāso, haghoy\n\nmisāl:\nza zda kawūnkay yam.\nta čerta ǰe?",
      "body_ur": "پشتو کی ذاتی ضمیریں:\nزه (میں)، ته (تو)، هغه (وہ)، موږ (ہم)، تاسو (تم / آپ)، هغوی (وہ سب)\n\nمثال:\nزه زده کوونکی یم۔ = میں طالب علم ہوں۔\nته چېرته ځې؟ = تم کہاں جا رہے ہو؟"
     },
     {
      "id": "g2",
      "title_ps": "فعل «یم»",
      "title_ur": "فعل «یم» (ہونا)",
+     "title_roman": "feʿl «yam»",
      "body_ps": "زه یم\nته یې\nهغه دی\nموږ یو\nتاسو یاست\nهغوی دي",
+     "body_roman": "za yam\nta ye\nhagha day\nmoẓ yū\ntāso yāst\nhaghoy dī",
      "body_ur": "میں ہوں\nتو ہے\nوہ ہے\nہم ہیں\nتم / آپ ہو / ہیں\nوہ سب ہیں"
     }
-   ]
+   ],
+   "title_roman": "žabdod"
   },
   {
    "id": "lessons",
    "emoji": "📚",
    "title_ur": "اسباق",
    "title_ps": "لوستونه",
-   "items": []
+   "items": [],
+   "title_roman": "lwastūna"
   },
   {
    "id": "conversation",
@@ -40,14 +46,18 @@
      "id": "c1",
      "title_ps": "روغبړ",
      "title_ur": "سلام دعا",
+     "title_roman": "roğbaṛ",
      "body_ps": "سلام!\nته څنګه یې؟\nزه ښه یم، مننه. ته څنګه یې؟",
+     "body_roman": "salām!\nta cənga ye?\nza ṣa yam, manəna. ta cənga ye?",
      "body_ur": "سلام!\nتم کیسے ہو؟\nمیں ٹھیک ہوں، شکریہ۔ تم کیسے ہو؟"
     },
     {
      "id": "c2",
      "title_ps": "نوم پوښتنه",
      "title_ur": "نام پوچھنا",
+     "title_roman": "nūm poṣtəna",
      "body_ps": "ستا نوم څه دی؟\nزما نوم احمد دی.",
+     "body_roman": "stā nūm ca day?\nzmā nūm Aḥmad day.",
      "variants": {
       "northeast": "ستا نوم څه دے؟\nزما نوم احمد دے."
      },
@@ -57,38 +67,48 @@
      "id": "c3",
      "title_ps": "په بازار کې",
      "title_ur": "بازار میں",
+     "title_roman": "pa bāzār ke",
      "body_ps": "دا په څو دی؟\nلږ ارزانه ورکړه.",
+     "body_roman": "dā pa co day?\nləẓ arzāna warkṛa.",
      "body_ur": "یہ کتنے کا ہے؟\nذرا سستا دے دو۔"
     },
     {
      "id": "c4",
      "title_ps": "ځان معرفي کول",
      "title_ur": "اپنا تعارف",
+     "title_roman": "ǰān maʿrifī kawəl",
      "body_ps": "زه پاکستان/افغانستان نه یم.\nزه پښتو زده کوم.\nستاسو سره د لیدو خوشحاله شوم.",
+     "body_roman": "za Pākistān/Afghānistān na yam.\nza pəṣto zda kawəm.\nstāso sara da līdo xušālah šwəm.",
      "body_ur": "میں پاکستان / افغانستان سے ہوں۔\nمیں پشتو سیکھ رہا ہوں۔\nآپ سے مل کر خوشی ہوئی۔"
     },
     {
      "id": "c5",
      "title_ps": "لار پوښتنه",
      "title_ur": "راستہ پوچھنا",
+     "title_roman": "lār poṣtəna",
      "body_ps": "بخښنه غواړم، بازار چېرته دی؟\nدا لار سمه ده؟",
+     "body_roman": "baxṣəna ğwāṛəm, bāzār čerta day?\ndā lār sama da?",
      "body_ur": "معاف کیجیے، بازار کہاں ہے؟\nکیا یہ راستہ ٹھیک ہے؟"
     },
     {
      "id": "c6",
      "title_ps": "مننه او هرکلی",
      "title_ur": "شکریہ اور خوش آمدید",
+     "title_roman": "manəna aw harkalay",
      "body_ps": "ډېر مننه.\nهېڅ نه ده.\nښه راغلاست.",
+     "body_roman": "ḍer manəna.\nhec na da.\nṣa rāğlāst.",
      "body_ur": "بہت شکریہ۔\nکوئی بات نہیں۔\nخوش آمدید۔"
     }
-   ]
+   ],
+   "title_roman": "xabare atare"
   },
   {
    "id": "sentences",
    "emoji": "✍️",
    "title_ur": "جملے",
    "title_ps": "غونډلې",
-   "items": []
+   "items": [],
+   "title_roman": "ğūnḍale"
   },
   {
    "id": "essays",
@@ -100,10 +120,13 @@
      "id": "e1",
      "title_ps": "د ژبې ارزښت",
      "title_ur": "زبان کی اہمیت",
+     "title_roman": "da žəbe arzəṣt",
      "body_ps": "ژبه د یو قوم پېژندنه ده. هر څوک چې خپله مورنۍ ژبه ښه زده کړي، د خپل فرهنګ ساتنه کوي.",
+     "body_roman": "žəba da yaw qawm pežandəna da. har cok če xpəla moranay žəba ṣa zda kṛi, da xpəl farhang sātəna kawī.",
      "body_ur": "زبان کسی قوم کی پہچان ہے۔ جو شخص اپنی مادری زبان اچھی طرح سیکھتا ہے وہ اپنی ثقافت کی حفاظت کرتا ہے۔"
     }
-   ]
+   ],
+   "title_roman": "mazmūnūna"
   },
   {
    "id": "stories",
@@ -115,10 +138,13 @@
      "id": "s1",
      "title_ps": "لوبه او کارغه",
      "title_ur": "لومڑی اور کوّا",
+     "title_roman": "lūba aw kārğa",
      "body_ps": "یوه ورځ یوې کارغې د پنیر یوه ټوټه په څوکه کې نیولې وه او د ونې پر څانګه ناسته وه. یوې وږې لوبې هغه ولیده او ورته ووې: «ستا غږ څومره ښکلی دی! یو ځل ووایه.» کارغه خوشحاله شوه او خوله یې خلاصه کړه. پنیر ولوېد، لوبه یې واخیست او لاړه.",
+     "body_roman": "yawa wraǰ yəwe kārğe da panīr yawa ṭoṭa pa cūka ke nīwəle wa aw da wəne par cānga nāsta wa. yəwe wəẓe lūbe hagha walīda aw warta wawe: «stā ğaẓ cumra ṣkulay day! yaw ǰal wawāya.» kārğa xušālah šwa aw xūla ye xlāsa kṛa. panīr walwed, lūba ye wāxist aw lāṛa.",
      "body_ur": "ایک دن ایک کوّا چونچ میں پنیر کا ٹکڑا لیے درخت کی شاخ پر بیٹھا تھا۔ ایک بھوکی لومڑی نے اسے دیکھا اور کہا: «تمہاری آواز کتنی پیاری ہے! ذرا ایک بار گاؤ۔» کوّا خوش ہوا اور اس نے منہ کھولا۔ پنیر گر گیا اور لومڑی اسے اٹھا کر چلی گئی۔"
     }
-   ]
+   ],
+   "title_roman": "kīse"
   },
   {
    "id": "poetry",
@@ -130,10 +156,13 @@
      "id": "p1",
      "title_ps": "نمونه (خپل شعر ولیکئ)",
      "title_ur": "نمونہ (اپنا شعر لکھیں)",
+     "title_roman": "namūna (xpəl šeʿr walīkay)",
      "body_ps": "دلته خپل شعر ولیکئ.",
+     "body_roman": "dalta xpəl šeʿr walīkay.",
      "body_ur": "یہاں اپنا شعر لکھیں (مثلاً رحمان بابا یا خوشحال خان خٹک کا کلام، تصدیق شدہ متن کے ساتھ)۔"
     }
-   ]
+   ],
+   "title_roman": "šāʿirī"
   },
   {
    "id": "proverbs",
@@ -145,17 +174,21 @@
      "id": "m1",
      "title_ps": "نمونه (خپل متل ولیکئ)",
      "title_ur": "نمونہ (اپنی کہاوت لکھیں)",
+     "title_roman": "namūna (xpəl matal walīkay)",
      "body_ps": "دلته متل ولیکئ.\n\nمطلب: دلته د متل مفهوم ولیکئ.",
+     "body_roman": "dalta matal walīkay.\n\nmatlab: dalta da matal mafhūm walīkay.",
      "body_ur": "یہاں پشتو کہاوت لکھیں، اس کا مفہوم اور اردو کی ہم معنی کہاوت بھی۔\n(میں نے جان بوجھ کر کوئی کہاوت خود نہیں گھڑی تاکہ غلط نسبت نہ ہو؛ تصدیق شدہ متن ڈالیں۔)"
     }
-   ]
+   ],
+   "title_roman": "matalūna"
   },
   {
    "id": "masdars",
    "emoji": "🔁",
    "title_ur": "مصادر اور گردانیں",
    "title_ps": "مصدرونه او کړاوړونه",
-   "items": []
+   "items": [],
+   "title_roman": "masdarūna aw kaṛāwaṛūna"
   },
   {
    "id": "dictionary",
@@ -167,24 +200,31 @@
      "id": "d1",
      "title_ps": "اوبه",
      "title_ur": "پانی",
+     "title_roman": "ūba",
      "body_ps": "ما ته یخې اوبه راکړه.",
+     "body_roman": "mā ta yaxe ūba rākṛa.",
      "body_ur": "مجھے ٹھنڈا پانی دو۔"
     },
     {
      "id": "d2",
      "title_ps": "کتاب",
      "title_ur": "کتاب",
+     "title_roman": "kitāb",
      "body_ps": "دا کتاب ولوله.",
+     "body_roman": "dā kitāb walūla.",
      "body_ur": "یہ کتاب پڑھو۔"
     },
     {
      "id": "d3",
      "title_ps": "ملګری",
      "title_ur": "دوست",
+     "title_roman": "malgəray",
      "body_ps": "هغه زما ملګری دی.",
+     "body_roman": "hagha zmā malgəray day.",
      "body_ur": "وہ میرا دوست ہے۔"
     }
-   ]
+   ],
+   "title_roman": "luğat"
   }
  ]
 }
