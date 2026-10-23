@@ -46,12 +46,6 @@ code{background:var(--line); padding:2px 8px; border-radius:6px; font-size:14px}
 .header-title{display:flex; align-items:center; gap:10px; font-size:22px; font-weight:bold}
 .header-logo{width:38px; height:38px; border-radius:12px; display:flex; align-items:center; justify-content:center;
   background:linear-gradient(135deg,var(--gold2),var(--gold)); color:#ffffff; font-size:24px; font-weight:bold}
-#datebar{flex-basis:100%; display:flex; align-items:center; justify-content:space-between; gap:10px;
-  border-top:1px solid rgba(255,255,255,.28); padding-top:7px; font-size:14.5px; color:#ffffff}
-#datebar .db-dates{font-weight:bold}
-#datebar .db-sep{opacity:.7; margin:0 2px}
-#clock{font-family:"Segoe UI",Tahoma,monospace; font-weight:bold; font-size:17px; letter-spacing:1px;
-  background:rgba(255,255,255,.16); padding:1px 12px; border-radius:9px; white-space:nowrap}
 .icon-btn{background:rgba(255,255,255,.14); border:none; color:#f4f1e8; width:42px; height:42px; border-radius:12px; font-size:20px}
 
 /* Drawer */

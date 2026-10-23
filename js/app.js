@@ -286,7 +286,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 57;
+const APP_VERSION_CODE = 58;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -1445,7 +1445,7 @@ function initGrammarTopics() {
 }
 window.initGrammarTopics = initGrammarTopics;
 
-/* ---------- header clock + Gregorian/Hijri dates ---------- */
+/* ---------- home clock + Gregorian/Hijri dates ---------- */
 /* Hijri date follows Pakistan's moon-based sequence (the built-in Intl
    islamic calendar runs ahead of it). Anchored at 15 Oct 2026 = 3 Jumada
    al-Awwal 1448 and walked with tabular month lengths from there. */
@@ -1472,25 +1472,23 @@ function hijriString(now) {
   return d + ' ' + HIJRI_MONTHS[m] + ' ' + y + 'ھ';
 }
 function initClockDates() {
-  const g = $('dateGreg'), h = $('dateHijri'), c = $('clock');
-  if (!g || !c) return;
   const hg = $('homeDateGreg'), hh2 = $('homeDateHijri'), hc = $('homeClock');
+  if (!hc) return;
   const tick = () => {
     const now = new Date();
-    try { g.textContent = new Intl.DateTimeFormat('ur-PK', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(now); }
-    catch (e) { g.textContent = now.toDateString(); }
-    if (h) {
-      try { h.textContent = hijriString(now); }
-      catch (e) { h.textContent = ''; }
-    }
+    let greg = '';
+    try { greg = new Intl.DateTimeFormat('ur-PK', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(now); }
+    catch (e) { greg = now.toDateString(); }
+    let hij = '';
+    try { hij = hijriString(now); }
+    catch (e) { hij = ''; }
     let hh = now.getHours();
     const mm = String(now.getMinutes()).padStart(2, '0'), ss = String(now.getSeconds()).padStart(2, '0');
     const ap = hh >= 12 ? 'PM' : 'AM'; hh = hh % 12 || 12;
     const timeStr = String(hh).padStart(2, '0') + ':' + mm + ':' + ss + ' ' + ap;
-    c.textContent = timeStr;
-    if (hc) hc.textContent = timeStr;
-    if (hg) hg.textContent = g.textContent;
-    if (hh2 && h) hh2.textContent = h.textContent;
+    hc.textContent = timeStr;
+    if (hg) hg.textContent = greg;
+    if (hh2) hh2.textContent = hij;
   };
   tick();
   setInterval(tick, 1000);
