@@ -2,15 +2,15 @@
  "rev": 1,
  "community": {
   "file": "data/community.json",
-  "sha256": "041844163bf885634962e3aca80d02b2694046e3f6dda510e0149879054c68a3",
-  "bytes": 3343832,
-  "count": 15333
+  "sha256": "0dd9e273be35c38ab220806e011c0d3a2f7b783278d6c1b000e5f1c8c99faa57",
+  "bytes": 368178,
+  "count": 1894
  },
  "lingdocs": {
   "file": "data/lingdocs.json",
-  "sha256": "4c0d3153d43a5df3447b08471771660d615e2cc9d5df41d651bb8f626a81df79",
-  "bytes": 3643389,
-  "count": 97229,
-  "withEn": 13903
+  "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+  "bytes": 3,
+  "count": 0,
+  "withEn": 0
  }
 }
