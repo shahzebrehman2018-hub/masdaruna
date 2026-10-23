@@ -32,6 +32,10 @@
     </div>
     <button id="themeBtn" class="icon-btn" aria-label="ڈارک موڈ">🌙</button>
     <button id="shareBtn" class="icon-btn" aria-label="ایپ شیئر کریں">📤</button>
+    <div id="datebar">
+      <span class="db-dates"><span id="dateGreg"></span> <span class="db-sep">•</span> <span id="dateHijri"></span></span>
+      <span id="clock" dir="ltr">--:--:--</span>
+    </div>
   </header>
 
   <!-- Side drawer -->
@@ -48,6 +52,7 @@
     <button data-nav="grammar">📚 گرامر</button>
     <button data-nav="gardanan">📖 گردانیں</button>
     <button data-nav="sentences">📜 جملے</button>
+    <button data-nav="online">🌐 آنلائن تلاش</button>
     <button data-nav="psps">📗 Urdu to Pashto</button>
     <button data-nav="enur">📕 انگریزی–اردو لغت</button>
     <button data-nav="gtranslate">🌐 گوگل ترجمہ</button>
@@ -62,34 +67,8 @@
 
   <!-- Main -->
   <main id="main">
-    <!-- HOME (tile grid) -->
-    <section id="page-home" class="page active">
-      <div class="home-clockbar">
-        <div id="homeClock" dir="ltr">--:--:--</div>
-        <div class="home-dates"><span id="homeDateGreg"></span> <span class="db-sep">•</span> <span id="homeDateHijri"></span></div>
-      </div>
-      <div class="tile-grid">
-        <button class="tile" style="--tile:#1F7A4D" data-nav="search"><span class="tile-ic">🔍</span><span class="tile-name">تلاش</span></button>
-        <button class="tile" style="--tile:#27449E" data-nav="dict"><span class="tile-ic">📖</span><span class="tile-name">پشتو لغت</span></button>
-        <button class="tile" style="--tile:#00695C" data-nav="letters"><span class="tile-ic">🔤</span><span class="tile-name">حروف کے حساب سے</span></button>
-        <button class="tile" style="--tile:#7B1FA2" data-nav="mywords"><span class="tile-ic">📝</span><span class="tile-name">میرے الفاظ</span></button>
-        <button class="tile" style="--tile:#B03060" data-nav="practice"><span class="tile-ic">✍️</span><span class="tile-name">لکھنے کی مشق</span></button>
-        <button class="tile" style="--tile:#EF7D1A" data-nav="grammar"><span class="tile-ic">📚</span><span class="tile-name">گرامر</span></button>
-        <button class="tile" style="--tile:#00838F" data-nav="gardanan"><span class="tile-ic">📖</span><span class="tile-name">گردانیں</span></button>
-        <button class="tile" style="--tile:#3949AB" data-nav="sentences"><span class="tile-ic">📜</span><span class="tile-name">جملے</span></button>
-        <button class="tile" style="--tile:#2E7D32" data-nav="psps"><span class="tile-ic">📗</span><span class="tile-name">Urdu to Pashto</span></button>
-        <button class="tile" style="--tile:#5E35B1" data-nav="enur"><span class="tile-ic">📕</span><span class="tile-name">انگریزی–اردو لغت</span></button>
-        <button class="tile" style="--tile:#AD1457" data-nav="gtranslate"><span class="tile-ic">🌐</span><span class="tile-name">گوگل ترجمہ</span></button>
-        <button class="tile" style="--tile:#006064" data-nav="jsonmaker"><span class="tile-ic">🧩</span><span class="tile-name">JSON بنائیں</span></button>
-        <button class="tile" style="--tile:#1F7A4D" data-nav="stats"><span class="tile-ic">📊</span><span class="tile-name">تعداد و شمار</span></button>
-        <button class="tile" style="--tile:#27449E" id="tileUpdBtn" data-nav="about"><span class="tile-ic">🌐</span><span class="tile-name">آنلائن اپڈیٹ</span></button>
-        <a class="tile" style="--tile:#00695C" id="dlTileLink" href="https://shahzebrehman2018-hub.github.io/masdaruna/masdar.apk" download><span class="tile-ic">📲</span><span class="tile-name">ایپ ڈاؤن لوڈ کریں</span></a>
-        <button class="tile" style="--tile:#7B1FA2" data-nav="about"><span class="tile-ic">ℹ️</span><span class="tile-name">ایپ کے بارے میں</span></button>
-      </div>
-    </section>
-
     <!-- SEARCH -->
-    <section id="page-search" class="page">
+    <section id="page-search" class="page active">
       <div id="updBanner" hidden></div>
       <div class="hero">
         <h2>مصدر تلاش کریں</h2>
@@ -118,6 +97,15 @@
       </div>
       <div id="searchResults" class="results"></div>
       <div id="randomWord" class="random-card" hidden></div>
+
+      <!-- QAMOSONA ONLINE SEARCH (live view only, nothing is stored) -->
+      <div id="qamosonaHome" class="card qamosona-card">
+        <h3 class="page-title" style="margin-top:0">🌐 آنلائن تلاش</h3>
+        <p class="hint">متعدد لغات میں تلاش — پشتو یا انگریزی لفظ لکھیں، نتائج ایک ساتھ آ جائیں گے۔</p>
+        <a class="btn-ghost online-open" href="https://www.qamosona.com/ndic3/" target="_blank" rel="noopener">🌐 براؤزر میں کھولیں</a>
+        <div id="onlineOff" class="empty" hidden>انٹرنیٹ درکار ہے — کنکشن جوڑ کر دوبارہ کھولیں 📴</div>
+        <iframe id="onlineFrame" class="online-frame" title="Qamosona online dictionaries" loading="lazy" referrerpolicy="no-referrer-when-downgrade" hidden></iframe>
+      </div>
     </section>
 
     <!-- DICTIONARY -->
@@ -392,7 +380,7 @@
 
   <!-- Bottom nav -->
   <nav id="bottomNav">
-    <button data-nav="search"><span>🔍</span><small>تلاش</small></button>
+    <button data-nav="search" class="active"><span>🔍</span><small>تلاش</small></button>
     <button data-nav="dict"><span>📖</span><small>لغت</small></button>
     <button data-nav="grammar"><span>📚</span><small>گرامر</small></button>
     <button data-nav="letters"><span>🔤</span><small>حروف</small></button>
