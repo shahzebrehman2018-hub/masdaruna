@@ -245,9 +245,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   safeInit('share', initShare); safeInit('intro', initIntro); safeInit('gardanan', initGardanan);
   safeInit('sentences', initSentences);
   safeInit('jsonmaker', initJsonMaker); safeInit('gtranslate', initGTranslate);
-  safeInit('qamosona', initQamosonaHome);
   safeInit('clockdates', initClockDates);
-  safeInit('applink', () => { if (window.MasdarBridge) { const dc = $('apkDlCard'); if (dc) dc.hidden = true; const dl = $('dlDrawerLink'); if (dl) dl.hidden = true; } });
+  safeInit('applink', () => { if (window.MasdarBridge) { const dc = $('apkDlCard'); if (dc) dc.hidden = true; const dl = $('dlDrawerLink'); if (dl) dl.hidden = true; const dt = $('dlTileLink'); if (dt) dt.hidden = true; } });
   try {
     if (typeof window.PS_SEED !== 'undefined' && typeof window.FA_SEED !== 'undefined') {
       PS = window.PS_SEED; FA = window.FA_SEED;
@@ -287,7 +286,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 56;
+const APP_VERSION_CODE = 59;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -747,7 +746,10 @@ function bigExists(name) {
 function bigValid(name, arr) {
   if (!Array.isArray(arr)) return false;
   if (name === 'community') return arr.length > 0 && !!arr[0] && typeof arr[0].word === 'string';
-  return arr.length > 90000 && Array.isArray(arr[0]);
+  /* lingdocs: an empty array is valid too — the dataset was removed on the
+     user's order (2026-10-23), and an empty copy must be able to replace a
+     phone's previously cached 97k-word copy instead of being rejected */
+  return arr.length === 0 || (arr.length > 90000 && Array.isArray(arr[0]));
 }
 
 function applyBigData(name, arr) {
@@ -770,6 +772,10 @@ function applyCachedBigData() {
   BIGDATA_KEYS.forEach(name => {
     try {
       if (!meta[name] || !meta[name].sha) return;
+      /* the baked lingdocs seed is empty (dataset removed on the user's
+         order, 2026-10-23): an old cached copy must not resurrect it —
+         the empty online copy replaces the cache on the next refresh */
+      if (name === 'lingdocs' && Array.isArray(window.LD_SEED) && window.LD_SEED.length === 0) return;
       const text = bigLoad(name);
       if (!text) return;
       const arr = JSON.parse(text);
@@ -1234,19 +1240,12 @@ function initTheme() {
 /* ---------- navigation ---------- */
 function initNav() {
   const go = name => {
-    /* Qamosona online search lives on the home page now («ابتدائی صفحہ»):
-       «آنلائن تلاش» navigation lands on home and scrolls to its section. */
-    const target = name === 'online' ? 'search' : name;
+    const target = name;
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     $('page-' + target).classList.add('active');
     document.querySelectorAll('#bottomNav button').forEach(b => b.classList.toggle('active', b.dataset.nav === target));
     $('drawer').classList.remove('open'); $('scrim').classList.remove('show');
-    if (name === 'online') {
-      initOnline();
-      setTimeout(() => { const q = $('qamosonaHome'); if (q) q.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 80);
-    } else {
-      window.scrollTo(0, 0);
-    }
+    window.scrollTo(0, 0);
     if (name === 'stats' && typeof renderStats === 'function') renderStats();
     if (name === 'psps') initPsPs();
     if (name === 'enur') initEnUr();
@@ -1254,6 +1253,8 @@ function initNav() {
   };
   window._goNav = go;
   document.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => go(b.dataset.nav));
+  const ht = document.querySelector('.header-title');
+  if (ht) { ht.style.cursor = 'pointer'; ht.onclick = () => go('home'); }
   $('menuBtn').onclick = () => { $('drawer').classList.add('open'); $('scrim').classList.add('show'); };
   $('scrim').onclick = () => { $('drawer').classList.remove('open'); $('scrim').classList.remove('show'); };
   $('sheetClose').onclick = closeSheet;
@@ -1262,25 +1263,6 @@ function initNav() {
 function openSheet(html) { $('sheetBody').innerHTML = html; $('sheet').classList.add('open'); $('sheetScrim').classList.add('show'); }
 function closeSheet() { $('sheet').classList.remove('open'); $('sheetScrim').classList.remove('show'); }
 
-/* ---------- online search (Qamosona) ----------
-   Pure live view: the iframe shows qamosona.com directly. Per the site's
-   own policy nothing from it is saved, cached or copied into app data.
-   The section sits on the home page (#qamosonaHome); the frame's src is
-   set lazily — only when the section is first shown or navigated to. */
-const QAMOSONA_URL = 'https://www.qamosona.com/ndic3/';
-let _onlineLoaded = false;
-function initOnline() {
-  const fr = $('onlineFrame'), off = $('onlineOff');
-  if (!fr) return;
-  if (navigator.onLine === false) {
-    fr.hidden = true;
-    if (off) off.hidden = false;
-    return;
-  }
-  if (off) off.hidden = true;
-  fr.hidden = false;
-  if (!_onlineLoaded) { fr.src = QAMOSONA_URL; _onlineLoaded = true; }
-}
 /* ---------- اپنی پشتو-پشتو لغت (offline seed + online psps.json pack) ----------
    Entries are {w, def, syn}: the definition of a Pashto word written IN
    Pashto. Built-in seed (js/psps-data.js) + online pack (psps.json,
@@ -1470,7 +1452,7 @@ function initGrammarTopics() {
 }
 window.initGrammarTopics = initGrammarTopics;
 
-/* ---------- header clock + Gregorian/Hijri dates ---------- */
+/* ---------- home clock + Gregorian/Hijri dates ---------- */
 /* Hijri date follows Pakistan's moon-based sequence (the built-in Intl
    islamic calendar runs ahead of it). Anchored at 15 Oct 2026 = 3 Jumada
    al-Awwal 1448 and walked with tabular month lengths from there. */
@@ -1497,37 +1479,27 @@ function hijriString(now) {
   return d + ' ' + HIJRI_MONTHS[m] + ' ' + y + 'ھ';
 }
 function initClockDates() {
-  const g = $('dateGreg'), h = $('dateHijri'), c = $('clock');
-  if (!g || !c) return;
+  const hg = $('homeDateGreg'), hh2 = $('homeDateHijri'), hc = $('homeClock');
+  if (!hc) return;
   const tick = () => {
     const now = new Date();
-    try { g.textContent = new Intl.DateTimeFormat('ur-PK', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(now); }
-    catch (e) { g.textContent = now.toDateString(); }
-    if (h) {
-      try { h.textContent = hijriString(now); }
-      catch (e) { h.textContent = ''; }
-    }
+    let greg = '';
+    try { greg = new Intl.DateTimeFormat('ur-PK', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(now); }
+    catch (e) { greg = now.toDateString(); }
+    let hij = '';
+    try { hij = hijriString(now); }
+    catch (e) { hij = ''; }
     let hh = now.getHours();
     const mm = String(now.getMinutes()).padStart(2, '0'), ss = String(now.getSeconds()).padStart(2, '0');
     const ap = hh >= 12 ? 'PM' : 'AM'; hh = hh % 12 || 12;
-    c.textContent = String(hh).padStart(2, '0') + ':' + mm + ':' + ss + ' ' + ap;
+    const timeStr = String(hh).padStart(2, '0') + ':' + mm + ':' + ss + ' ' + ap;
+    hc.textContent = timeStr;
+    if (hg) hg.textContent = greg;
+    if (hh2) hh2.textContent = hij;
   };
   tick();
   setInterval(tick, 1000);
 }
-
-function initQamosonaHome() {
-  const sec = $('qamosonaHome');
-  if (!sec) return;
-  if (!('IntersectionObserver' in window)) return; /* nav still triggers the load */
-  const io = new IntersectionObserver(es => {
-    if (es.some(e => e.isIntersecting)) { initOnline(); io.disconnect(); }
-  }, { threshold: 0.1 });
-  io.observe(sec);
-}
-window.addEventListener('online', () => {
-  if ($('qamosonaHome')) initOnline();
-});
 
 /* ---------- search ---------- */
 function initDict() {
@@ -1835,8 +1807,7 @@ function doDictSearch() {
       `<div class="result-card" data-dictword="${esc(w.word)}"><div class="w">${esc(w.word)}</div><div class="r">${esc(w.urdu || '')}</div></div>`).join('') : '') +
     (sug.length ? `<p class="hint">شاید آپ کا مطلب:</p>` + sug.map(e =>
       `<div class="result-card" data-dictword="${esc(e[0])}"><div class="w">${esc(e[0])}</div><div class="r">${esc(e[1])}</div></div>`).join('') : '') +
-    `<button class="btn-ghost" onclick="document.getElementById('dictAddBtn').click()">＋ «${esc(raw)}» کو لغت میں شامل کریں</button>` +
-    `<button class="btn-primary" style="margin-top:8px" onclick="window._goNav && window._goNav('online')">🌐 Qamosona پر آنلائن تلاش کریں</button>`;
+    `<button class="btn-ghost" onclick="document.getElementById('dictAddBtn').click()">＋ «${esc(raw)}» کو لغت میں شامل کریں</button>`;
   box.querySelectorAll('[data-dictword]').forEach(c => c.onclick = () => openDictWord(c.dataset.dictword));
   bindCards(box);
 }
@@ -2275,12 +2246,15 @@ function initMyWords() {
     toast('🌐 ویب سائٹ سے ڈائریکٹ اپڈیٹ چیک ہو رہا ہے…');
     setTimeout(() => { const b = $('updCheck'); if (b) { b.scrollIntoView({ behavior: 'smooth', block: 'center' }); b.click(); } }, 450);
   };
-  const dub = $('drawerUpdBtn');
-  if (dub) dub.onclick = () => {
+  const updGo = () => {
     if (window._goNav) window._goNav('about');
     toast('🌐 آنلائن اپڈیٹ چیک ہو رہا ہے…');
     setTimeout(() => { const b = $('updCheck'); if (b) { b.scrollIntoView({ behavior: 'smooth', block: 'center' }); b.click(); } }, 450);
   };
+  const dub = $('drawerUpdBtn');
+  if (dub) dub.onclick = updGo;
+  const tub = $('tileUpdBtn');
+  if (tub) tub.onclick = updGo;
   $('importFile').onchange = e => { if (e.target.files[0]) importMyData(e.target.files[0]); e.target.value = ''; };
   $('wfSave').onclick = () => {
     const word = $('wfWord').value.trim();
