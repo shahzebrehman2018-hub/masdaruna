@@ -1,5 +1,5 @@
 {
- "rev": 12,
+ "rev": 13,
  "entries": [
   {
    "w": "A",
@@ -3757,6 +3757,342 @@
    "pos": "adj.",
    "def": "",
    "ur": "تسلیم کرنے کے قابل - قابلِ قبول - متبنیٰ بنانے کے قابل",
+   "ex": []
+  },
+  {
+   "w": "Adoption",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "لے پالک لینا - متبنیٰ بنانا - گود لینا - تسلیم - اختیار",
+   "ex": []
+  },
+  {
+   "w": "Adoptive",
+   "pron": "",
+   "pos": "adj.",
+   "def": "",
+   "ur": "گود لیا ہوا - لے پالک - متبنیٰ",
+   "ex": []
+  },
+  {
+   "w": "Adore",
+   "pron": "a-dor",
+   "pos": "v.t.",
+   "def": "Regard with the utmost respect and affection",
+   "ur": "پوجنا - پرستش کرنا - عزت - و احترام کرنا - ادب اور محبت کرنا",
+   "ex": []
+  },
+  {
+   "w": "Adorable",
+   "pron": "",
+   "pos": "adj.",
+   "def": "",
+   "ur": "لائقِ احترام - قابلِ پرستش",
+   "ex": []
+  },
+  {
+   "w": "Adorably",
+   "pron": "",
+   "pos": "adv.",
+   "def": "",
+   "ur": "عزت و محبت کے ساتھ - محترمانہ",
+   "ex": []
+  },
+  {
+   "w": "Adoration",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "عشق - عزت - احترام - بندگی - پرستش",
+   "ex": []
+  },
+  {
+   "w": "Adorer",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "پجاری - پرستار - عاشق - شیدائی - مداح",
+   "ex": []
+  },
+  {
+   "w": "Adorn",
+   "pron": "a-dorn",
+   "pos": "v.t.",
+   "def": "Furnish with ornaments",
+   "ur": "سجانا - آرائش کرنا - آراستہ کرنا - سج دھج - کرنا - زینت دینا",
+   "ex": []
+  },
+  {
+   "w": "Adornment",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "سج دھج - سنگھار - آرائش - زیبائش",
+   "ex": []
+  },
+  {
+   "w": "Adrift",
+   "pron": "a-drift",
+   "pos": "adv.",
+   "def": "In a drifting condition",
+   "ur": "بہتا ہوا - آوارہ - بے ٹھکانے - بے کس - بدفع روزگار",
+   "ex": []
+  },
+  {
+   "w": "Adroit",
+   "pron": "a-droit",
+   "pos": "adj.",
+   "def": "Dexterous",
+   "ur": "پھرتيلا - چابکدست - چالاک - ہوشیار - شاطر - مستعد",
+   "ex": []
+  },
+  {
+   "w": "Adroitly",
+   "pron": "",
+   "pos": "adv.",
+   "def": "",
+   "ur": "ہوشیاری سے - چالاکی سے - چابکدستی سے",
+   "ex": []
+  },
+  {
+   "w": "Adroitness",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "چالاکی - مہارت - چابکدستی",
+   "ex": []
+  },
+  {
+   "w": "Adulate",
+   "pron": "ad-u-lat",
+   "pos": "v.t.",
+   "def": "Flatter basely",
+   "ur": "چاپلوسی کرنا - خوشامد کرنا",
+   "ex": []
+  },
+  {
+   "w": "Adulteress",
+   "pron": "a-dult-ares",
+   "pos": "n.",
+   "def": "A woman who indulges in adultery",
+   "ur": "زانیہ - فاحشہ - قحبہ - بے عصمت - چھنال",
+   "ex": []
+  },
+  {
+   "w": "Adulterine",
+   "pron": "a-dult-er-in",
+   "pos": "adj.",
+   "def": "Born of adultery",
+   "ur": "حرامی - نطفہِ حرام - ولدالزنا - جعلی - ناجائز - زنا کے - متعلق - ممنوعہ - خلافِ قانون",
+   "ex": []
+  },
+  {
+   "w": "Adulterous",
+   "pron": "",
+   "pos": "adj.",
+   "def": "",
+   "ur": "فاحشہ - فاسق - زنا کار - بدکار",
+   "ex": []
+  },
+  {
+   "w": "Adultery",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "فسق - حرام کاری - بدکاری - زنا",
+   "ex": []
+  },
+  {
+   "w": "Adumbrate",
+   "pron": "adum-brat",
+   "pos": "v.t.",
+   "def": "Represent in outline",
+   "ur": "خاکہ تیار کرنا - جھلک دکھانا - پہلے سے ایک - اندازہ لگانا - چھا جانا - چھپا لینا - ڈھانک لینا",
+   "ex": []
+  },
+  {
+   "w": "Adumbration",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "جھلک - سایہ - پرچھائیں - اشارہ - خاکہ",
+   "ex": []
+  },
+  {
+   "w": "Adumbrative",
+   "pron": "",
+   "pos": "adj.",
+   "def": "",
+   "ur": "جھلک دکھانے والا - مظہر",
+   "ex": []
+  },
+  {
+   "w": "Advance",
+   "pron": "ad-vans",
+   "pos": "n.",
+   "def": "Going forward, progress",
+   "ur": "ترقی - پیمانہ - حملہ - چڑھائی - اقدام - پیش قدمی - پیشگی - سائی - قرض - ادھار - پیشگی ادائی",
+   "ex": []
+  },
+  {
+   "w": "Advance",
+   "pron": "ad-vans",
+   "pos": "v.t. & i.",
+   "def": "Move or put forward",
+   "ur": "آگے بڑھانا - ترقی دینا - سبقت کرنا - ممتاز کرنا - قیمت بڑھانا - پیشگی دینا - سائی دینا - ادھار - دینا - قرض دینا - آگے بڑھانا - کوچ کرنا - حملہ کرنا - اقدام کرنا",
+   "ex": []
+  },
+  {
+   "w": "Adulation",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "تعلق - خوشامد - چاپلوسی",
+   "ex": []
+  },
+  {
+   "w": "Adulator",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "چکنی چپڑی باتیں کرنے والا - روغنِ ناز ملنے والا - چاپلوس - خوشامدی",
+   "ex": []
+  },
+  {
+   "w": "Adullamite",
+   "pron": "a-dul-em-it",
+   "pos": "n.",
+   "def": "Members seceding from Liberal party in 1866",
+   "ur": "قدیم شہر ادلام کا - باشندہ - پارلیمان کے وہ رکن جو ۱۸۶۶ء میں لبرل - پارٹی سے علیحدہ ہو گئے",
+   "ex": []
+  },
+  {
+   "w": "Adult",
+   "pron": "a-dult",
+   "pos": "n. & adj.",
+   "def": "Mature",
+   "ur": "سیانا - جوان - بالغ - جوان آدمی - چودہ برس کا لڑکا اور بارہ برس کی لڑکی",
+   "ex": []
+  },
+  {
+   "w": "Adulterant",
+   "pron": "a-dult-rant",
+   "pos": "adj. & n.",
+   "def": "A thing employed in adulterating",
+   "ur": "ملونی - میل - ملاوٹ - جس چیز سے ملاوٹ کی جائے",
+   "ex": []
+  },
+  {
+   "w": "Adulterate",
+   "pron": "a-dult-er-at",
+   "pos": "v.t.",
+   "def": "Falsify by admixture",
+   "ur": "ملانا - آمیزش کرنا - بگاڑنا - خراب کرنا",
+   "ex": []
+  },
+  {
+   "w": "Adulteration",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "آمیزش - ملاوٹ - کھوٹ",
+   "ex": []
+  },
+  {
+   "w": "Adulterator",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "ملاوٹ کرنے والا - آمیزش کرنے والا",
+   "ex": []
+  },
+  {
+   "w": "Adulterer",
+   "pron": "a-dult-er-er",
+   "pos": "n.",
+   "def": "One guilty of adultery and lewdness",
+   "ur": "بدکار - زانی - زنا کار",
+   "ex": []
+  },
+  {
+   "w": "Advanced",
+   "pron": "",
+   "pos": "adj.",
+   "def": "",
+   "ur": "روشن خیال - ممتاز - اعلیٰ - ترقی یافتہ",
+   "ex": []
+  },
+  {
+   "w": "Advancement",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "ترقی - آزاد خیالی - سرفرازی - اضافہ",
+   "ex": []
+  },
+  {
+   "w": "Advances",
+   "pron": "",
+   "pos": "n. & p.",
+   "def": "",
+   "ur": "اقدام - پیمانہ - زرِ پیشگی - پیشگی",
+   "ex": []
+  },
+  {
+   "w": "Advantage",
+   "pron": "ad-vant-ij",
+   "pos": "n.",
+   "def": "Better position, superiority",
+   "ur": "بہتری - فائدہ - بھلائی - منفعت - محفوظ حالت - برتری",
+   "ex": []
+  },
+  {
+   "w": "Advantage",
+   "pron": "ad-vant-ij",
+   "pos": "v.t.",
+   "def": "Be beneficial to",
+   "ur": "مفید - ہونا - سود مند ہونا - ترقی دینا - بڑھانا - مناسب - صورت پیدا کرنا - حسبِ حال موقع تلاش کرنا",
+   "ex": []
+  },
+  {
+   "w": "Advantageous",
+   "pron": "",
+   "pos": "adj.",
+   "def": "",
+   "ur": "بہتر - فائدہ مند - مفید - سود مندانہ",
+   "ex": []
+  },
+  {
+   "w": "Advantageously",
+   "pron": "",
+   "pos": "adv.",
+   "def": "",
+   "ur": "بہتر طریقے سے - فائدہ کے طور پر",
+   "ex": []
+  },
+  {
+   "w": "Advent",
+   "pron": "ad-vant",
+   "pos": "n.",
+   "def": "Coming of Christ, arrival",
+   "ur": "آمد - آنا - بعثتِ مسیح - حضرت عیسیٰ کا ظہورِ ثانی",
+   "ex": []
+  },
+  {
+   "w": "Adventitious",
+   "pron": "ad-vant-ishas",
+   "pos": "adj.",
+   "def": "Accidental, casual",
+   "ur": "عارضی - اتفاق - خارجی - بیرونی",
+   "ex": []
+  },
+  {
+   "w": "Adventitiously",
+   "pron": "",
+   "pos": "adv.",
+   "def": "",
+   "ur": "عارضی طور پر - خارجی طور پر - بیرونی طور پر",
    "ex": []
   }
  ]
