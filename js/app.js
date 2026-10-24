@@ -1,7 +1,7 @@
 /* مصادر — Masdar Dictionary App */
 'use strict';
 let PS = [], FA = [], LD = [];
-function initCommunity() { try { communityWords = COMMUNITY_DATA || []; } catch (e) { communityWords = []; } try { const n = communityWords.length.toLocaleString('ur'); const s = $('statLd'); if (s) s.textContent = n; const h = $('dictHeroCount'); if (h) h.textContent = n + ' الفاظ'; } catch (e) {} }
+function initCommunity() { try { communityWords = COMMUNITY_DATA || []; } catch (e) { communityWords = []; } }
 let dictFilter = 'all', letterDict = 'ps', activeLetter = null;
 let myWords = [], grammarNotes = [], communityWords = [];
 function visibleMyWords() {
@@ -97,7 +97,8 @@ function renderStats() {
     `<div class="card"><h4 style="margin:0 0 6px">📚 الفاظ — زبان کے حساب سے</h4>`
     + row('پشتو مصادر', PS.length)
     + row('فارسی مصادر', FA.length)
-    + row('پشتو لغت کے الفاظ', commBy('ps'))
+    + row('پشتو لغت کے الفاظ', LD.length)
+    + row('شامل کردہ الفاظ — پشتو', commBy('ps'))
     + row('شامل کردہ الفاظ — فارسی', commBy('fa'))
     + row('شامل کردہ الفاظ — اردو', commBy('ur'))
     + row('میرے الفاظ (اس فون میں)', myWords.length)
@@ -272,6 +273,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     applyCachedBigData();
     $('statPs').textContent = PS.length.toLocaleString('ur');
     $('statFa').textContent = FA.length.toLocaleString('ur');
+    try { $('statLd').textContent = LD.length.toLocaleString('ur'); } catch (e) {}
     loadStore(); initCommunity(); renderMyWords(); renderGrammar(); buildLetterGrid(); buildDictLetters(); newSpellWord(); newSentPrompt(); showRandom();
   } catch (e) {
     $('searchResults').innerHTML = '<div class="empty">ڈیٹا لوڈ نہیں ہو سکا۔ ایپ دوبارہ کھولیں۔</div>';
@@ -284,7 +286,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 60;
+const APP_VERSION_CODE = 59;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -758,6 +760,7 @@ function applyBigData(name, arr) {
     try { renderStats(); } catch (e) {}
   } else {
     LD = arr;
+    try { $('statLd').textContent = LD.length.toLocaleString('ur'); } catch (e) {}
   }
   try { const i = $('dictInput'); if (i && i.value && typeof doDictSearch === 'function') doDictSearch(); } catch (e) {}
 }
@@ -1520,11 +1523,9 @@ function initDict() {
 }
 const PS_ALPHABET = ['ا','ب','پ','ت','ټ','ث','ج','چ','ح','خ','د','ډ','ذ','ر','ړ','ز','ژ','ږ','س','ش','ښ','ص','ض','ط','ظ','ع','غ','ف','ق','ک','ګ','ل','م','ن','ڼ','و','ه','ی','ې'];
 function buildDictLetters() {
-  const g = $('dictLetters'); if (!g) return;
-  const words = communityWords || [];
-  const mine = visibleMyWords();
+  const g = $('dictLetters'); if (!g || !LD.length) return;
   const counts = {};
-  words.concat(mine).forEach(w => { if (!w.word) return; const c = w.word.charAt(0); counts[c] = (counts[c] || 0) + 1; });
+  LD.forEach(e => { const c = e[0].charAt(0); counts[c] = (counts[c] || 0) + 1; });
   const AL = dictAlpha();
   const letters = Object.keys(counts).sort((a, b) => {
     const ia = AL.indexOf(a), ib = AL.indexOf(b);
@@ -1535,14 +1536,13 @@ function buildDictLetters() {
     g.querySelectorAll('button').forEach(x => x.classList.remove('active'));
     b.classList.add('active');
     const L = b.dataset.dl;
-    const list = words.filter(w => w.word && w.word.charAt(0) === L);
-    const myList = mine.filter(w => w.word && w.word.charAt(0) === L);
+    const list = LD.filter(e => e[0].charAt(0) === L);
+    const myList = visibleMyWords().concat(communityWords).filter(w => w.word && w.word.charAt(0) === L);
     const box = $('dictBrowse');
-    const total = list.length + myList.length;
-    box.innerHTML = `<p class="hint">«${esc(L)}» — ${total.toLocaleString('ur')} الفاظ</p>`
+    box.innerHTML = `<p class="hint">«${esc(L)}» — ${list.length.toLocaleString('ur')} الفاظ</p>`
       + myList.map(w => `<div class="result-card" data-dictword="${esc(w.word)}"><span class="tag">میرا لفظ</span><div class="w">${esc(w.word)}</div><div class="r">${esc(w.urdu || '')}</div></div>`).join('')
-      + list.slice(0, 400).map(w =>
-      `<div class="result-card" data-dictword="${esc(w.word)}"><div class="w">${esc(w.word)}</div><div class="r">${esc(w.urdu || '')}</div></div>`).join('')
+      + list.slice(0, 400).map(e =>
+      `<div class="result-card" data-dictword="${esc(ldView(e).w)}"><div class="w">${esc(ldView(e).w)}</div><div class="r">${esc(ldView(e).r)}</div>${ldView(e).ur ? `<div class="m">🇵🇰 ${esc(ldView(e).ur.slice(0, 90))}</div>` : (ldView(e).en ? `<div class="m">🇬🇧 ${esc(ldView(e).en.slice(0, 90))}</div>` : '')}</div>`).join('')
       + (list.length > 400 ? `<p class="hint">… اور ${(list.length - 400).toLocaleString('ur')} الفاظ — اوپر تلاش میں لکھ کر دیکھیں</p>` : '');
     box.querySelectorAll('[data-dictword]').forEach(c => c.onclick = () => openDictWord(c.dataset.dictword));
   });
