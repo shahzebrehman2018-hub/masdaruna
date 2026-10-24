@@ -1,5 +1,5 @@
 {
- "rev": 13,
+ "rev": 14,
  "entries": [
   {
    "w": "A",
@@ -4093,6 +4093,342 @@
    "pos": "adv.",
    "def": "",
    "ur": "عارضی طور پر - خارجی طور پر - بیرونی طور پر",
+   "ex": []
+  },
+  {
+   "w": "Adventure",
+   "pron": "ad-vant-ur",
+   "pos": "n.",
+   "def": "Daring, enterprise, risk",
+   "ur": "جان جوکھوں کا کام - اہم سرگزشت - اہم - واقعہ - مہم - کارنمایاں - اولولعزمی کا کام - سٹا",
+   "ex": []
+  },
+  {
+   "w": "Adventure",
+   "pron": "ad-vant-ur",
+   "pos": "v.t. & i.",
+   "def": "Incur risk, imperil",
+   "ur": "جان جوکھوں میں ڈالنا - خطرے میں پڑنا - جان پر کھیلنا - مصیبت مول لینا - اوکھلی میں سر دینا",
+   "ex": []
+  },
+  {
+   "w": "Adventurer",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "زمانہ ساز - عیار - سٹے باز - قسمت آزما - خطرے میں پڑنے والا - جان باز - باہمت",
+   "ex": []
+  },
+  {
+   "w": "Adventuresome",
+   "pron": "",
+   "pos": "adj.",
+   "def": "",
+   "ur": "سرفروش - جان باز - باہمت",
+   "ex": []
+  },
+  {
+   "w": "Adventurous",
+   "pron": "",
+   "pos": "adj.",
+   "def": "",
+   "ur": "جیالا - جان باز - بن چلا - سورما - جری",
+   "ex": []
+  },
+  {
+   "w": "Adventurously",
+   "pron": "",
+   "pos": "adv.",
+   "def": "",
+   "ur": "سرفروشانہ - جرات اور جیالے پن - سے",
+   "ex": []
+  },
+  {
+   "w": "Adverb",
+   "pron": "ad-verb",
+   "pos": "n.",
+   "def": "A word that qualifies a verb adjective or adverb",
+   "ur": "متعلقِ فعل - تابعِ فعل",
+   "ex": []
+  },
+  {
+   "w": "Adverbial",
+   "pron": "",
+   "pos": "adj.",
+   "def": "",
+   "ur": "توسیعِ فعل کا - متعلقِ فعل کا",
+   "ex": []
+  },
+  {
+   "w": "Adverbially",
+   "pron": "",
+   "pos": "adv.",
+   "def": "",
+   "ur": "متعلقِ فعل کے طور پر",
+   "ex": []
+  },
+  {
+   "w": "Ad verbum",
+   "pron": "",
+   "pos": "",
+   "def": "",
+   "ur": "لفظ بہ لفظ - حرف بحرف",
+   "ex": []
+  },
+  {
+   "w": "Adversary",
+   "pron": "adver-sar-i",
+   "pos": "n.",
+   "def": "Opponent, enemy",
+   "ur": "حریف - مخالف - دشمن - رقیب - مدِّ مقابل",
+   "ex": []
+  },
+  {
+   "w": "Adverse",
+   "pron": "",
+   "pos": "adj.",
+   "def": "",
+   "ur": "الٹا - برعکس - برخلاف - ناموافق - نقصان دہ - مضر - بدبخت - بدنصیب",
+   "ex": []
+  },
+  {
+   "w": "Adversely",
+   "pron": "",
+   "pos": "adv.",
+   "def": "",
+   "ur": "مخالفانہ - رقیبانہ - حریفانہ",
+   "ex": []
+  },
+  {
+   "w": "Adversity",
+   "pron": "advers-iti",
+   "pos": "n.",
+   "def": "Misfortune",
+   "ur": "نحوست - مصیبت - آفت - بدبختی - ادبار - پستا - آفتاد",
+   "ex": []
+  },
+  {
+   "w": "Advert",
+   "pron": "ad-vart",
+   "pos": "v.i.",
+   "def": "Refer to",
+   "ur": "ذکر کرنا - توجہ کرنا - بیان کرنا - حوالہ دینا",
+   "ex": []
+  },
+  {
+   "w": "Advertance, Advertancy",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "پاس - لحاظ - رعایت - دھیان - توجہ",
+   "ex": []
+  },
+  {
+   "w": "Advertant",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "توجہ کرنے والا - خیال رکھنے والا",
+   "ex": []
+  },
+  {
+   "w": "Advertise",
+   "pron": "ad-vert-iz",
+   "pos": "v.t.",
+   "def": "Notify, inform",
+   "ur": "خبر دار - کرنا - اشتہار دینا - اعلان کرنا - مشتہر کرنا - مطلع - کرنا - آگاہ کرنا",
+   "ex": []
+  },
+  {
+   "w": "Advertisement",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "صلائے عام - منادی - اعلان - اشتہار - اطلاعِ عام",
+   "ex": []
+  },
+  {
+   "w": "Advice",
+   "pron": "ad-vis",
+   "pos": "n.",
+   "def": "Opinion given",
+   "ur": "خبر - اطلاع - رائے - صلاح - نصیحت - مشورہ",
+   "ex": []
+  },
+  {
+   "w": "Advise",
+   "pron": "ad-viz",
+   "pos": "v.t.",
+   "def": "Offer counsel to",
+   "ur": "نصیحت کرنا - مشورہ دینا - سمجھانا",
+   "ex": []
+  },
+  {
+   "w": "Advices",
+   "pron": "ad-vises",
+   "pos": "n.",
+   "def": "Opinions, counsels",
+   "ur": "اطلاعیں - خبریں - پیامبات",
+   "ex": []
+  },
+  {
+   "w": "Advisability",
+   "pron": "ad-vis-abliti",
+   "pos": "n.",
+   "def": "",
+   "ur": "قرینِ مصلحت ہونا",
+   "ex": []
+  },
+  {
+   "w": "Advisableness",
+   "pron": "ad-vis-abl-nes",
+   "pos": "n.",
+   "def": "",
+   "ur": "مناسب ہونا",
+   "ex": []
+  },
+  {
+   "w": "Advisably",
+   "pron": "ad-vis-ab-li",
+   "pos": "adv.",
+   "def": "Expediently",
+   "ur": "مصلحت کے رو سے - حسبِ اقتضا",
+   "ex": []
+  },
+  {
+   "w": "Adviser",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "مشیر - ناصح - صلاح کار",
+   "ex": []
+  },
+  {
+   "w": "Advisedly",
+   "pron": "",
+   "pos": "adv.",
+   "def": "",
+   "ur": "عمداً - قصداً - دانستہ - احتیاط سے - سوچ بچار کر کے",
+   "ex": []
+  },
+  {
+   "w": "Advisory",
+   "pron": "",
+   "pos": "adj.",
+   "def": "",
+   "ur": "ماہرانہ - نصیحت آمیز - صلاح کار - مشاورتی",
+   "ex": []
+  },
+  {
+   "w": "Advocacy",
+   "pron": "ad-vo-kasi",
+   "pos": "n.",
+   "def": "Pleading in support of",
+   "ur": "عدالتی جواب دہی - پیروکاری - وکالت - حمایت",
+   "ex": []
+  },
+  {
+   "w": "Advocate",
+   "pron": "",
+   "pos": "v.t.",
+   "def": "",
+   "ur": "وکالت کرنا - پیروی کرنا - سوال و - جواب کرنا - حمایت کرنا",
+   "ex": []
+  },
+  {
+   "w": "Advocate",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "قانونی مشیر - مختار - وکیل",
+   "ex": []
+  },
+  {
+   "w": "Advocateship",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "ایڈووکیٹ کا عہدہ - وکالت - مختاری",
+   "ex": []
+  },
+  {
+   "w": "Advocatory",
+   "pron": "",
+   "pos": "adj.",
+   "def": "",
+   "ur": "وکالت کے متعلق",
+   "ex": []
+  },
+  {
+   "w": "Adowee",
+   "pron": "ado-wi",
+   "pos": "n.",
+   "def": "One who has the right to appoint a benefice",
+   "ur": "پادری مقرر کرنے کا اختیار - اور حق رکھنے والا عہدہ دار",
+   "ex": []
+  },
+  {
+   "w": "Adowson",
+   "pron": "ad-vow-zan",
+   "pos": "n.",
+   "def": "Right of presentation to a benefice",
+   "ur": "پادری مقرر کرنے کا حق - کسی معبد - کی سرپرستی یا وقف کرنے کا حق",
+   "ex": []
+  },
+  {
+   "w": "Adynamia",
+   "pron": "adi-na-mia",
+   "pos": "n.",
+   "def": "Want of vital force",
+   "ur": "حرارتِ غریزی کی کمی - ضعفِ باہ - ضعف - کمزوری",
+   "ex": []
+  },
+  {
+   "w": "Adytum",
+   "pron": "adi-tam",
+   "pos": "n. (pl. ta.)",
+   "def": "Inner-most part of a temple",
+   "ur": "خانقاہ یا مندر کا اندرونی حصہ - زیارت گاہ - خلوت گاہ",
+   "ex": []
+  },
+  {
+   "w": "Adze",
+   "pron": "adz",
+   "pos": "n. & v.t.",
+   "def": "Axe, tool for cutting wood",
+   "ur": "کلہاڑی - تیشہ - کلہاڑی سے کاٹنا",
+   "ex": []
+  },
+  {
+   "w": "Aedile",
+   "pron": "e-dil",
+   "pos": "n.",
+   "def": "Roman Magistrate who supervised public shows, buildings, police etc.",
+   "ur": "قدیم روما کا مجسٹریٹ جو تماشا گاہوں اور عمارتوں کی - نگرانی کرتا تھا اور پولیس کے فرائض بھی انجام - دیتا تھا - اس کے مکان کے دروازے فریادیوں کے لیے - ہر وقت کھلے رہتے تھے",
+   "ex": []
+  },
+  {
+   "w": "Aedileship",
+   "pron": "",
+   "pos": "n.",
+   "def": "",
+   "ur": "مجسٹریٹی - ایڈائل کا عہدہ",
+   "ex": []
+  },
+  {
+   "w": "Aegis",
+   "pron": "e-gis",
+   "pos": "n.",
+   "def": "Protection",
+   "ur": "قیادت - سرپرستی - پناہ",
+   "ex": []
+  },
+  {
+   "w": "Aeolian",
+   "pron": "e-o-li-an",
+   "pos": "adj.",
+   "def": "An old district in Asia minor Aeolia",
+   "ur": "ایشیائے کوچک کے قدیم ضلع ایولس کا",
    "ex": []
   }
  ]
