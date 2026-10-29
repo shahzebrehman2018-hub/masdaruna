@@ -1,7 +1,7 @@
 /* مصادر — Masdar Dictionary App */
 'use strict';
 let PS = [], FA = [], LD = [];
-function initCommunity() { try { communityWords = COMMUNITY_DATA || []; } catch (e) { communityWords = []; } }
+function initCommunity() { try { communityWords = COMMUNITY_DATA || []; } catch (e) { communityWords = []; } try { const n = communityWords.length.toLocaleString('ur'); const s = $('statLd'); if (s) s.textContent = n; const h = $('dictHeroCount'); if (h) h.textContent = n + ' الفاظ'; } catch (e) {} }
 let dictFilter = 'all', letterDict = 'ps', activeLetter = null;
 let myWords = [], grammarNotes = [], communityWords = [];
 function visibleMyWords() {
@@ -97,8 +97,7 @@ function renderStats() {
     `<div class="card"><h4 style="margin:0 0 6px">📚 الفاظ — زبان کے حساب سے</h4>`
     + row('پشتو مصادر', PS.length)
     + row('فارسی مصادر', FA.length)
-    + row('پشتو لغت کے الفاظ', LD.length)
-    + row('شامل کردہ الفاظ — پشتو', commBy('ps'))
+    + row('پشتو لغت کے الفاظ', commBy('ps'))
     + row('شامل کردہ الفاظ — فارسی', commBy('fa'))
     + row('شامل کردہ الفاظ — اردو', commBy('ur'))
     + row('میرے الفاظ (اس فون میں)', myWords.length)
@@ -113,6 +112,7 @@ function renderStats() {
     + `<div class="kv"><b>گرامر موضوعات (پشتو / فارسی)</b><span><strong>${getGrammarTopics('ps').length} / ${getGrammarTopics('fa').length}</strong></span></div>`
     + (typeof getPsPsEntries === 'function' ? row('Urdu to Pashto لغت کے الفاظ', getPsPsEntries().length) : '')
     + (typeof getEnUrEntries === 'function' ? row('انگریزی–اردو لغت کے الفاظ', getEnUrEntries().length) : '')
+    + (typeof getPsenEntries === 'function' ? row('پشتو–انگریزی لغت کے الفاظ', getPsenEntries().length) : '')
     + `</div>`;
 }
 window.renderStats = renderStats;
@@ -273,7 +273,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     applyCachedBigData();
     $('statPs').textContent = PS.length.toLocaleString('ur');
     $('statFa').textContent = FA.length.toLocaleString('ur');
-    try { $('statLd').textContent = LD.length.toLocaleString('ur'); } catch (e) {}
     loadStore(); initCommunity(); renderMyWords(); renderGrammar(); buildLetterGrid(); buildDictLetters(); newSpellWord(); newSentPrompt(); showRandom();
   } catch (e) {
     $('searchResults').innerHTML = '<div class="empty">ڈیٹا لوڈ نہیں ہو سکا۔ ایپ دوبارہ کھولیں۔</div>';
@@ -286,7 +285,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 59;
+const APP_VERSION_CODE = 61;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -760,7 +759,6 @@ function applyBigData(name, arr) {
     try { renderStats(); } catch (e) {}
   } else {
     LD = arr;
-    try { $('statLd').textContent = LD.length.toLocaleString('ur'); } catch (e) {}
   }
   try { const i = $('dictInput'); if (i && i.value && typeof doDictSearch === 'function') doDictSearch(); } catch (e) {}
 }
@@ -1249,6 +1247,7 @@ function initNav() {
     if (name === 'stats' && typeof renderStats === 'function') renderStats();
     if (name === 'psps') initPsPs();
     if (name === 'enur') initEnUr();
+    if (name === 'psen') initPsen();
     if (name === 'grammar') initGrammarTopics();
   };
   window._goNav = go;
@@ -1392,6 +1391,61 @@ function initEnUr() {
   renderEnUr();
 }
 
+/* ---------- پشتو–انگریزی لغت (offline seed only) ----------
+   Entries are {w, roman, pos, senses, ex}: a Pashto headword, its
+   romanisation, part of speech, numbered English senses and example
+   pairs [ps, en]. Built-in seed (js/psen-data.js) only — no online
+   pack for now. Search works BOTH ways: a Pashto query (headword or
+   roman) finds the entry and shows its English senses, and an English
+   query finds entries whose English senses contain that word
+   (case-insensitive substring on senses, not only on headwords). */
+function getPsenEntries() {
+  const list = (window.PSEN_SEED || []);
+  return list.filter(e => e && e.w).map(e => ({ w: e.w, roman: e.roman || '', pos: e.pos || '', senses: Array.isArray(e.senses) ? e.senses : [], ex: Array.isArray(e.ex) ? e.ex : [] }));
+}
+window.getPsenEntries = getPsenEntries;
+function renderPsen() {
+  const box = $('psenResults');
+  if (!box) return;
+  const all = getPsenEntries();
+  if (!all.length) { box.innerHTML = '<div class="empty">ابھی کوئی لفظ شامل نہیں — جلد آئے گا۔</div>'; return; }
+  const raw = (($('psenInput') || {}).value || '').trim();
+  const ql = raw.toLowerCase();
+  const qu = norm(raw);
+  const list = raw
+    ? all.filter(e => norm(e.w).includes(qu) || (e.roman || '').toLowerCase().includes(ql) || e.senses.some(s => (s || '').toLowerCase().includes(ql)))
+    : all;
+  window._psenList = list;
+  if (!list.length) { box.innerHTML = '<div class="empty">لفظ نہیں ملا — کوئی اور لفظ لکھ کر پھر تلاش کریں۔</div>'; return; }
+  box.innerHTML = list.slice(0, 60).map((e, i) => `<div class="result-card" data-psen="${i}"><div class="w">${esc(e.w)}</div>`
+    + (e.senses.length ? `<div class="m" dir="ltr" style="text-align:left">${esc(e.senses[0])}</div>` : '')
+    + `</div>`).join('');
+  box.querySelectorAll('[data-psen]').forEach(el => el.addEventListener('click', () => openPsenDetail(window._psenList[+el.dataset.psen])));
+}
+function openPsenDetail(e) {
+  if (!e) return;
+  const meta = [e.roman || '', e.pos || ''].filter(Boolean).join(' · ');
+  const senseSec = e.senses.length ? `<div class="sheet-sec"><h4>English</h4>` + e.senses.map((s, i) => `<p style="margin:6px 0;text-align:left" dir="ltr">${i + 1}. ${esc(s)}</p>`).join('') + `</div>` : '';
+  const exSec = (e.ex && e.ex.length) ? `<div class="sheet-sec"><h4>مثالیں</h4>` + e.ex.map(p => `<p style="margin:6px 0">${esc(p[0] || '')}<br><span dir="ltr" style="display:inline-block;text-align:left">${esc(p[1] || '')}</span></p>`).join('') + `</div>` : '';
+  openSheet(`<h3 style="margin:6px 0 2px">${esc(e.w)}</h3>`
+    + (meta ? `<div class="m" dir="ltr" style="text-align:left;margin-bottom:6px">${esc(meta)}</div>` : '')
+    + senseSec + exSec);
+}
+window.openPsenDetail = openPsenDetail;
+window.renderPsen = renderPsen;
+
+/* ---------- Pashto to English dictionary page ---------- */
+let _psenWired = false;
+function initPsen() {
+  if (!_psenWired) {
+    _psenWired = true;
+    const inp = $('psenInput'), btn = $('psenBtn');
+    if (inp) inp.addEventListener('input', () => { clearTimeout(window._psenT); window._psenT = setTimeout(renderPsen, 250); });
+    if (btn) btn.onclick = () => renderPsen();
+  }
+  renderPsen();
+}
+
 /* ---------- 📚 گرامر topics (offline seed + online grammar.json pack) ----------
    Topics are {t, tu, lines}: a Pashto/Farsi title, its Urdu title shown
    alongside, and body lines (a line starting with «◆» is a sub-heading).
@@ -1523,9 +1577,11 @@ function initDict() {
 }
 const PS_ALPHABET = ['ا','ب','پ','ت','ټ','ث','ج','چ','ح','خ','د','ډ','ذ','ر','ړ','ز','ژ','ږ','س','ش','ښ','ص','ض','ط','ظ','ع','غ','ف','ق','ک','ګ','ل','م','ن','ڼ','و','ه','ی','ې'];
 function buildDictLetters() {
-  const g = $('dictLetters'); if (!g || !LD.length) return;
+  const g = $('dictLetters'); if (!g) return;
+  const words = communityWords || [];
+  const mine = visibleMyWords();
   const counts = {};
-  LD.forEach(e => { const c = e[0].charAt(0); counts[c] = (counts[c] || 0) + 1; });
+  words.concat(mine).forEach(w => { if (!w.word) return; const c = w.word.charAt(0); counts[c] = (counts[c] || 0) + 1; });
   const AL = dictAlpha();
   const letters = Object.keys(counts).sort((a, b) => {
     const ia = AL.indexOf(a), ib = AL.indexOf(b);
@@ -1536,13 +1592,14 @@ function buildDictLetters() {
     g.querySelectorAll('button').forEach(x => x.classList.remove('active'));
     b.classList.add('active');
     const L = b.dataset.dl;
-    const list = LD.filter(e => e[0].charAt(0) === L);
-    const myList = visibleMyWords().concat(communityWords).filter(w => w.word && w.word.charAt(0) === L);
+    const list = words.filter(w => w.word && w.word.charAt(0) === L);
+    const myList = mine.filter(w => w.word && w.word.charAt(0) === L);
     const box = $('dictBrowse');
-    box.innerHTML = `<p class="hint">«${esc(L)}» — ${list.length.toLocaleString('ur')} الفاظ</p>`
+    const total = list.length + myList.length;
+    box.innerHTML = `<p class="hint">«${esc(L)}» — ${total.toLocaleString('ur')} الفاظ</p>`
       + myList.map(w => `<div class="result-card" data-dictword="${esc(w.word)}"><span class="tag">میرا لفظ</span><div class="w">${esc(w.word)}</div><div class="r">${esc(w.urdu || '')}</div></div>`).join('')
-      + list.slice(0, 400).map(e =>
-      `<div class="result-card" data-dictword="${esc(ldView(e).w)}"><div class="w">${esc(ldView(e).w)}</div><div class="r">${esc(ldView(e).r)}</div>${ldView(e).ur ? `<div class="m">🇵🇰 ${esc(ldView(e).ur.slice(0, 90))}</div>` : (ldView(e).en ? `<div class="m">🇬🇧 ${esc(ldView(e).en.slice(0, 90))}</div>` : '')}</div>`).join('')
+      + list.slice(0, 400).map(w =>
+      `<div class="result-card" data-dictword="${esc(w.word)}"><div class="w">${esc(w.word)}</div><div class="r">${esc(w.urdu || '')}</div></div>`).join('')
       + (list.length > 400 ? `<p class="hint">… اور ${(list.length - 400).toLocaleString('ur')} الفاظ — اوپر تلاش میں لکھ کر دیکھیں</p>` : '');
     box.querySelectorAll('[data-dictword]').forEach(c => c.onclick = () => openDictWord(c.dataset.dictword));
   });
