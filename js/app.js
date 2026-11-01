@@ -113,7 +113,6 @@ function renderStats() {
     + (typeof getPsPsEntries === 'function' ? row('Urdu to Pashto لغت کے الفاظ', getPsPsEntries().length) : '')
     + (typeof getEnUrEntries === 'function' ? row('انگریزی–اردو لغت کے الفاظ', getEnUrEntries().length) : '')
     + (typeof getPsenEntries === 'function' ? row('پشتو–انگریزی لغت کے الفاظ', getPsenEntries().length) : '')
-    + (typeof getPsurEntries === 'function' ? row('پشتو–اردو لغت کے الفاظ', getPsurEntries().length) : '')
     + `</div>`;
 }
 window.renderStats = renderStats;
@@ -286,7 +285,7 @@ window.addEventListener('error', hideSplash);
 
 
 /* ---------- app update checker ---------- */
-const APP_VERSION_CODE = 62;
+const APP_VERSION_CODE = 63;
 const APP_LINK = 'https://shahzebrehman2018-hub.github.io/masdaruna';
 /* Public website address of this app (e.g. GitHub Pages). This is the SINGLE
    place to patch when the public site address exists: set SITE_URL (and
@@ -426,20 +425,6 @@ function initUpdate() {
           }
         }
       } catch (e) { /* a missing enur.json on the server is not an error */ }
-      /* (f3) Pashto–Urdu dictionary content check */
-      try {
-        const r6c = await fetchTimeout(base + '/psur.json');
-        if (r6c.ok) {
-          const uj = await r6c.json();
-          const curU = Number(localStorage.getItem('masdar_psur_rev') || 0);
-          if (uj && typeof uj.rev === 'number' && uj.rev > curU && Array.isArray(uj.entries)) {
-            localStorage.setItem('masdar_psur_data', JSON.stringify(uj));
-            localStorage.setItem('masdar_psur_rev', String(uj.rev));
-            if (typeof renderPsur === 'function') renderPsur();
-            msgs.push('<p class="good">✅ پشتو–اردو لغت شامل ہو گئی</p>');
-          }
-        }
-      } catch (e) { /* a missing psur.json on the server is not an error */ }
       /* (g) grammar topics content check */
       try {
         const r7 = await fetchTimeout(base + '/grammar.json');
@@ -653,18 +638,6 @@ async function autoFetchPacks() {
           localStorage.setItem('masdar_enur_data', JSON.stringify(ej));
           localStorage.setItem('masdar_enur_rev', String(ej.rev));
           if (typeof renderEnUr === 'function') renderEnUr();
-        }
-      }
-    } catch (e) {}
-    try {
-      const r = await fetchTimeout(base + '/psur.json?_=' + Date.now(), 8000);
-      if (r.ok) {
-        const uj = await r.json();
-        const cur = Number(localStorage.getItem('masdar_psur_rev') || 0);
-        if (uj && typeof uj.rev === 'number' && uj.rev > cur && Array.isArray(uj.entries)) {
-          localStorage.setItem('masdar_psur_data', JSON.stringify(uj));
-          localStorage.setItem('masdar_psur_rev', String(uj.rev));
-          if (typeof renderPsur === 'function') renderPsur();
         }
       }
     } catch (e) {}
@@ -1275,7 +1248,6 @@ function initNav() {
     if (name === 'psps') initPsPs();
     if (name === 'enur') initEnUr();
     if (name === 'psen') initPsen();
-    if (name === 'psur') initPsur();
     if (name === 'grammar') initGrammarTopics();
   };
   window._goNav = go;
@@ -1472,67 +1444,6 @@ function initPsen() {
     if (btn) btn.onclick = () => renderPsen();
   }
   renderPsen();
-}
-
-/* ---------- پشتو–اردو لغت (offline seed + online psur.json pack) ----------
-   Entries are {w, pos, senses, ex, notes, var}: a Pashto headword, its
-   Urdu POS phrase, numbered Urdu senses, example pairs [ps, ur], notes
-   (plural/origin/cross-refs) and نیز variants. Built-in seed
-   (js/psur-data.js, chunk 1) + online pack (psur.json, localStorage
-   masdar_psur_data) — the pack is cumulative, so when present it
-   supersedes the seed entirely. Search works BOTH ways: a Pashto query
-   (headword or variant) finds the entry, and an Urdu query finds entries
-   whose Urdu senses contain it. */
-function getPsurEntries() {
-  const normE = e => ({ w: e.w, pos: e.pos || '', senses: Array.isArray(e.senses) ? e.senses : [], ex: Array.isArray(e.ex) ? e.ex : [], notes: Array.isArray(e.notes) ? e.notes : [], var: Array.isArray(e.var) ? e.var : [] });
-  try {
-    const stored = JSON.parse(localStorage.getItem('masdar_psur_data') || 'null');
-    const list = stored && Array.isArray(stored.entries) ? stored.entries : (Array.isArray(stored) ? stored : []);
-    if (list.length) return list.filter(e => e && e.w).map(normE);
-  } catch (e) {}
-  return (window.PSUR_SEED || []).filter(e => e && e.w).map(normE);
-}
-window.getPsurEntries = getPsurEntries;
-function renderPsur() {
-  const box = $('psurResults');
-  if (!box) return;
-  const all = getPsurEntries();
-  if (!all.length) { box.innerHTML = '<div class="empty">ابھی کوئی لفظ شامل نہیں — جلد آئے گا۔</div>'; return; }
-  const raw = (($('psurInput') || {}).value || '').trim();
-  const q = norm(raw);
-  const list = raw
-    ? all.filter(e => norm(e.w).includes(q) || (e.var || []).some(v => norm(v).includes(q)) || e.senses.some(s => norm(s || '').includes(q)))
-    : all;
-  window._psurList = list;
-  if (!list.length) { box.innerHTML = '<div class="empty">لفظ نہیں ملا — کوئی اور لفظ لکھ کر پھر تلاش کریں۔</div>'; return; }
-  box.innerHTML = list.slice(0, 60).map((e, i) => `<div class="result-card" data-psur="${i}"><div class="w">${esc(e.w)}</div>`
-    + (e.senses.length ? `<div class="m">${esc(e.senses[0])}</div>` : '')
-    + `</div>`).join('');
-  box.querySelectorAll('[data-psur]').forEach(el => el.addEventListener('click', () => openPsurDetail(window._psurList[+el.dataset.psur])));
-}
-function openPsurDetail(e) {
-  if (!e) return;
-  const meta = [(e.var || []).length ? 'نیز ' + e.var.join('، ') : '', e.pos || ''].filter(Boolean).join(' · ');
-  const senseSec = e.senses.length ? `<div class="sheet-sec"><h4>اردو معنی</h4>` + e.senses.map((s, i) => `<p style="margin:6px 0">${i + 1}. ${esc(s)}</p>`).join('') + `</div>` : '';
-  const exSec = (e.ex && e.ex.length) ? `<div class="sheet-sec"><h4>مثالیں</h4>` + e.ex.map(p => `<p style="margin:6px 0">${esc(p[0] || '')}<br>${esc(p[1] || '')}</p>`).join('') + `</div>` : '';
-  const noteSec = (e.notes && e.notes.length) ? `<div class="sheet-sec"><h4>نوٹ</h4>` + e.notes.map(n => `<p style="margin:6px 0">${esc(n)}</p>`).join('') + `</div>` : '';
-  openSheet(`<h3 style="margin:6px 0 2px">${esc(e.w)}</h3>`
-    + (meta ? `<div class="m" style="margin-bottom:6px">${esc(meta)}</div>` : '')
-    + senseSec + exSec + noteSec);
-}
-window.openPsurDetail = openPsurDetail;
-window.renderPsur = renderPsur;
-
-/* ---------- Pashto to Urdu dictionary page ---------- */
-let _psurWired = false;
-function initPsur() {
-  if (!_psurWired) {
-    _psurWired = true;
-    const inp = $('psurInput'), btn = $('psurBtn');
-    if (inp) inp.addEventListener('input', () => { clearTimeout(window._psurT); window._psurT = setTimeout(renderPsur, 250); });
-    if (btn) btn.onclick = () => renderPsur();
-  }
-  renderPsur();
 }
 
 /* ---------- 📚 گرامر topics (offline seed + online grammar.json pack) ----------
